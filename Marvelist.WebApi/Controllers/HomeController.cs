@@ -10,6 +10,7 @@ namespace Marvelist.WebApi.Controllers
     {
         public ActionResult Index()
         {
+            Logger.Log.Debug("Home Page log");
             ViewBag.Title = "Home Page";
 
             return View();
