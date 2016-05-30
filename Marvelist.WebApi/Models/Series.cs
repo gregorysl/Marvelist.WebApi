@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using System.Security.Policy;
 using MarvelAPI;
 
 namespace Marvelist.WebApi.Models

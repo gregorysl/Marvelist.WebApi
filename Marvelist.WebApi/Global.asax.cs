@@ -14,6 +14,10 @@ namespace Marvelist.WebApi
         protected void Application_Start()
         {
             AreaRegistration.RegisterAllAreas();
+
+
+            MapperConfig.InitMaps();
+
             GlobalConfiguration.Configure(WebApiConfig.Register);
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
