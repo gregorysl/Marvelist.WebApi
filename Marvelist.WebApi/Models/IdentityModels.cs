@@ -16,7 +16,7 @@ namespace Marvelist.WebApi.Models
         }
     }
 
-    public class ApplicationDbContext : IdentityDbContext<User>
+    public class ApplicationDbContext : IdentityDbContext<User>, IDatabaseControlContext
     {
         public ApplicationDbContext()
             : base("DefaultConnection", false)
@@ -41,5 +41,10 @@ namespace Marvelist.WebApi.Models
         {
             return new ApplicationDbContext();
         }
+    }
+
+    public interface IDatabaseControlContext
+    {
+        int SaveChanges();
     }
 }
