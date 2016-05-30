@@ -16,6 +16,7 @@ namespace Marvelist.WebApi.Models
 
         public Series(MarvelAPI.Series s)
         {
+            var series = s.To<Series>();
             Id = s.Id;
             Title = s.Title;
             Description = s.Description;

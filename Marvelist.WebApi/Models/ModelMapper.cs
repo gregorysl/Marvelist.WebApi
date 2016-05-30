@@ -1,4 +1,5 @@
-﻿using AutoMapper;
+﻿using System.Linq;
+using AutoMapper;
 
 namespace Marvelist.WebApi.Models
 {
@@ -24,7 +25,8 @@ namespace Marvelist.WebApi.Models
         public static void Configure(IProfileExpression profile)
         {
             profile.CreateMap<Series, MarvelAPI.Series>();
-            profile.CreateMap<MarvelAPI.Series, Series>();
+            profile.CreateMap<MarvelAPI.Series, Series>()
+                .ForMember(t => t.Url, f => f.MapFrom(z => z.Urls.First(x => x.Type == "detail").Url));
         }
     }
 }
