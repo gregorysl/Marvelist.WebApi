@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using Marvelist.WebApi.App_Start;
+using Marvelist.WebApi.Models;
+using Marvelist.WebApi.Providers;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.Owin;
