@@ -1,0 +1,19 @@
+﻿using System;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+
+namespace Marvelist.Entities
+{
+    public abstract class MarvelistModel
+    {
+        [Key, DatabaseGenerated(DatabaseGeneratedOption.None)]
+        public int Id { get; set; }
+        [Column(TypeName = "datetime2")]
+        public DateTime Modified { get; set; }
+        public string Url { get; set; }
+        public string Title { get; set; }
+        //public MarvelImage Thumbnail { get; set; }
+
+        //public abstract void Update(object item);
+    }
+}

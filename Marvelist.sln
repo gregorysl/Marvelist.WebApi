@@ -1,0 +1,46 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25123.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Marvelist.Tests", "Marvelist.Tests\Marvelist.Tests.csproj", "{5BC8F634-736C-42FE-A200-CF8E4CF8960F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Marvelist.Entities", "Marvelist.Entities\Marvelist.Entities.csproj", "{EE1A4F6F-7D48-4141-86E0-EDF8AF907946}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Marvelist.DataAccess", "Marvelist.DataAccess\Marvelist.DataAccess.csproj", "{D3D1F9B8-0F4A-4043-9657-E9CC248CF273}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Marvelist.Service", "Marvelist.Service\Marvelist.Service.csproj", "{D015EC0D-DE98-47D7-B31C-9A4FE435EA59}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Marvelist.API", "Marvelist.API\Marvelist.API.csproj", "{96093264-9F83-4489-ADBE-9A25FC0D40F2}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{5BC8F634-736C-42FE-A200-CF8E4CF8960F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5BC8F634-736C-42FE-A200-CF8E4CF8960F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5BC8F634-736C-42FE-A200-CF8E4CF8960F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5BC8F634-736C-42FE-A200-CF8E4CF8960F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EE1A4F6F-7D48-4141-86E0-EDF8AF907946}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EE1A4F6F-7D48-4141-86E0-EDF8AF907946}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EE1A4F6F-7D48-4141-86E0-EDF8AF907946}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EE1A4F6F-7D48-4141-86E0-EDF8AF907946}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D3D1F9B8-0F4A-4043-9657-E9CC248CF273}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D3D1F9B8-0F4A-4043-9657-E9CC248CF273}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D3D1F9B8-0F4A-4043-9657-E9CC248CF273}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D3D1F9B8-0F4A-4043-9657-E9CC248CF273}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D015EC0D-DE98-47D7-B31C-9A4FE435EA59}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D015EC0D-DE98-47D7-B31C-9A4FE435EA59}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D015EC0D-DE98-47D7-B31C-9A4FE435EA59}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D015EC0D-DE98-47D7-B31C-9A4FE435EA59}.Release|Any CPU.Build.0 = Release|Any CPU
+		{96093264-9F83-4489-ADBE-9A25FC0D40F2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{96093264-9F83-4489-ADBE-9A25FC0D40F2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{96093264-9F83-4489-ADBE-9A25FC0D40F2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{96093264-9F83-4489-ADBE-9A25FC0D40F2}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
