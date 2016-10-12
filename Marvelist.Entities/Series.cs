@@ -31,7 +31,7 @@ namespace Marvelist.Entities
         public int Id { get; set; }
         public int SeriesId { get; set; }
         public virtual Series Series { get; set; }
-        public int UserId { get; set; }
+        public string UserId { get; set; }
         public virtual ApplicationUser User { get; set; }
         public DateTime? Date { get; set; }
     }

@@ -1,62 +1,67 @@
-﻿
-//using System.Collections.Generic;
-//using System.Linq;
-//using Marvelist.DataAccess.Contracts;
-//using Marvelist.DataAccess.Repositories;
-//using Marvelist.Entities;
+﻿using System.Collections.Generic;
+using System.Linq;
+using Marvelist.DataAccess.Contracts;
+using Marvelist.DataAccess.Repositories;
+using Marvelist.Entities;
 
-//namespace Marvelist.Service
-//{
-//    public interface ISeriesService
-//    {
-//        IEnumerable<Series> GetSeriess();
-//        //Series GetSeries(int id);
-//        //void CreateSeries(Series Series);
-//        //void DeleteSeries(int id);
-//        //void SaveSeries();
-//    }
+namespace Marvelist.Service
+{
+    public class SeriesService : ISeriesService
+    {
+        private readonly ISeriesRepository _seriesRepository;
+        private readonly IUnitOfWork _unitOfWork;
+        public SeriesService(ISeriesRepository seriesRepository, IUnitOfWork unitOfWork)
+        {
+            _seriesRepository = seriesRepository;
+            _unitOfWork = unitOfWork;
+        }
 
-//    public class SeriesService : ISeriesService
-//    {
-//        private readonly IUnitOfWork _unitOfWork;
 
-//        public SeriesService( IUserRepository Is, IUnitOfWork unitOfWork)
-//        {
-//            _unitOfWork = unitOfWork;
-//        }
+        public Series Add(Series series)
+        {
+            series = _seriesRepository.Add(series);
+            SaveChanges();
+            return series;
+        }
 
-//        #region ISeriesService Members
+        public IEnumerable<Series> All()
+        {
+            return _seriesRepository.GetAll();
+        }
 
-//        public IEnumerable<Series> GetSeriess()
-//        {
-//            var Series = _unitOfWork.Repository<Series>().GetAll();
-//            return Series;
-//        }
+        public IEnumerable<Series> GetByYear(int year)
+        {
+            var series = _seriesRepository.Query(x => x.StartYear >= year).OrderBy(x => x.StartYear).ToList();
+            return series;
+        }
 
-//        public Series GetSeries(int id)
-//        {
-//            var Series = _unitOfWork.Repository<Series>().Gets(x => x.Id == id).First();
-//            return Series;
-//        }
+        public IEnumerable<Series> GetByText(string text)
+        {
+            IEnumerable<Series> series = _seriesRepository.Query(x=>true);
+            var keywords = text.Split(' ');
+            series = keywords.Aggregate(series, (current, keyword) => current.Where(x => x.Title == keyword));
+            return series.ToList();
+        }
 
-//        public void CreateSeries(Series Series)
-//        {
-//            _unitOfWork.Repository<Series>().Insert(Series);
-//            SaveSeries();
-//        }
+        public Series GetSeriesById(int id)
+        {
+            var series = _seriesRepository.GetMany(u => u.Id == id).FirstOrDefault();
+            return series;
+        }
 
-//        public void DeleteSeries(int id)
-//        {
-//            var Series = GetSeries(id);
-//            _unitOfWork.Repository<Series>().Delete(Series);
-//            SaveSeries();
-//        }
+        public void SaveChanges()
+        {
+            _unitOfWork.SaveChanges();
+        }
 
-//        public void SaveSeries()
-//        {
-//            _unitOfWork.Commit();
-//        }
+    }
 
-//        #endregion
-//    }
-//}
+    public interface ISeriesService
+    {
+        Series GetSeriesById(int id);
+        Series Add(Series series);
+        IEnumerable<Series> All();
+        IEnumerable<Series> GetByYear(int year);
+        IEnumerable<Series> GetByText(string text);
+    }
+}
