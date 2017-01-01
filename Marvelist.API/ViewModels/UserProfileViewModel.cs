@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-
-namespace Marvelist.API.ViewModels
+﻿namespace Marvelist.API.ViewModels
 {
     public class UserProfileViewModel
     {

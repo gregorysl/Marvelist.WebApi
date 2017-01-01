@@ -1,10 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using Marvelist.Entities;
 using Microsoft.AspNet.Identity;
-using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.Owin.Security;
 using Microsoft.Owin.Security.Cookies;
 using Microsoft.Owin.Security.OAuth;
@@ -14,18 +13,18 @@ namespace Marvelist.API.Providers
     public class ApplicationOAuthProvider : OAuthAuthorizationServerProvider
     {
         private readonly string _publicClientId;
-        private readonly Func<UserManager<IdentityUser>> _userManagerFactory;
+        private readonly Func<UserManager<ApplicationUser>> _userManagerFactory;
 
-        public ApplicationOAuthProvider(string publicClientId, Func<UserManager<IdentityUser>> userManagerFactory)
+        public ApplicationOAuthProvider(string publicClientId, Func<UserManager<ApplicationUser>> userManagerFactory)
         {
             if (publicClientId == null)
             {
-                throw new ArgumentNullException("publicClientId");
+                throw new ArgumentNullException(nameof(publicClientId));
             }
 
             if (userManagerFactory == null)
             {
-                throw new ArgumentNullException("userManagerFactory");
+                throw new ArgumentNullException(nameof(userManagerFactory));
             }
 
             _publicClientId = publicClientId;
@@ -34,9 +33,9 @@ namespace Marvelist.API.Providers
 
         public override async Task GrantResourceOwnerCredentials(OAuthGrantResourceOwnerCredentialsContext context)
         {
-            using (UserManager<IdentityUser> userManager = _userManagerFactory())
+            using (UserManager<ApplicationUser> userManager = _userManagerFactory())
             {
-                IdentityUser user = await userManager.FindAsync(context.UserName, context.Password);
+                var user = await userManager.FindAsync(context.UserName, context.Password);
 
                 if (user == null)
                 {
@@ -48,7 +47,7 @@ namespace Marvelist.API.Providers
                     context.Options.AuthenticationType);
                 ClaimsIdentity cookiesIdentity = await userManager.CreateIdentityAsync(user,
                     CookieAuthenticationDefaults.AuthenticationType);
-                AuthenticationProperties properties = CreateProperties(user.UserName, user.Roles.First().RoleId);//todo fix?
+                AuthenticationProperties properties = CreateProperties(user.UserName,"Admin");// user.Roles.First().RoleId);//todo fix?
                 AuthenticationTicket ticket = new AuthenticationTicket(oAuthIdentity, properties);
                 context.Validated(ticket);
                 context.Request.Context.Authentication.SignIn(cookiesIdentity);

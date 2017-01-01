@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Newtonsoft.Json;
 
 namespace Marvelist.Entities
 {
@@ -10,17 +11,13 @@ namespace Marvelist.Entities
         public string Suffix { get; set; }
         public string FullName { get; set; }
 
-
-        public Creator()
-        {
-        }
-
+        [JsonIgnore]
         public virtual ICollection<ComicCreator> ComicCreator { get; set; }
     }
 
-    public class ComicCreator 
+    public class ComicCreator
     {
-        
+        public int Id { get; set; }
         public int ComicId { get; set; }
         public virtual Comic Comic { get; set; }
         public int CreatorId { get; set; }

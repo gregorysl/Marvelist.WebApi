@@ -1,4 +1,6 @@
-﻿using System.Data.Entity.ModelConfiguration;
+﻿using System.ComponentModel.DataAnnotations.Schema;
+using System.Data.Entity.Infrastructure.Annotations;
+using System.Data.Entity.ModelConfiguration;
 using Marvelist.Entities;
 
 namespace Marvelist.DataAccess.Configurations
@@ -15,9 +17,14 @@ namespace Marvelist.DataAccess.Configurations
                 .IsRequired();
 
             Property(c => c.Date).HasColumnType("datetime2");
-
-            //HasRequired(e => e.Comic).WithMany(x => x.UserComic).Map(s => s.MapKey("ComicId")).WillCascadeOnDelete(false);
-            //HasRequired(e => e.User).WithMany(x => x.Comics).Map(s => s.MapKey("UserId")).WillCascadeOnDelete(false);
+            Property(t => t.ComicId)
+                .IsRequired()
+                .HasColumnAnnotation(IndexAnnotation.AnnotationName,
+                    new IndexAnnotation(new IndexAttribute("IX_ComicUser", 1) { IsUnique = true }));
+            Property(t => t.UserId)
+                .IsRequired()
+                .HasColumnAnnotation(IndexAnnotation.AnnotationName,
+                    new IndexAnnotation(new IndexAttribute("IX_ComicUser", 2) { IsUnique = true }));
         }
     }
 }

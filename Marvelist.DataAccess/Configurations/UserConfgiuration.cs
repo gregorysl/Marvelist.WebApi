@@ -8,8 +8,8 @@ namespace Marvelist.DataAccess.Configurations
         internal UserConfgiuration()
         {
             ToTable("Users");
-            
-            
+            Ignore(x => x.PhoneNumber);
+            Ignore(x => x.PhoneNumberConfirmed);
             Property(c => c.Email).IsRequired();
             
 

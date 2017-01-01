@@ -7,6 +7,7 @@ namespace Marvelist.DataAccess.Configurations
     {
         public IdentityUserLoginConfiguration()
         {
+            ToTable("UserLogins");
             HasKey(login => new { login.UserId, login.LoginProvider, login.ProviderKey });
         }
     }

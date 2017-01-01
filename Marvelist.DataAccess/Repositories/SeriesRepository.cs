@@ -1,3 +1,4 @@
+using System.Linq;
 using Marvelist.DataAccess.Infrastructure;
 using Marvelist.Entities;
 
@@ -9,8 +10,14 @@ namespace Marvelist.DataAccess.Repositories
         {
 
         }
+
+        public IQueryable<Series> QueryAll()
+        {
+            return DataContext.Series;
+        }
     }
     public interface ISeriesRepository : IRepository<Series>
     {
+        IQueryable<Series> QueryAll();
     }
 }

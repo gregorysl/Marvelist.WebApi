@@ -14,7 +14,7 @@ namespace Marvelist.API.Controllers
     public class AccountController : ApiController
     {
 
-        private readonly IUserService userService;
+        private readonly IUserService _userService;
 
         private readonly UserManager<ApplicationUser> userManager;
         private IAuthenticationManager AuthenticationManager
@@ -27,7 +27,7 @@ namespace Marvelist.API.Controllers
 
         public AccountController(IUserService userService, UserManager<ApplicationUser> userManager)
         {
-            this.userService = userService;
+            _userService = userService;
             this.userManager = userManager;
 
             //Todo: This needs to be moved from here.
@@ -38,7 +38,6 @@ namespace Marvelist.API.Controllers
         }
 
         [Route("api/Register/")]
-        [HttpGet]
         [HttpPost]
         [OverrideAuthorization]
         public async Task<IHttpActionResult> Register(RegisterViewModel viewModel)
@@ -85,6 +84,7 @@ namespace Marvelist.API.Controllers
         [OverrideAuthorization]
         public async Task<IHttpActionResult> Getasd(string show)
         {
+            var asd = _userService.GetByEmail("gregorysl@gmail.com");
             return Ok(show);
 
         }

@@ -24,22 +24,20 @@ namespace Marvelist.Service
             return series;
         }
 
-        public IEnumerable<Series> All()
+        public List<Series> All()
         {
             return _seriesRepository.GetAll();
         }
 
-        public IEnumerable<Series> GetByYear(int year)
+        public List<Series> GetByYear(int year)
         {
-            var series = _seriesRepository.Query(x => x.StartYear >= year).OrderBy(x => x.StartYear).ToList();
+            var series = _seriesRepository.Query(x => x.StartYear == year).OrderBy(x => x.StartYear).ToList();
             return series;
         }
 
-        public IEnumerable<Series> GetByText(string text)
+        public List<Series> GetByText(string text)
         {
-            IEnumerable<Series> series = _seriesRepository.Query(x=>true);
-            var keywords = text.Split(' ');
-            series = keywords.Aggregate(series, (current, keyword) => current.Where(x => x.Title == keyword));
+            IList<Series> series = _seriesRepository.QueryAll().Filter(text).ToList();
             return series.ToList();
         }
 
@@ -60,8 +58,8 @@ namespace Marvelist.Service
     {
         Series GetSeriesById(int id);
         Series Add(Series series);
-        IEnumerable<Series> All();
-        IEnumerable<Series> GetByYear(int year);
-        IEnumerable<Series> GetByText(string text);
+        List<Series> All();
+        List<Series> GetByYear(int year);
+        List<Series> GetByText(string text);
     }
 }

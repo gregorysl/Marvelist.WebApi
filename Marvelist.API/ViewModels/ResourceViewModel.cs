@@ -1,8 +1,4 @@
-﻿
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System.Collections.Generic;
 
 
 namespace Marvelist.API.ViewModels
@@ -18,7 +14,7 @@ namespace Marvelist.API.ViewModels
         public string Path { get; set; }
         public int Priority { get; set; }
 
-        public IEnumerable<ResourceActivityViewModel> Activities { get; set; }
+        //public IEnumerable<ResourceActivityViewModel> Activities { get; set; }
 
     }
 }

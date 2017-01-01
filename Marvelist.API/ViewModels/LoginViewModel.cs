@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using Marvelist.API.Enums;
+﻿using Marvelist.API.Enums;
 using System.ComponentModel.DataAnnotations;
 
 namespace Marvelist.API.ViewModels

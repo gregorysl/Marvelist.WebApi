@@ -7,6 +7,8 @@ namespace Marvelist.DataAccess.Configurations
     {
         public IdentityUserRoleConfiguration()
         {
+
+            ToTable("UserRoles");
             HasKey(role => new { role.RoleId, role.UserId });
         }
     }

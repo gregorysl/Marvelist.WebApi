@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using Marvelist.API.Enums;
+﻿using Marvelist.API.Enums;
 using System.ComponentModel.DataAnnotations;
 
 namespace Marvelist.API.ViewModels
@@ -10,10 +6,7 @@ namespace Marvelist.API.ViewModels
     public class RegisterViewModel
     {
         [Required]
-        public string FirstName { get; set; }
-
-        [Required]
-        public string LastName { get; set; }
+        public string UserName { get; set; }
         [Required]
         public string Email { get; set; }
         [Required]

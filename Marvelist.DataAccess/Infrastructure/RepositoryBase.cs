@@ -38,7 +38,7 @@ namespace Marvelist.DataAccess.Infrastructure
         {
             _dbset.Remove(entity);
         }
-        public virtual void Delete(Expression<Func<T, bool>> where)
+        public virtual void DeleteMany(Expression<Func<T, bool>> where)
         {
             IEnumerable<T> objects = _dbset.Where(where).AsEnumerable();
             foreach (T obj in objects)
@@ -49,7 +49,7 @@ namespace Marvelist.DataAccess.Infrastructure
             return _dbset.Find(id);
         }
 
-        public virtual IEnumerable<T> GetAll()
+        public virtual List<T> GetAll()
         {
             return _dbset.ToList();
         }

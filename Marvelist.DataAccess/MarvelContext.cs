@@ -28,10 +28,12 @@ namespace Marvelist.DataAccess
             modelBuilder.Configurations.Add(new CreatorConfiguration());
             modelBuilder.Configurations.Add(new UserComicConfiguration());
             modelBuilder.Configurations.Add(new UserSeriesConfiguration());
-
-            //Configurations Auto generated tables for IdentityDbContext.
+            
             modelBuilder.Configurations.Add(new IdentityUserRoleConfiguration());
             modelBuilder.Configurations.Add(new IdentityUserLoginConfiguration());
+            
+            modelBuilder.Entity<IdentityUserClaim>().ToTable("UserClaims");
+            modelBuilder.Entity<IdentityRole>().ToTable("Roles");
         }
     }
     public class MarvelInitializer : DropCreateDatabaseIfModelChanges<MarvelEntities>
@@ -40,50 +42,23 @@ namespace Marvelist.DataAccess
         {
 
             var userManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(context));
+            userManager.UserValidator = new UserValidator<ApplicationUser>(userManager)
+            {
+                AllowOnlyAlphanumericUserNames = false
+            };
+            var roleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(context));
+
+            if (!roleManager.RoleExists("Admin"))
+            {
+                roleManager.Create(new IdentityRole("Admin"));
+            }
+
+            if (!roleManager.RoleExists("Member"))
+            {
+                roleManager.Create(new IdentityRole("Member"));
+            }
+
             base.Seed(context);
-            var u = new ApplicationUser
-            {
-                Email = "12312312",
-                UserName = "12312312",
-                EmailConfirmed = true
-            };
-            var userResult = userManager.Create(u, "qweqweqwe");
-
-            var s = new Series { Id = 1, Title = "asdasd" };
-            context.Series.Add(s);
-            context.SaveChanges();
-            var c = new Comic
-            {
-                Id = 1,
-                Title = "asdasd",
-                Series = s
-            };
-            context.Comics.Add(c);
-            context.SaveChanges();
-            var cr = new Creator
-            {
-                Id = 1,
-                Title = "asdasd",
-
-            };
-            context.Creators.Add(cr);
-            context.SaveChanges();
-            var userSeries = new UserSeries { Series = s, User = u };
-            context.UserSeries.Add(userSeries);
-            context.SaveChanges();
-            var userComic = new UserComic { Comic = c, User = u };
-            context.UserComics.Add(userComic);
-            context.SaveChanges();
-            var comicCreator = new ComicCreator { Comic = c, Creator = cr };
-            context.ComicCreators.Add(comicCreator);
-            context.SaveChanges();
-            context.UserSeries.Remove(userSeries);
-            context.SaveChanges();
-            context.UserComics.Remove(userComic);
-            context.SaveChanges();
-            context.ComicCreators.Remove(comicCreator);
-            context.SaveChanges();
-
         }
     }
 }

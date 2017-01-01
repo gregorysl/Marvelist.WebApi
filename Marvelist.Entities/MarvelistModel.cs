@@ -1,6 +1,7 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using Marvelous;
 
 namespace Marvelist.Entities
 {
@@ -12,7 +13,7 @@ namespace Marvelist.Entities
         public DateTime Modified { get; set; }
         public string Url { get; set; }
         public string Title { get; set; }
-        //public MarvelImage Thumbnail { get; set; }
+        public MarvelImage Thumbnail { get; set; }
 
         //public abstract void Update(object item);
     }
