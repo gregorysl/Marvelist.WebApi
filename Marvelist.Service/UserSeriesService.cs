@@ -21,15 +21,9 @@ namespace Marvelist.Service
             _unitOfWork = unitOfWork;
         }
 
-        public void AddOrDelete(int id, string userId)
+        public void Add(int id, string userId)
         {
-            if (IsFollowing(id, userId))
-            {
-                var userSeries = GetById(id);
-                _repository.Delete(userSeries);
-                _userComicService.DeleteAllForSeries(id,userId);
-            }
-            else
+            if (!IsFollowing(id, userId))
             {
                 var userSeries = new UserSeries
                 {
@@ -41,11 +35,20 @@ namespace Marvelist.Service
             }
             SaveChanges();
         }
+        public void Delete(int id, string userId)
+        {
+            if (IsFollowing(id, userId))
+            {
+                var userSeries = GetById(id);
+                _repository.Delete(userSeries);
+                _userComicService.DeleteAllForSeries(id,userId);
+            }
+        }
 
         public void AddByComicId(int comicId, string userId)
         {
             var seriesId = _seriesRepository.Query(x => x.Comics.Any(z => z.Id == comicId)).First().Id;
-            AddOrDelete(seriesId,userId);
+            Add(seriesId,userId);
         }
         public UserSeries GetById(int id)
         {
@@ -80,7 +83,8 @@ namespace Marvelist.Service
     public interface IUserSeriesService
     {
         UserSeries GetById(int id);
-        void AddOrDelete(int id, string userId);
+        void Add(int id, string userId);
+        void Delete(int id, string userId);
         void AddByComicId(int comicId, string userId);
         IEnumerable<UserSeries> All();
         IEnumerable<Series> GetAllFollowing(string userId);

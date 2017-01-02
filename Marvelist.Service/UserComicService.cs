@@ -9,12 +9,10 @@ namespace Marvelist.Service
 {
     public class UserComicService : IUserComicService
     {
-        private readonly IUserSeriesService _userSeriesService;
         private readonly IUserComicRepository _repository;
         private readonly IUnitOfWork _unitOfWork;
-        public UserComicService(IUserSeriesService userSeriesService, IUserComicRepository repository, IUnitOfWork unitOfWork)
+        public UserComicService(IUserComicRepository repository, IUnitOfWork unitOfWork)
         {
-            _userSeriesService = userSeriesService;
             _repository = repository;
             _unitOfWork = unitOfWork;
         }
@@ -25,7 +23,7 @@ namespace Marvelist.Service
             var filtered = comicsList.Except(contains);
             foreach (var comic in filtered)
             {
-                AddOrDelete(comic, userId);
+                Add(comic, userId);
             }
         }
 
@@ -35,29 +33,29 @@ namespace Marvelist.Service
             SaveChanges();
         }
 
-        public bool AddOrDelete(int id, string userId)
+        public void Add(int id, string userId)
         {
-            bool following;
-            if (IsFollowing(id, userId))
-            {
-                var userComic = GetById(id);
-                _repository.Delete(userComic);
-                following = false;
-            }
-            else
+            if (!IsFollowing(id, userId))
             {
                 var userComic = new UserComic
                 {
                     Date = DateTime.Now,
-                    ComicId= id,
+                    ComicId = id,
                     UserId = userId
                 };
                 _repository.Add(userComic);
-                _userSeriesService.AddByComicId(id,userId);
-                following = true;
             }
             SaveChanges();
-            return following;
+        }
+
+        public void Delete(int id, string userId)
+        {
+            if (IsFollowing(id, userId))
+            {
+                var userComic = GetById(id);
+                _repository.Delete(userComic);
+            }
+            SaveChanges();
         }
 
         public IEnumerable<UserComic> All()
@@ -93,7 +91,8 @@ namespace Marvelist.Service
     public interface IUserComicService
     {
         UserComic GetById(int id);
-        bool AddOrDelete(int id, string userId);
+        void Delete(int id, string userId);
+        void Add(int id, string userId);
         void AddAll(List<int> comicsList, string userId);
         void DeleteAllForSeries(int seriesId, string userId);
         IEnumerable<UserComic> All();

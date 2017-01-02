@@ -1,7 +1,6 @@
 ﻿using System.Linq;
 using System.Web.Http;
 using Marvelist.API.Helpers;
-using Marvelist.API.ViewModels;
 using Marvelist.Service;
 
 namespace Marvelist.API.Controllers
@@ -22,7 +21,7 @@ namespace Marvelist.API.Controllers
         public IHttpActionResult Search(string text)
         {
             var series = _seriesService.GetByText(text).ToList();
-            var svm = series.ToSeriesViewModel(_userSeriesService, UserId);
+            var svm = series.ToListSeriesViewModel(_userSeriesService, UserId);
             return Ok(svm);
         }
     }

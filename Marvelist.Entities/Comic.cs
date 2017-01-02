@@ -19,6 +19,7 @@ namespace Marvelist.Entities
         public int PageCount { get; set; }
 
         public int SeriesId { get; set; }
+        [JsonIgnore]
         public virtual Series Series { get; set; }
 
         public DateTime Date { get; set; }
