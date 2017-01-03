@@ -1,5 +1,4 @@
-﻿using AutoMapper;
-using Microsoft.AspNet.Identity;
+﻿using Microsoft.AspNet.Identity;
 using Microsoft.Owin.Security;
 using Marvelist.API.ViewModels;
 using System;
@@ -16,7 +15,7 @@ namespace Marvelist.API.Controllers
 
         private readonly IUserService _userService;
 
-        private readonly UserManager<ApplicationUser> userManager;
+        private readonly UserManager<ApplicationUser> _userManager;
         private IAuthenticationManager AuthenticationManager
         {
             get
@@ -28,10 +27,10 @@ namespace Marvelist.API.Controllers
         public AccountController(IUserService userService, UserManager<ApplicationUser> userManager)
         {
             _userService = userService;
-            this.userManager = userManager;
+            _userManager = userManager;
 
             //Todo: This needs to be moved from here.
-            this.userManager.UserValidator = new UserValidator<ApplicationUser>(userManager)
+            _userManager.UserValidator = new UserValidator<ApplicationUser>(userManager)
             {
                 AllowOnlyAlphanumericUserNames = false
             };
@@ -49,11 +48,11 @@ namespace Marvelist.API.Controllers
                     ApplicationUser user = new ApplicationUser();
                     AutoMapper.Mapper.Map(viewModel, user);
 
-                    var identityResult = await userManager.CreateAsync(user, viewModel.Password);
+                    var identityResult = await _userManager.CreateAsync(user, viewModel.Password);
 
                     if (identityResult.Succeeded)
                     {
-                        userManager.AddToRole(user.Id, "Member");
+                        _userManager.AddToRole(user.Id, "Member");
                         return Ok();
                     }
                     else
@@ -79,15 +78,6 @@ namespace Marvelist.API.Controllers
 
         }
 
-        [Route("api/Account/{show}/show")]
-        [HttpGet]
-        [OverrideAuthorization]
-        public async Task<IHttpActionResult> Getasd(string show)
-        {
-            var asd = _userService.GetByEmail("gregorysl@gmail.com");
-            return Ok(show);
-
-        }
         #region Private methods
         #region SignInAsync
         private async Task SignInAsync(ApplicationUser user, bool isPersistent)
@@ -95,7 +85,7 @@ namespace Marvelist.API.Controllers
             try
             {
                 AuthenticationManager.SignOut(DefaultAuthenticationTypes.ExternalCookie);
-                var identity = await userManager.CreateIdentityAsync(user, DefaultAuthenticationTypes.ApplicationCookie);
+                var identity = await _userManager.CreateIdentityAsync(user, DefaultAuthenticationTypes.ApplicationCookie);
                 AuthenticationManager.SignIn(new AuthenticationProperties() { IsPersistent = isPersistent }, identity);
             }
             catch (Exception ex)

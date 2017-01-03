@@ -3,6 +3,7 @@ using Marvelist.Service;
 
 namespace Marvelist.API.Controllers
 {
+    [RoutePrefix("api/FollowC")]
     public class UserComicController : BasicController
     {
         private readonly IUserComicService _userComicService;
@@ -12,8 +13,9 @@ namespace Marvelist.API.Controllers
             _userComicService = userComicService;
         }
 
-        [Route("api/Follow/c{id:int}")]
-        private void Follow(int id)
+        [HttpGet]
+        [Route("{id:int}")]
+        public IHttpActionResult Follow(int id)
         {
             if (_userComicService.IsFollowing(id, UserId))
             {
@@ -23,6 +25,7 @@ namespace Marvelist.API.Controllers
             {
                 _userComicService.Add(id, UserId);
             }
+            return Ok();
         }
     }
 }

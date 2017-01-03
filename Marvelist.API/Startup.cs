@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Data.Entity;
-using System.Net.Http.Formatting;
 using System.Web.Http;
 using Autofac;
 using Autofac.Integration.WebApi;
@@ -16,28 +15,23 @@ using Marvelist.Service;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.Owin;
-using Microsoft.Owin.Security.Facebook;
-using Microsoft.Owin.Security.Google;
 using Microsoft.Owin.Security.OAuth;
 using Owin;
 
 [assembly: OwinStartup(typeof(Startup))]
 namespace Marvelist.API
 {
-
-
-
-
     public class Startup
     {
         public void Configuration(IAppBuilder app)
         {
-            //Bootstrapper.Configure();
-            HttpConfiguration config = new HttpConfiguration();
+            var config = new HttpConfiguration();
 
+            config.EnableSystemDiagnosticsTracing();
             ConfigureOAuth(app);
 
             WebApiConfig.Register(config);
+           //  GlobalConfiguration.Configure(WebApiConfig.Register);
             app.UseCors(Microsoft.Owin.Cors.CorsOptions.AllowAll);
             ConfigureIoc(config);
             app.UseWebApi(config);
@@ -89,12 +83,17 @@ namespace Marvelist.API
             containerBuilder.RegisterApiControllers(System.Reflection.Assembly.GetExecutingAssembly());
             containerBuilder.RegisterType<DatabaseFactory>().As<IDatabaseFactory>().AsImplementedInterfaces().InstancePerApiRequest();
             containerBuilder.RegisterType<UnitOfWork>().As<IUnitOfWork>().AsImplementedInterfaces().InstancePerApiRequest();
+            //REPOS
             containerBuilder.RegisterType<UserRepository>().As<IUserRepository>().InstancePerApiRequest();
             containerBuilder.RegisterType<SeriesRepository>().As<ISeriesRepository>().InstancePerApiRequest();
+            containerBuilder.RegisterType<ComicRepository>().As<IComicRepository>().InstancePerApiRequest();
             containerBuilder.RegisterType<UserSeriesRepository>().As<IUserSeriesRepository>().InstancePerApiRequest();
+            containerBuilder.RegisterType<UserComicRepository>().As<IUserComicRepository>().InstancePerApiRequest();
+            //SERVICES
             containerBuilder.RegisterType<UserService>().As<IUserService>().InstancePerApiRequest();
             containerBuilder.RegisterType<SeriesService>().As<ISeriesService>().InstancePerApiRequest();
             containerBuilder.RegisterType<UserSeriesService>().As<IUserSeriesService>().InstancePerApiRequest();
+            containerBuilder.RegisterType<UserComicService>().As<IUserComicService>().InstancePerApiRequest();
 
             containerBuilder.Register(
                     c => new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(new MarvelEntities())))

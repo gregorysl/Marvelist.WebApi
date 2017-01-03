@@ -10,10 +10,12 @@ namespace Marvelist.Service
     public class UserComicService : IUserComicService
     {
         private readonly IUserComicRepository _repository;
+        private readonly IComicRepository _comicRepository;
         private readonly IUnitOfWork _unitOfWork;
-        public UserComicService(IUserComicRepository repository, IUnitOfWork unitOfWork)
+        public UserComicService(IUserComicRepository repository, IComicRepository comicRepository, IUnitOfWork unitOfWork)
         {
             _repository = repository;
+            _comicRepository = comicRepository;
             _unitOfWork = unitOfWork;
         }
 
@@ -35,8 +37,11 @@ namespace Marvelist.Service
 
         public void Add(int id, string userId)
         {
-            if (!IsFollowing(id, userId))
+            if (string.IsNullOrWhiteSpace(userId) || !IsFollowing(id, userId))
             {
+                var comic = _comicRepository.GetById(id);
+                if (comic == null) return;
+
                 var userComic = new UserComic
                 {
                     Date = DateTime.Now,
@@ -50,8 +55,10 @@ namespace Marvelist.Service
 
         public void Delete(int id, string userId)
         {
-            if (IsFollowing(id, userId))
+            if (string.IsNullOrWhiteSpace(userId) || IsFollowing(id, userId))
             {
+                var comic = _comicRepository.GetById(id);
+                if (comic == null) return;
                 var userComic = GetById(id);
                 _repository.Delete(userComic);
             }
