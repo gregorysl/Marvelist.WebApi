@@ -31,7 +31,6 @@ namespace Marvelist.API
             ConfigureOAuth(app);
 
             WebApiConfig.Register(config);
-           //  GlobalConfiguration.Configure(WebApiConfig.Register);
             app.UseCors(Microsoft.Owin.Cors.CorsOptions.AllowAll);
             ConfigureIoc(config);
             app.UseWebApi(config);
