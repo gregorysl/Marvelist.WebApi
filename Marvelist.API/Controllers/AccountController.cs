@@ -12,24 +12,17 @@ namespace Marvelist.API.Controllers
 {
     public class AccountController : ApiController
     {
-
-        private readonly IUserService _userService;
-
         private readonly UserManager<ApplicationUser> _userManager;
+
         private IAuthenticationManager AuthenticationManager
         {
-            get
-            {
-                return HttpContext.Current.GetOwinContext().Authentication;
-            }
+            get { return HttpContext.Current.GetOwinContext().Authentication; }
         }
 
-        public AccountController(IUserService userService, UserManager<ApplicationUser> userManager)
+        public AccountController(UserManager<ApplicationUser> userManager)
         {
-            _userService = userService;
             _userManager = userManager;
 
-            //Todo: This needs to be moved from here.
             _userManager.UserValidator = new UserValidator<ApplicationUser>(userManager)
             {
                 AllowOnlyAlphanumericUserNames = false
@@ -59,7 +52,7 @@ namespace Marvelist.API.Controllers
                     {
                         foreach (var error in identityResult.Errors)
                         {
-                            ModelState.AddModelError(error,error);
+                            ModelState.AddModelError(error, error);
                         }
 
                         return BadRequest(ModelState);
@@ -78,15 +71,14 @@ namespace Marvelist.API.Controllers
 
         }
 
-        #region Private methods
-        #region SignInAsync
         private async Task SignInAsync(ApplicationUser user, bool isPersistent)
         {
             try
             {
                 AuthenticationManager.SignOut(DefaultAuthenticationTypes.ExternalCookie);
-                var identity = await _userManager.CreateIdentityAsync(user, DefaultAuthenticationTypes.ApplicationCookie);
-                AuthenticationManager.SignIn(new AuthenticationProperties() { IsPersistent = isPersistent }, identity);
+                var identity =
+                    await _userManager.CreateIdentityAsync(user, DefaultAuthenticationTypes.ApplicationCookie);
+                AuthenticationManager.SignIn(new AuthenticationProperties() {IsPersistent = isPersistent}, identity);
             }
             catch (Exception ex)
             {
@@ -95,8 +87,5 @@ namespace Marvelist.API.Controllers
             }
 
         }
-
-        #endregion SignInAsync
-        #endregion SignInAsync
     }
 }

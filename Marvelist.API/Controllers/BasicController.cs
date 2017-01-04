@@ -14,13 +14,10 @@ namespace Marvelist.API.Controllers
         {
             get
             {
-                var identity = (ClaimsIdentity)RequestContext.Principal.Identity;
+                var identity = (ClaimsIdentity) RequestContext.Principal.Identity;
                 var claim = identity.Claims.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier);
                 return claim == null ? "" : claim.Value;
             }
         }
-        
-            
-
     }
 }

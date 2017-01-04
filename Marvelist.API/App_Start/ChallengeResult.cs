@@ -4,7 +4,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Web.Http;
 
-namespace Marvelist.API.Results
+namespace Marvelist.API
 {
     public class ChallengeResult : IHttpActionResult
     {

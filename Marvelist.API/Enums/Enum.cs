@@ -5,6 +5,5 @@
         Login,
         Register,
         LogOff
-
     }
 }
