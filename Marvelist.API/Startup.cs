@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Data.Entity;
+using System.Reflection;
 using System.Web.Http;
 using Autofac;
 using Autofac.Integration.WebApi;
 using Marvelist.API;
-using Marvelist.API.Mappers;
 using Marvelist.API.Providers;
 using Marvelist.DataAccess;
 using Marvelist.DataAccess.Contracts;
@@ -19,6 +19,7 @@ using Microsoft.Owin.Security.OAuth;
 using Owin;
 
 [assembly: OwinStartup(typeof(Startup))]
+
 namespace Marvelist.API
 {
     public class Startup
@@ -34,15 +35,18 @@ namespace Marvelist.API
             app.UseCors(Microsoft.Owin.Cors.CorsOptions.AllowAll);
             ConfigureIoc(config);
             app.UseWebApi(config);
+            AutoMapperConfiguration.Configure();
             Database.SetInitializer(new MarvelInitializer());
-            
+
 
 
         }
+
         private void ConfigureOAuth(IAppBuilder app)
         {
             const string publicClientId = "self";
-            Func<UserManager<ApplicationUser>> userManagerFactory = () => new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(new MarvelEntities()));
+            Func<UserManager<ApplicationUser>> userManagerFactory =
+                () => new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(new MarvelEntities()));
             var oAuthServerOptions = new OAuthAuthorizationServerOptions
             {
                 TokenEndpointPath = new PathString("/Token"),
@@ -79,7 +83,7 @@ namespace Marvelist.API
         public static void ConfigureIoc(HttpConfiguration config)
         {
             var containerBuilder = new ContainerBuilder();
-            containerBuilder.RegisterApiControllers(System.Reflection.Assembly.GetExecutingAssembly());
+            containerBuilder.RegisterApiControllers(Assembly.GetExecutingAssembly());
             containerBuilder.RegisterType<DatabaseFactory>().As<IDatabaseFactory>().AsImplementedInterfaces().InstancePerApiRequest();
             containerBuilder.RegisterType<UnitOfWork>().As<IUnitOfWork>().AsImplementedInterfaces().InstancePerApiRequest();
             //REPOS
@@ -101,7 +105,6 @@ namespace Marvelist.API
 
             IContainer container = containerBuilder.Build();
             config.DependencyResolver = new AutofacWebApiDependencyResolver(container);
-            AutoMapperConfiguration.Configure();
         }
     }
 }

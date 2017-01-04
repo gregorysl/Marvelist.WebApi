@@ -80,7 +80,7 @@ namespace Marvelist.Service
 
         public bool IsFollowing(int id, string userId)
         {
-            var isFollowing = _repository.Query(x => x.UserId == userId && x.Id == id).Any();
+            var isFollowing = _repository.Query(x => x.UserId == userId && x.SeriesId == id).Any();
             return isFollowing;
         }
 

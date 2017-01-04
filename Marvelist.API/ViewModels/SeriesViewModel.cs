@@ -14,6 +14,10 @@ namespace Marvelist.API.ViewModels
     public class SeriesComicsViewModel : Mvm
     {
         public Series Series { get; set; }
-        public List<Comic> Comics { get; set; }
+        public List<ComicsViewModel> Comics { get; set; }
+    }
+    public class ComicsViewModel : Mvm
+    {
+        public Comic Comic { get; set; }
     }
 }

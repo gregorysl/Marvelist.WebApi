@@ -84,7 +84,7 @@ namespace Marvelist.Service
 
         public UserComic GetById(int id)
         {
-            var userComic = _repository.GetMany(u => u.Id == id).FirstOrDefault();
+            var userComic = _repository.GetMany(u => u.ComicId == id).FirstOrDefault();
             return userComic;
         }
 
