@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 using System.Web;
 using System.Web.Http;
 using Marvelist.Entities;
-using Marvelist.Service;
 
 namespace Marvelist.API.Controllers
 {
@@ -38,7 +37,7 @@ namespace Marvelist.API.Controllers
             {
                 try
                 {
-                    ApplicationUser user = new ApplicationUser();
+                    var user = new ApplicationUser();
                     AutoMapper.Mapper.Map(viewModel, user);
 
                     var identityResult = await _userManager.CreateAsync(user, viewModel.Password);
