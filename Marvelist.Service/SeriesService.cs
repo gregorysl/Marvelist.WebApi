@@ -37,7 +37,7 @@ namespace Marvelist.Service
 
         public List<Series> GetByText(string text)
         {
-            IList<Series> series = _seriesRepository.QueryAll().Filter(text).ToList();
+            IList<Series> series = _seriesRepository.Filter(text).ToList();
             return series.ToList();
         }
 
