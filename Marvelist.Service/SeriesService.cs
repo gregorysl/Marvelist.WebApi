@@ -31,7 +31,7 @@ namespace Marvelist.Service
 
         public List<Series> GetByYear(int year)
         {
-            var series = _seriesRepository.Query(x => x.StartYear == year).OrderBy(x => x.StartYear).ToList();
+            var series = _seriesRepository.GetByYear(year);
             return series;
         }
 
