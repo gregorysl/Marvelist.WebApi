@@ -85,6 +85,8 @@
     <Reference Include="System.Net.Http.WebRequest" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="MockComicRepository.cs" />
+    <Compile Include="MockSeriesRepository.cs" />
     <Compile Include="TestData.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SeriesServiceTests.cs" />
