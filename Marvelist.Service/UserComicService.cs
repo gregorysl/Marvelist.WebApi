@@ -65,26 +65,26 @@ namespace Marvelist.Service
             SaveChanges();
         }
 
-        public IEnumerable<UserComic> All()
+        public List<UserComic> All()
         {
             return _repository.GetAll();
         }
 
-        public IEnumerable<Comic> GetAllFollowing(string id)
+        public List<Comic> GetAllFollowing(string id)
         {
-            var comics = _repository.Query(x => x.UserId == id).Select(x => x.Comic).ToList();
+            var comics = _repository.GetAllFollowing(id);
             return comics;
         }
 
         public bool IsFollowing(int id, string userId)
         {
-            var isFollowing = _repository.Query(x => x.UserId == userId && x.Id == id).Any();
+            var isFollowing = _repository.IsFollowing(id, userId);
             return isFollowing;
         }
 
         public UserComic GetById(int id)
         {
-            var userComic = _repository.GetMany(u => u.ComicId == id).FirstOrDefault();
+            var userComic = _repository.GetById(id);
             return userComic;
         }
 
@@ -102,8 +102,8 @@ namespace Marvelist.Service
         void Add(int id, string userId);
         void AddAll(List<int> comicsList, string userId);
         void DeleteAllForSeries(int seriesId, string userId);
-        IEnumerable<UserComic> All();
-        IEnumerable<Comic> GetAllFollowing(string id);
+        List<UserComic> All();
+        List<Comic> GetAllFollowing(string id);
         bool IsFollowing(int id, string userId);
     }
-}
+    
