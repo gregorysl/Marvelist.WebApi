@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Marvelist.Entities;
 using Marvelous;
 using Comic = Marvelist.Entities.Comic;
 using Series = Marvelist.Entities.Series;
@@ -44,6 +45,7 @@ namespace Marvelist.Tests
                     }
             }
         };
+
         public static List<Comic> Comics = new List<Comic>
         {
 
@@ -1628,5 +1630,8 @@ namespace Marvelist.Tests
                     }
             }
         };
+
+        public static List<UserSeries> UserSeries = new List<UserSeries>();
+        public static List<UserComic> UserComics = new List<UserComic>();
     }
 }
