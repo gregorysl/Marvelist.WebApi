@@ -12,7 +12,9 @@ namespace Marvelist.Service
         private readonly IUserComicRepository _repository;
         private readonly IComicRepository _comicRepository;
         private readonly IUnitOfWork _unitOfWork;
-        public UserComicService(IUserComicRepository repository, IComicRepository comicRepository, IUnitOfWork unitOfWork)
+
+        public UserComicService(IUserComicRepository repository, IComicRepository comicRepository,
+            IUnitOfWork unitOfWork)
         {
             _repository = repository;
             _comicRepository = comicRepository;
@@ -21,7 +23,7 @@ namespace Marvelist.Service
 
         public void AddAll(List<int> comicsList, string userId)
         {
-            var contains =_repository.Query(x => comicsList.Contains(x.Id)).Select(x=>x.Id);
+            var contains = _repository.Query(x => comicsList.Contains(x.Id)).Select(x => x.Id);
             var filtered = comicsList.Except(contains);
             foreach (var comic in filtered)
             {
@@ -49,8 +51,8 @@ namespace Marvelist.Service
                     UserId = userId
                 };
                 _repository.Add(userComic);
+                SaveChanges();
             }
-            SaveChanges();
         }
 
         public void Delete(int id, string userId)
@@ -61,8 +63,8 @@ namespace Marvelist.Service
                 if (comic == null) return;
                 var userComic = GetById(id);
                 _repository.Delete(userComic);
+                SaveChanges();
             }
-            SaveChanges();
         }
 
         public List<UserComic> All()
@@ -106,4 +108,5 @@ namespace Marvelist.Service
         List<Comic> GetAllFollowing(string id);
         bool IsFollowing(int id, string userId);
     }
+}
     

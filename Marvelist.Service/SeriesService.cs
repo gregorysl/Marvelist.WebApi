@@ -43,7 +43,7 @@ namespace Marvelist.Service
 
         public Series GetSeriesById(int id)
         {
-            var series = _seriesRepository.GetMany(u => u.Id == id).FirstOrDefault();
+            var series = _seriesRepository.GetById(id);
             return series;
         }
 

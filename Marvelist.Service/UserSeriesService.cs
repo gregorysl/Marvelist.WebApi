@@ -35,8 +35,8 @@ namespace Marvelist.Service
                     UserId = userId
                 };
                 _repository.Add(userSeries);
+                SaveChanges();
             }
-            SaveChanges();
         }
         public void Delete(int id, string userId)
         {
@@ -48,6 +48,7 @@ namespace Marvelist.Service
                 var userSeries = GetById(id);
                 _repository.Delete(userSeries);
                 _userComicService.DeleteAllForSeries(id,userId);
+                SaveChanges();
             }
         }
 
