@@ -1,6 +1,8 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using Marvelist.DataAccess.Contracts;
 using Marvelist.DataAccess.Repositories;
+using Marvelist.Entities;
 using Marvelist.Service;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
@@ -27,6 +29,18 @@ namespace Marvelist.Tests
         {
             var series = _seriesService.All();
             Assert.AreEqual(series, TestData.Series);
+        }
+        [TestMethod]
+        public void ShouldAddNewSeries()
+        {
+            var serie = new Series
+            {
+                StartYear = DateTime.Now.Year,
+                Title = "SeriesServiceTests"
+            };
+            var countBefore = TestData.Series.Count;
+            _seriesService.Add(serie);
+            Assert.AreEqual(serie.Title, TestData.Series.Find(x=>x.Id==serie.Id).Title);
         }
 
         [TestMethod]

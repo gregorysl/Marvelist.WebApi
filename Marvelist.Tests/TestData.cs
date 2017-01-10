@@ -1631,6 +1631,10 @@ namespace Marvelist.Tests
             }
         };
 
+        public static List<ApplicationUser> Users = new List<ApplicationUser>()
+        {
+            new ApplicationUser {Email = "first@Marvelist", UserName = "first", Id = "1"}
+        };
         public static List<UserSeries> UserSeries = new List<UserSeries>();
         public static List<UserComic> UserComics = new List<UserComic>();
     }
