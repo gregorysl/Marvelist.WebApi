@@ -18,7 +18,7 @@ namespace Marvelist.Service
 
         public ApplicationUser GetById(string id)
         {
-            var user = _userRepository.GetMany(u => u.Id == id).FirstOrDefault();
+            var user = _userRepository.GetById(id);
             return user;
         }
 
@@ -31,7 +31,7 @@ namespace Marvelist.Service
 
         public ApplicationUser GetByEmail(string email)
         {
-            var user = _userRepository.GetMany(u => u.Email == email).FirstOrDefault();
+            var user = _userRepository.GetByEmail(email);
             return user;
         }
 

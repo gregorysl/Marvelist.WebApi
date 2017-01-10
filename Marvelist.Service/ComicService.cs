@@ -25,28 +25,26 @@ namespace Marvelist.Service
             return comic;
         }
 
-        public IEnumerable<Comic> All()
+        public List<Comic> All()
         {
             return _comicRepository.GetAll();
         }
         
 
-        public IEnumerable<Comic> GetByText(string text)
+        public List<Comic> GetByText(string text)
         {
-            IEnumerable<Comic> comic = _comicRepository.Query(x => true);
-            var keywords = text.Split(' ');
-            comic = keywords.Aggregate(comic, (current, keyword) => current.Where(x => x.Title == keyword));
-            return comic.ToList();
+            var comics = _comicRepository.Filter(text);
+            return comics;
         }
 
-        public IEnumerable<Comic> GetComicsForSeriesId(int id)
+        public List<Comic> GetComicsForSeriesId(int id)
         {
-            var comics = _comicRepository.GetMany(x => x.SeriesId == id);
+            var comics = _comicRepository.GetMany(x => x.SeriesId == id).ToList();
             return comics;
             //Todo order
         }
 
-        public IEnumerable<Comic> GetComicsForCurrentWeek(DateTime weekStart, DateTime weekEnd)
+        public List<Comic> GetComicsForWeek(DateTime weekStart, DateTime weekEnd)
         {
             var comics = _comicRepository.Query(x => x.Date > weekStart && x.Date < weekEnd).OrderBy(x => x.Title).ToList();
             return comics;
@@ -54,7 +52,7 @@ namespace Marvelist.Service
 
         public Comic GetById(int id)
         {
-            var comic = _comicRepository.GetMany(u => u.Id == id).FirstOrDefault();
+            var comic = _comicRepository.GetById(id);
             return comic;
         }
 
@@ -69,9 +67,9 @@ namespace Marvelist.Service
     {
         Comic GetById(int id);
         Comic Add(Comic comic);
-        IEnumerable<Comic> All();
-        IEnumerable<Comic> GetByText(string text);
-        IEnumerable<Comic> GetComicsForSeriesId(int id);
-        IEnumerable<Comic> GetComicsForCurrentWeek(DateTime weekStart, DateTime weekEnd);
+        List<Comic> All();
+        List<Comic> GetByText(string text);
+        List<Comic> GetComicsForSeriesId(int id);
+        List<Comic> GetComicsForWeek(DateTime weekStart, DateTime weekEnd);
     }
 }
