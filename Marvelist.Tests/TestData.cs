@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Marvelist.Entities;
 using Marvelous;
 using Comic = Marvelist.Entities.Comic;
@@ -9,43 +10,6 @@ namespace Marvelist.Tests
 {
     public static class TestData
     {
-        public static List<Series> Series = new List<Series>
-        {
-            new Series
-            {
-                Id = 1997,
-                Description = "",
-                StartYear = 1998,
-                EndYear = 2002,
-                Rating = "",
-                Modified = DateTime.Parse("2013-03-01 19:34:02.0000000"),
-                Title = "Captain America (1998 - 2002)",
-                Thumbnail =
-                    new MarvelImage
-                    {
-                        Path = "http://i.annihil.us/u/prod/marvel/i/mg/6/80/5130f42b9d86e",
-                        Extension = "jpg"
-                    }
-            },
-            new Series
-            {
-                Id = 16410,
-                Description =
-                    "There's a new rule in the galaxy: No one touches Earth! No one!! Why has Earth become the most important planet in the Galaxy? That's what the Guardians of the Galaxy are going to find out!! Join the brightest stars in the Marvel universe: Star Lord, Gamora, Drax, Rocket Raccoon, Groot and--wait for it--Iron-Man, as they embark upon one of the most explosive and eye-opening chapters of Marvel NOW! These galactic Avengers are going to discover secrets that will rattle Marvel readers for years to come! Why wait for the movie? It all starts here!",
-                StartYear = 2013,
-                EndYear = 2099,
-                Rating = "Rated T",
-                Modified = DateTime.Parse("2015-11-10 08:58:23.0000000"),
-                Title = "Guardians of the Galaxy (2013 - Present)",
-                Thumbnail =
-                    new MarvelImage
-                    {
-                        Path = "http://i.annihil.us/u/prod/marvel/i/mg/6/80/50ff0e57e9151",
-                        Extension = "jpg"
-                    }
-            }
-        };
-
         public static List<Comic> Comics = new List<Comic>
         {
 
@@ -1631,6 +1595,44 @@ namespace Marvelist.Tests
             }
         };
 
+        public static List<Series> Series = new List<Series>
+        {
+            new Series
+            {
+                Id = 1997,
+                Description = "",
+                StartYear = 1998,
+                EndYear = 2002,
+                Rating = "",
+                Modified = DateTime.Parse("2013-03-01 19:34:02.0000000"),
+                Title = "Captain America (1998 - 2002)",
+                Thumbnail =
+                    new MarvelImage
+                    {
+                        Path = "http://i.annihil.us/u/prod/marvel/i/mg/6/80/5130f42b9d86e",
+                        Extension = "jpg"
+                    },
+                Comics = Comics.Where(x=>x.SeriesId==1997).ToList()
+            },
+            new Series
+            {
+                Id = 16410,
+                Description =
+                    "There's a new rule in the galaxy: No one touches Earth! No one!! Why has Earth become the most important planet in the Galaxy? That's what the Guardians of the Galaxy are going to find out!! Join the brightest stars in the Marvel universe: Star Lord, Gamora, Drax, Rocket Raccoon, Groot and--wait for it--Iron-Man, as they embark upon one of the most explosive and eye-opening chapters of Marvel NOW! These galactic Avengers are going to discover secrets that will rattle Marvel readers for years to come! Why wait for the movie? It all starts here!",
+                StartYear = 2013,
+                EndYear = 2099,
+                Rating = "Rated T",
+                Modified = DateTime.Parse("2015-11-10 08:58:23.0000000"),
+                Title = "Guardians of the Galaxy (2013 - Present)",
+                Thumbnail =
+                    new MarvelImage
+                    {
+                        Path = "http://i.annihil.us/u/prod/marvel/i/mg/6/80/50ff0e57e9151",
+                        Extension = "jpg"
+                    },
+                Comics = Comics.Where(x=>x.SeriesId==16410).ToList()
+            }
+        };
         public static List<ApplicationUser> Users = new List<ApplicationUser>()
         {
             new ApplicationUser {Email = "first@Marvelist", UserName = "first", Id = "1"}

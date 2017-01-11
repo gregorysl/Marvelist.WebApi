@@ -1,6 +1,4 @@
-﻿using System;
-using System.Linq;
-using Marvelist.DataAccess.Contracts;
+﻿using Marvelist.DataAccess.Contracts;
 using Marvelist.DataAccess.Repositories;
 using Marvelist.Entities;
 using Marvelist.Service;
@@ -36,7 +34,7 @@ namespace Marvelist.Tests
         [TestMethod]
         public void ShouldReturnSeriesById()
         {
-            var id = "1";
+            const string id = "1";
             var user = _userService.GetById(id);
             Assert.AreEqual(user, TestData.Users.Find(x => x.Id == id));
         }
@@ -44,7 +42,7 @@ namespace Marvelist.Tests
         [TestMethod]
         public void ShouldReturnRightSeriesForYear()
         {
-            var email = "first@Marvelist";
+            const string email = "first@Marvelist";
             var user = _userService.GetByEmail(email);
             Assert.AreEqual(user, TestData.Users.Find(x => x.Email == email));
         }
