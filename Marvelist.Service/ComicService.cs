@@ -29,19 +29,11 @@ namespace Marvelist.Service
         {
             return _comicRepository.GetAll();
         }
-        
-
-        public List<Comic> GetByText(string text)
-        {
-            var comics = _comicRepository.Filter(text);
-            return comics;
-        }
 
         public List<Comic> GetComicsForSeriesId(int id)
         {
-            var comics = _comicRepository.GetMany(x => x.SeriesId == id).ToList();
+            var comics = _comicRepository.GetForSeriesId(id);
             return comics;
-            //Todo order
         }
 
         public List<Comic> GetComicsForWeek(DateTime weekStart, DateTime weekEnd)
@@ -68,7 +60,6 @@ namespace Marvelist.Service
         Comic GetById(int id);
         Comic Add(Comic comic);
         List<Comic> All();
-        List<Comic> GetByText(string text);
         List<Comic> GetComicsForSeriesId(int id);
         List<Comic> GetComicsForWeek(DateTime weekStart, DateTime weekEnd);
     }
