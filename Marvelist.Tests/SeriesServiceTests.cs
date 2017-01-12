@@ -14,7 +14,7 @@ namespace Marvelist.Tests
     {
         private ISeriesService _seriesService;
         private ISeriesRepository _seriesRepository;
-        IUnitOfWork _unitOfWork;
+        private IUnitOfWork _unitOfWork;
 
         [TestInitialize]
         public void Setup()
@@ -28,8 +28,9 @@ namespace Marvelist.Tests
         public void ShouldReturnAllSeries()
         {
             var series = _seriesService.All();
-            Assert.AreEqual(series, TestData.Series);
+            Assert.AreEqual(TestData.Series, series);
         }
+
         [TestMethod]
         public void ShouldAddNewSeries()
         {
@@ -40,31 +41,55 @@ namespace Marvelist.Tests
             };
             var countBefore = TestData.Series.Count;
             _seriesService.Add(serie);
-            Assert.AreEqual(serie.Title, TestData.Series.Find(x=>x.Id==serie.Id).Title);
+            Assert.AreEqual(TestData.Series.Find(x => x.Id == serie.Id).Title, serie.Title);
         }
 
         [TestMethod]
         public void ShouldReturnRightSeries()
         {
-            var series = _seriesService.GetSeriesById(1997);
-            Assert.AreEqual(series, TestData.Series.Find(x => x.Id == 1997));
+            const int id = 1997;
+            var series = _seriesService.GetSeriesById(id);
+            Assert.AreEqual(TestData.Series.Find(x => x.Id == id), series);
+        }
+
+        [TestMethod]
+        public void ShouldReturnNullForId()
+        {
+            const int id = 19971;
+            var series = _seriesService.GetSeriesById(id);
+            Assert.AreEqual(null, series);
         }
 
         [TestMethod]
         public void ShouldReturnRightSeriesForYear()
         {
             var series = _seriesService.GetByYear(2013);
-            Assert.AreEqual(series.Count, 1);
+            Assert.AreEqual(1, series.Count);
+        }
+
+        [TestMethod]
+        public void ShouldReturnEmptyListForYear()
+        {
+            var series = _seriesService.GetByYear(2020);
+            Assert.AreEqual(0, series.Count);
         }
 
         [TestMethod]
         public void ShouldReturnRightSeriesForText()
         {
             var series = _seriesService.GetByText("Guardians");
-            Assert.AreEqual(series.Count, 1);
+            Assert.AreEqual(1, series.Count);
             var firstOrDefault = series.FirstOrDefault();
-            if (firstOrDefault != null) Assert.AreEqual(firstOrDefault.Title, "Guardians of the Galaxy (2013 - Present)");
+            if (firstOrDefault != null)
+                Assert.AreEqual("Guardians of the Galaxy (2013 - Present)", firstOrDefault.Title);
             else Assert.Fail("Should return series.");
+        }
+
+        [TestMethod]
+        public void ShouldReturnRightSeriesForText1()
+        {
+            var series = _seriesService.GetByText("Iron Man");
+            Assert.AreEqual(0, series.Count);
         }
     }
 }

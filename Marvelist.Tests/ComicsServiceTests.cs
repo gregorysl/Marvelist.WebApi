@@ -14,7 +14,7 @@ namespace Marvelist.Tests
     {
         private IComicService _comicService;
         private IComicRepository _comicRepository;
-        IUnitOfWork _unitOfWork;
+        private IUnitOfWork _unitOfWork;
 
         [TestInitialize]
         public void Setup()
@@ -28,7 +28,7 @@ namespace Marvelist.Tests
         public void ShouldReturnAllComics()
         {
             var comic = _comicService.All();
-            Assert.AreEqual(comic, TestData.Comics);
+            Assert.AreEqual(TestData.Comics, comic);
         }
         [TestMethod]
         public void ShouldAddNewComic()
@@ -39,15 +39,23 @@ namespace Marvelist.Tests
                 Title = "comicServiceTests"
             };
             _comicService.Add(comic);
-            Assert.AreEqual(comic.Title, TestData.Comics.Find(x=>x.Id== comic.Id).Title);
+            Assert.AreEqual(TestData.Comics.Find(x => x.Id == comic.Id).Title, comic.Title);
         }
 
         [TestMethod]
-        public void ShouldReturnRightComicById()
+        public void ShouldReturnComicById()
         {
             const int id = 12767;
             var comic = _comicService.GetById(id);
-            Assert.AreEqual(comic, TestData.Comics.Find(x => x.Id == id));
+            Assert.AreEqual(TestData.Comics.Find(x => x.Id == id), comic);
+        }
+
+        [TestMethod]
+        public void ShouldReturnNullById()
+        {
+            const int id = 127617;
+            var comic = _comicService.GetById(id);
+            Assert.AreEqual(null, comic);
         }
 
         [TestMethod]
@@ -56,6 +64,7 @@ namespace Marvelist.Tests
             var comic = _comicService.GetComicsForSeriesId(1997);
             Assert.AreEqual(50, comic.Count);
         }
+
         [TestMethod]
         public void ShouldReturnEmptyListForWrongSeriesId()
         {

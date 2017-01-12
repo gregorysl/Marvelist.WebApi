@@ -12,7 +12,7 @@ namespace Marvelist.Tests
     {
         private IUserService _userService;
         private IUserRepository _userRepository;
-        IUnitOfWork _unitOfWork;
+        private IUnitOfWork _unitOfWork;
 
         [TestInitialize]
         public void Setup()
@@ -32,20 +32,34 @@ namespace Marvelist.Tests
         }
 
         [TestMethod]
-        public void ShouldReturnSeriesById()
+        public void ShouldReturnUserById()
         {
             const string id = "1";
             var user = _userService.GetById(id);
-            Assert.AreEqual(user, TestData.Users.Find(x => x.Id == id));
+            Assert.AreEqual(TestData.Users.Find(x => x.Id == id), user);
+        }
+        [TestMethod]
+        public void ShouldReturnNullById()
+        {
+            const string id = "test";
+            var user = _userService.GetById(id);
+            Assert.AreEqual(null, user);
         }
 
         [TestMethod]
-        public void ShouldReturnRightSeriesForYear()
+        public void ShouldReturnUserByEmail()
         {
             const string email = "first@Marvelist";
             var user = _userService.GetByEmail(email);
-            Assert.AreEqual(user, TestData.Users.Find(x => x.Email == email));
+            Assert.AreEqual(TestData.Users.Find(x => x.Email == email), user);
         }
-        
+        [TestMethod]
+        public void ShouldReturnNullByEmail()
+        {
+            const string email = "last@Marvelist";
+            var user = _userService.GetByEmail(email);
+            Assert.AreEqual(null, user);
+        }
+
     }
 }
