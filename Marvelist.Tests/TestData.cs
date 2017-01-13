@@ -1612,7 +1612,7 @@ namespace Marvelist.Tests
                         Path = "http://i.annihil.us/u/prod/marvel/i/mg/6/80/5130f42b9d86e",
                         Extension = "jpg"
                     },
-                Comics = Comics.Where(x=>x.SeriesId==1997).ToList()
+                Comics = Comics.Where(x => x.SeriesId == 1997).ToList()
             },
             new Series
             {
@@ -1630,14 +1630,23 @@ namespace Marvelist.Tests
                         Path = "http://i.annihil.us/u/prod/marvel/i/mg/6/80/50ff0e57e9151",
                         Extension = "jpg"
                     },
-                Comics = Comics.Where(x=>x.SeriesId==16410).ToList()
+                Comics = Comics.Where(x => x.SeriesId == 16410).ToList()
             }
         };
+
         public static List<ApplicationUser> Users = new List<ApplicationUser>()
         {
             new ApplicationUser {Email = "first@Marvelist", UserName = "first", Id = "1"}
         };
-        public static List<UserSeries> UserSeries = new List<UserSeries>();
-        public static List<UserComic> UserComics = new List<UserComic>();
+
+        public static List<UserSeries> UserSeries = new List<UserSeries>
+        {
+            new UserSeries {Date = DateTime.Now, Id = 1, SeriesId = 1997, UserId = "1"}
+        };
+
+        public static List<UserComic> UserComics = new List<UserComic>
+        {
+            new UserComic {Date = DateTime.Now, Id = 1, ComicId = 12767, UserId = "1"}
+        };
     }
 }
