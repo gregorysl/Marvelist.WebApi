@@ -31,7 +31,7 @@ namespace Marvelist.Tests
             repo.Setup(x => x.GetAllFollowing(It.IsAny<string>()))
                 .Returns(new Func<string, List<Series>>(id => userSeries.Where(z => z.UserId == id).Select(x => x.Series).ToList()));
             repo.Setup(x => x.IsFollowing(It.IsAny<int>(), It.IsAny<string>()))
-                .Returns(new Func<int, string, bool>((id,userId) => userSeries.Any(z => z.UserId == userId && z.Id == id)));
+                .Returns(new Func<int, string, bool>((id,userId) => userSeries.Any(z => z.UserId == userId && z.SeriesId == id)));
             repo.Setup(x => x.GetById(It.IsAny<int>()))
                 .Returns(new Func<int, UserSeries>(id => userSeries.Find(x => x.Id == id)));
 

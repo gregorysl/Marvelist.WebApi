@@ -11,20 +11,27 @@ namespace Marvelist.DataAccess.Repositories
         {
 
         }
-
+        
         public bool IsFollowing(int id, string userId)
         {
-            return DataContext.UserComics.Any(x => x.UserId == userId && x.Id == id);
+            return DataContext.UserComics.Any(x => x.UserId == userId && x.ComicId == id);
         }
 
         public List<Comic> GetAllFollowing(string id)
         {
             return DataContext.UserComics.Where(x => x.UserId == id).Select(x => x.Comic).ToList();
         }
+
+        public void DeleteByComicId(int comicId, string userId)
+        {
+            var item = DataContext.UserComics.FirstOrDefault(x => x.UserId == userId && x.ComicId == comicId);
+            Delete(item);
+        }
     }
     public interface IUserComicRepository : IRepository<UserComic>
     {
         bool IsFollowing(int id, string userId);
         List<Comic> GetAllFollowing(string id);
+        void DeleteByComicId(int comicId, string userId);
     }
 }

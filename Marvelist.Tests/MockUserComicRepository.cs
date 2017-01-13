@@ -17,9 +17,13 @@ namespace Marvelist.Tests
             repo.Setup(x => x.GetAllFollowing(It.IsAny<string>()))
                 .Returns(new Func<string, List<Comic>>(id => userComics.Where(z => z.UserId == id).Select(x => x.Comic).ToList()));
             repo.Setup(x => x.IsFollowing(It.IsAny<int>(), It.IsAny<string>()))
-                .Returns(new Func<int, string, bool>((id,userId) => userComics.Any(z => z.UserId == userId && z.Id == id)));
+                .Returns(new Func<int, string, bool>((id,userId) => userComics.Any(z => z.UserId == userId && z.ComicId == id)));
             repo.Setup(x => x.GetById(It.IsAny<int>()))
                 .Returns(new Func<int, UserComic>(id => userComics.Find(x => x.Id == id)));
+            repo.Setup(x => x.DeleteByComicId(It.IsAny<int>(), It.IsAny<string>()))
+                .Callback((int id, string userId) => {
+                    userComics.Remove(userComics.FirstOrDefault(z => z.UserId == userId && z.ComicId == id));
+                });
 
             return repo.Object;
         }

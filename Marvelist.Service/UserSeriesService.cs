@@ -23,11 +23,11 @@ namespace Marvelist.Service
 
         public void Add(int id, string userId)
         {
-            if (string.IsNullOrWhiteSpace(userId)|| !IsFollowing(id, userId))
+            if (string.IsNullOrWhiteSpace(userId) || !IsFollowing(id, userId))
             {
                 var series = _seriesRepository.GetById(id);
-                if(series==null)return;
-                
+                if (series == null) return;
+
                 var userSeries = new UserSeries
                 {
                     Date = DateTime.Now,
@@ -42,12 +42,8 @@ namespace Marvelist.Service
         {
             if (string.IsNullOrWhiteSpace(userId) || IsFollowing(id, userId))
             {
-                var series = _seriesRepository.GetById(id);
-                if (series == null) return;
-
-                var userSeries = GetById(id);
-                _repository.Delete(userSeries);
-                _userComicService.DeleteAllForSeries(id,userId);
+                _repository.DeleteBySeriesId(id, userId);
+                _userComicService.DeleteAllForSeries(id, userId);
                 SaveChanges();
             }
         }
@@ -55,7 +51,7 @@ namespace Marvelist.Service
         public void AddByComicId(int comicId, string userId)
         {
             var seriesId = _seriesRepository.Query(x => x.Comics.Any(z => z.Id == comicId)).First().Id;
-            Add(seriesId,userId);
+            Add(seriesId, userId);
         }
         public UserSeries GetById(int id)
         {

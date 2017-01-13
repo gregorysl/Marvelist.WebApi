@@ -59,17 +59,9 @@ namespace Marvelist.Service
         {
             if (string.IsNullOrWhiteSpace(userId) || IsFollowing(id, userId))
             {
-                var comic = _comicRepository.GetById(id);
-                if (comic == null) return;
-                var userComic = GetById(id);
-                _repository.Delete(userComic);
+                _repository.DeleteByComicId(id, userId);
                 SaveChanges();
             }
-        }
-
-        public List<UserComic> All()
-        {
-            return _repository.GetAll();
         }
 
         public List<Comic> GetAllFollowing(string id)
@@ -83,13 +75,7 @@ namespace Marvelist.Service
             var isFollowing = _repository.IsFollowing(id, userId);
             return isFollowing;
         }
-
-        public UserComic GetById(int id)
-        {
-            var userComic = _repository.GetById(id);
-            return userComic;
-        }
-
+        
         public void SaveChanges()
         {
             _unitOfWork.SaveChanges();
@@ -99,12 +85,10 @@ namespace Marvelist.Service
 
     public interface IUserComicService
     {
-        UserComic GetById(int id);
         void Delete(int id, string userId);
         void Add(int id, string userId);
         void AddAll(List<int> comicsList, string userId);
         void DeleteAllForSeries(int seriesId, string userId);
-        List<UserComic> All();
         List<Comic> GetAllFollowing(string id);
         bool IsFollowing(int id, string userId);
     }
