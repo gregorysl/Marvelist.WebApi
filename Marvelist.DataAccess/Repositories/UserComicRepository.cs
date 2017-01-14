@@ -27,11 +27,18 @@ namespace Marvelist.DataAccess.Repositories
             var item = DataContext.UserComics.FirstOrDefault(x => x.UserId == userId && x.ComicId == comicId);
             Delete(item);
         }
+
+        public List<int> FilterFollowed(List<int> toFilter, string userId)
+        {
+            var contains = DataContext.UserComics.Where(x => toFilter.Contains(x.ComicId)).Select(x => x.Id);
+            return toFilter.Except(contains).ToList();
+        }
     }
     public interface IUserComicRepository : IRepository<UserComic>
     {
         bool IsFollowing(int id, string userId);
         List<Comic> GetAllFollowing(string id);
         void DeleteByComicId(int comicId, string userId);
+        List<int> FilterFollowed(List<int> id, string userId);
     }
 }

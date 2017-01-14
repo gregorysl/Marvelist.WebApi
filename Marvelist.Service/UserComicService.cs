@@ -23,8 +23,7 @@ namespace Marvelist.Service
 
         public void AddAll(List<int> comicsList, string userId)
         {
-            var contains = _repository.Query(x => comicsList.Contains(x.Id)).Select(x => x.Id);
-            var filtered = comicsList.Except(contains);
+            var filtered = _repository.FilterFollowed(comicsList, userId);
             foreach (var comic in filtered)
             {
                 Add(comic, userId);
