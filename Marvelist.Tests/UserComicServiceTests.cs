@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using Marvelist.DataAccess.Contracts;
 using Marvelist.DataAccess.Repositories;
-using Marvelist.Entities;
 using Marvelist.Service;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
@@ -33,8 +28,57 @@ namespace Marvelist.Tests
         [TestMethod]
         public void ShouldReturnTrueIfFollowing()
         {
-            var isFollowing = _service.IsFollowing(12767,UserId);
+            var isFollowing = _service.IsFollowing(12767, UserId);
             Assert.IsTrue(isFollowing);
+        }
+
+        [TestMethod]
+        public void ShouldReturnFalseIfNotFollowing()
+        {
+            var isFollowing = _service.IsFollowing(12769, UserId);
+            Assert.IsFalse(isFollowing);
+        }
+
+        [TestMethod]
+        public void ShouldAddNewUserComic()
+        {
+            var countBefore = TestData.UserComics.Count;
+            _service.Add(12768, UserId);
+            Assert.AreEqual(countBefore + 1, TestData.UserComics.Count);
+        }
+
+        [TestMethod]
+        public void ShouldDeleteUserComic()
+        {
+            _service.Add(12793, UserId);
+            var countBefore = TestData.UserComics.Count;
+            _service.Delete(12793, UserId);
+            Assert.AreEqual(countBefore - 1, TestData.UserComics.Count);
+        }
+
+        [TestMethod]
+        public void ShouldAddAllUserComicsFromList()
+        {
+            var addList = new List<int> { 12770, 12771, 12772 };
+            var countBefore = TestData.UserComics.Count;
+            _service.AddAll(addList, UserId);
+            Assert.AreEqual(countBefore + addList.Count, TestData.UserComics.Count);
+        }
+
+        [TestMethod]
+        public void ShouldAddAllUserComicsFromListExcepExisting()
+        {
+            var addList = new List<int> { 12767, 12773, 12774 };
+            var countBefore = TestData.UserComics.Count;
+            _service.AddAll(addList, UserId);
+            Assert.AreEqual(countBefore + addList.Count - 1, TestData.UserComics.Count);
+        }
+
+        [TestMethod]
+        public void ShouldDeleteAllFollowedSeriesForSeriesId()
+        {
+            _service.DeleteAllForSeries(1997, UserId);
+            Assert.AreEqual(0, TestData.UserComics.Count);
         }
     }
 }

@@ -1646,7 +1646,7 @@ namespace Marvelist.Tests
 
         public static List<UserComic> UserComics = new List<UserComic>
         {
-            new UserComic {Date = DateTime.Now, Id = 1, ComicId = 12767, UserId = "1"}
+            new UserComic {Date = DateTime.Now, Id = 1, ComicId = 12767, Comic=Comics.Find(x=>x.Id==12767), UserId = "1"}
         };
     }
 }
