@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Marvelist.DataAccess.Contracts;
 using Marvelist.DataAccess.Repositories;
@@ -15,11 +16,13 @@ namespace Marvelist.Tests
         private ISeriesService _seriesService;
         private ISeriesRepository _seriesRepository;
         private IUnitOfWork _unitOfWork;
+        private List<Series> _series;
 
         [TestInitialize]
         public void Setup()
         {
-            _seriesRepository = MockRepository.MockSeriesRepository();
+            _series = new TestData().Series();
+            _seriesRepository = MockRepository.MockSeriesRepository(_series);
             _unitOfWork = new Mock<IUnitOfWork>().Object;
             _seriesService = new SeriesService(_seriesRepository, _unitOfWork);
         }
@@ -28,7 +31,7 @@ namespace Marvelist.Tests
         public void ShouldReturnAllSeries()
         {
             var series = _seriesService.All();
-            Assert.AreEqual(TestData.Series, series);
+            Assert.AreEqual(_series, series);
         }
 
         [TestMethod]
@@ -39,9 +42,8 @@ namespace Marvelist.Tests
                 StartYear = DateTime.Now.Year,
                 Title = "SeriesServiceTests"
             };
-            var countBefore = TestData.Series.Count;
             _seriesService.Add(serie);
-            Assert.AreEqual(TestData.Series.Find(x => x.Id == serie.Id).Title, serie.Title);
+            Assert.AreEqual(_series.Find(x => x.Id == serie.Id).Title, serie.Title);
         }
 
         [TestMethod]
@@ -49,7 +51,7 @@ namespace Marvelist.Tests
         {
             const int id = 1997;
             var series = _seriesService.GetSeriesById(id);
-            Assert.AreEqual(TestData.Series.Find(x => x.Id == id), series);
+            Assert.AreEqual(_series.Find(x => x.Id == id), series);
         }
 
         [TestMethod]

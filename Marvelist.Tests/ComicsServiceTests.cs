@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Marvelist.DataAccess.Contracts;
 using Marvelist.DataAccess.Repositories;
 using Marvelist.Entities;
@@ -14,11 +15,13 @@ namespace Marvelist.Tests
         private IComicService _comicService;
         private IComicRepository _comicRepository;
         private IUnitOfWork _unitOfWork;
+        private List<Comic> _comics;
 
         [TestInitialize]
         public void Setup()
         {
-            _comicRepository = MockRepository.MockComicRepository();
+            _comics = new TestData().Comics();
+            _comicRepository = MockRepository.MockComicRepository(_comics);
             _unitOfWork = new Mock<IUnitOfWork>().Object;
             _comicService = new ComicService(_comicRepository, _unitOfWork);
         }
@@ -27,7 +30,7 @@ namespace Marvelist.Tests
         public void ShouldReturnAllComics()
         {
             var comic = _comicService.All();
-            Assert.AreEqual(TestData.Comics, comic);
+            Assert.AreEqual(_comics, comic);
         }
         [TestMethod]
         public void ShouldAddNewComic()
@@ -38,7 +41,7 @@ namespace Marvelist.Tests
                 Title = "comicServiceTests"
             };
             _comicService.Add(comic);
-            Assert.AreEqual(TestData.Comics.Find(x => x.Id == comic.Id).Title, comic.Title);
+            Assert.AreEqual(_comics.Find(x => x.Id == comic.Id).Title, comic.Title);
         }
 
         [TestMethod]
@@ -46,7 +49,7 @@ namespace Marvelist.Tests
         {
             const int id = 12767;
             var comic = _comicService.GetById(id);
-            Assert.AreEqual(TestData.Comics.Find(x => x.Id == id), comic);
+            Assert.AreEqual(_comics.Find(x => x.Id == id), comic);
         }
 
         [TestMethod]

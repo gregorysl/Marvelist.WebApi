@@ -9,10 +9,9 @@ namespace Marvelist.Tests
 {
     public partial class MockRepository
     {
-        public static ISeriesRepository MockSeriesRepository()
+        public static ISeriesRepository MockSeriesRepository(List<Series> series)
         {
             var repo = new Mock<ISeriesRepository>();
-            var series = TestData.Series;
             repo.Setup(x => x.GetAll()).Returns(series);
             repo.Setup(x => x.Add(It.IsAny<Series>()))
                 .Callback(new Action<Series>(s =>

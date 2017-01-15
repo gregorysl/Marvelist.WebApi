@@ -108,6 +108,7 @@
     <Compile Include="MockSeriesRepository.cs" />
     <Compile Include="ComicsServiceTests.cs" />
     <Compile Include="UserComicServiceTests.cs" />
+    <Compile Include="UserSeriesServiceTests.cs" />
     <Compile Include="UserServiceTests.cs" />
     <Compile Include="TestData.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

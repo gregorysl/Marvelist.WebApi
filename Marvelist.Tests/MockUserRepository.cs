@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Marvelist.DataAccess.Repositories;
 using Marvelist.Entities;
@@ -8,10 +9,9 @@ namespace Marvelist.Tests
 {
     public partial class MockRepository
     {
-        public static IUserRepository MockUserRepository()
+        public static IUserRepository MockUserRepository(List<ApplicationUser> users)
         {
             var repo = new Mock<IUserRepository>();
-            var users = TestData.Users;
             repo.Setup(x => x.GetAll()).Returns(users);
             repo.Setup(x => x.Add(It.IsAny<ApplicationUser>()))
                 .Callback(new Action<ApplicationUser>(us =>

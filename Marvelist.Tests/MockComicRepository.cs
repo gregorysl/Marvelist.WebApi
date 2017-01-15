@@ -9,10 +9,9 @@ namespace Marvelist.Tests
 {
     public partial class MockRepository
     {
-        public static IComicRepository MockComicRepository()
+        public static IComicRepository MockComicRepository(List<Comic> comics)
         {
             var repo = new Mock<IComicRepository>();
-            var comics = TestData.Comics;
             repo.Setup(x => x.GetAll()).Returns(comics);
             repo.Setup(x => x.Add(It.IsAny<Comic>()))
                 .Callback(new Action<Comic>(c =>
@@ -26,7 +25,7 @@ namespace Marvelist.Tests
                 .Returns(
                     new Func<int, List<Comic>>(
                         id =>
-                            TestData.Series.Find(x => x.Id == id)?.Comics.OrderBy(z => z.IssueNumber).ToList() ??
+                            new TestData().Series().Find(x => x.Id == id)?.Comics.OrderBy(z => z.IssueNumber).ToList() ??
                             new List<Comic>()));
             return repo.Object;
         }

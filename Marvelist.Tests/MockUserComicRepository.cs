@@ -10,10 +10,9 @@ namespace Marvelist.Tests
 {
     public partial class MockRepository
     {
-        public static IUserComicRepository MockUserComicRepository()
+        public static IUserComicRepository MockUserComicRepository(List<UserComic> userComics)
         {
             var repo = new Mock<IUserComicRepository>();
-            var userComics = TestData.UserComics;
             repo.Setup(x => x.GetAll()).Returns(userComics);
             repo.Setup(x => x.Add(It.IsAny<UserComic>()))
                 .Callback(new Action<UserComic>(us =>

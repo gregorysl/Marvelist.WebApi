@@ -9,10 +9,9 @@ namespace Marvelist.Tests
 {
     public partial class MockRepository
     {
-        public static IUserSeriesRepository MockUserSeriesRepository()
+        public static IUserSeriesRepository MockUserSeriesRepository(List<UserSeries> userSeries)
         {
             var repo = new Mock<IUserSeriesRepository>();
-            var userSeries = TestData.UserSeries;
             repo.Setup(x => x.GetAll()).Returns(userSeries);
             repo.Setup(x => x.Add(It.IsAny<UserSeries>()))
                 .Callback(new Action<UserSeries>(us =>
@@ -21,13 +20,13 @@ namespace Marvelist.Tests
                     us.Date = DateTime.Now;
                     userSeries.Add(us);
                 }));
-            repo.Setup(x => x.Delete(It.IsAny<UserSeries>()))
-                .Callback(new Action<UserSeries>(us =>
+            repo.Setup(x => x.DeleteBySeriesId(It.IsAny<int>(), It.IsAny<string>()))
+                .Callback((int id, string userId) =>
                 {
-                    var toRemove = userSeries.Find(a => a.Id == us.Id);
+                    var toRemove = userSeries.Find(a => a.UserId == userId && a.SeriesId == id);
                     if (toRemove != null)
                         userSeries.Remove(toRemove);
-                }));
+                });
             repo.Setup(x => x.GetAllFollowing(It.IsAny<string>()))
                 .Returns(new Func<string, List<Series>>(id => userSeries.Where(z => z.UserId == id).Select(x => x.Series).ToList()));
             repo.Setup(x => x.IsFollowing(It.IsAny<int>(), It.IsAny<string>()))
