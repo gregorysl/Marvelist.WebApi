@@ -84,24 +84,24 @@ namespace Marvelist.API
         {
             var containerBuilder = new ContainerBuilder();
             containerBuilder.RegisterApiControllers(Assembly.GetExecutingAssembly());
-            containerBuilder.RegisterType<DatabaseFactory>().As<IDatabaseFactory>().AsImplementedInterfaces().InstancePerApiRequest();
-            containerBuilder.RegisterType<UnitOfWork>().As<IUnitOfWork>().AsImplementedInterfaces().InstancePerApiRequest();
+            containerBuilder.RegisterType<DatabaseFactory>().As<IDatabaseFactory>().AsImplementedInterfaces().InstancePerRequest();
+            containerBuilder.RegisterType<UnitOfWork>().As<IUnitOfWork>().AsImplementedInterfaces().InstancePerRequest();
             //REPOS
-            containerBuilder.RegisterType<UserRepository>().As<IUserRepository>().InstancePerApiRequest();
-            containerBuilder.RegisterType<SeriesRepository>().As<ISeriesRepository>().InstancePerApiRequest();
-            containerBuilder.RegisterType<ComicRepository>().As<IComicRepository>().InstancePerApiRequest();
-            containerBuilder.RegisterType<UserSeriesRepository>().As<IUserSeriesRepository>().InstancePerApiRequest();
-            containerBuilder.RegisterType<UserComicRepository>().As<IUserComicRepository>().InstancePerApiRequest();
+            containerBuilder.RegisterType<UserRepository>().As<IUserRepository>().InstancePerRequest();
+            containerBuilder.RegisterType<SeriesRepository>().As<ISeriesRepository>().InstancePerRequest();
+            containerBuilder.RegisterType<ComicRepository>().As<IComicRepository>().InstancePerRequest();
+            containerBuilder.RegisterType<UserSeriesRepository>().As<IUserSeriesRepository>().InstancePerRequest();
+            containerBuilder.RegisterType<UserComicRepository>().As<IUserComicRepository>().InstancePerRequest();
             //SERVICES
-            containerBuilder.RegisterType<UserService>().As<IUserService>().InstancePerApiRequest();
-            containerBuilder.RegisterType<SeriesService>().As<ISeriesService>().InstancePerApiRequest();
-            containerBuilder.RegisterType<UserSeriesService>().As<IUserSeriesService>().InstancePerApiRequest();
-            containerBuilder.RegisterType<UserComicService>().As<IUserComicService>().InstancePerApiRequest();
+            containerBuilder.RegisterType<UserService>().As<IUserService>().InstancePerRequest();
+            containerBuilder.RegisterType<SeriesService>().As<ISeriesService>().InstancePerRequest();
+            containerBuilder.RegisterType<UserSeriesService>().As<IUserSeriesService>().InstancePerRequest();
+            containerBuilder.RegisterType<UserComicService>().As<IUserComicService>().InstancePerRequest();
 
             containerBuilder.Register(
                     c => new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(new MarvelEntities())))
                 .As<UserManager<ApplicationUser>>()
-                .InstancePerApiRequest();
+                .InstancePerRequest();
 
             IContainer container = containerBuilder.Build();
             config.DependencyResolver = new AutofacWebApiDependencyResolver(container);

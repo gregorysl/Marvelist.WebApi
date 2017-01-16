@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using Marvelist.DataAccess.Contracts;
 using Marvelist.DataAccess.Repositories;
 using Marvelist.Entities;

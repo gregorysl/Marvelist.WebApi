@@ -55,9 +55,8 @@ namespace Marvelist.Tests
         [TestMethod]
         public void ShouldDeleteUserComic()
         {
-            _service.Add(12793, UserId);
             var countBefore = _userComics.Count;
-            _service.Delete(12793, UserId);
+            _service.Delete(12767, UserId);
             Assert.AreEqual(countBefore - 1, _userComics.Count);
         }
 
