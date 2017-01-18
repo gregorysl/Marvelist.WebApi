@@ -5,7 +5,7 @@ import Header from './common/Header';
 class App extends React.Component {
   render() {
     return (
-      <div className="container main">
+      <div className="container">
         <Header/>
         {this.props.children}
       </div>
