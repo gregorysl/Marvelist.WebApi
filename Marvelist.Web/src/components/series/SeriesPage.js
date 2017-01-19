@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router';
+import  SeriesCard  from '../card/SeriesCard.js';
 import * as bookActions from '../../actions/bookActions';
 
 class Series extends React.Component{
@@ -17,30 +18,12 @@ class Series extends React.Component{
     let titleInput;
     return(
       <div className="row">
-        <div className="col-md-6">
           <h3>Series</h3>
-          <table className="table">
-            <thead>
-              <th>
-                <td>Title</td>
-                <td></td>
-              </th>
-            </thead>
-            <tbody>
             {this.props.series.map((b, i) => {
               return(
-                <tr key={i}>
-                  <td>{b.Series.Title}</td>
-                  <td><Link to={`/books/${b.id}`}>View</Link></td>
-                </tr>
+                <SeriesCard key={i} series={b} />
               )
             })}
-            </tbody>
-          </table>
-        </div>
-        <div className="col-md-6">
-          <h3>New Book</h3>
-        </div>
       </div>
     )
   }
