@@ -8,7 +8,7 @@ class SeriesCard extends React.Component {
 
     render() {
         return (
-            <div className="card col-xs-5 col-sm-35 col-lg-3" id="series-div-16410">
+            <div className="card col-lg-3 col-md-4 col-sm-6" id="series-div-16410">
                 <img
                     src={`${this.props.series.Series.Thumbnail.Path}.jpg`}
                     alt=""

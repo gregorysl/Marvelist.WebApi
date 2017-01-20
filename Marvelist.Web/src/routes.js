@@ -13,6 +13,6 @@ export default (
     <Route path="/about" component={About} />
     <Route path="/books" component={Book} />
     <Route path="/books/:id" component={BookDetailsPage} />
-    <Route path="/series" component={Series}></Route>
+    <Route path="/series" component={Series} />
   </Route>
 );
