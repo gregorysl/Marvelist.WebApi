@@ -2,6 +2,7 @@ import React from 'react';
 import {Link} from 'react-router';
 
 const Header = (props) => {
+  let url = require("../../images/logo.svg");
   return (
     <div className="navbar navbar-inverse navbar-fixed-top navbar-marvel">
       <div className="container">
@@ -15,7 +16,7 @@ const Header = (props) => {
             <span className="icon-bar"></span>
             <span className="icon-bar"></span>
           </button>
-          <a href="/">Marvelist</a>
+          <a href="/"><img className="logo" src ={url}/></a>
         </div>
         <div className="navbar-collapse collapse">
           <ul className="nav navbar-nav">
