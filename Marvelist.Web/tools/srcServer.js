@@ -10,7 +10,7 @@ const port = 3000;
 const app = express();
 const compiler = webpack(config);
 
-var allowCrossDomain = function(req, res, next) {
+let allowCrossDomain = function(req, res, next) {
     if ('OPTIONS' == req.method) {
       res.header('Access-Control-Allow-Origin', '*');
       res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,PATCH,OPTIONS');

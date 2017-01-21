@@ -1,0 +1,114 @@
+body {
+    padding-top: 40px;
+  }
+.logo{
+  width: 120px;
+}
+.grid-item {
+  transition-duration: 0.5s;
+  transition-timing-function: initial;
+  transition-delay: initial;
+  transition-property: all;
+}
+.series-list .cover {
+  background-color: rgb(29, 29, 29);
+  position: relative;
+  overflow-x: hidden;
+  overflow-y: hidden;
+}
+
+.series-list>div {
+    padding: 0;
+}
+.series-list .cover img {
+  width: 100%;
+}
+.series-list .cover .real {
+  min-height: 100%;
+  position: absolute;
+  top: 0px;
+  left: 0px;
+}
+.shadow-base {
+  height: 75px;
+  width: 100%;
+  position: absolute;
+  bottom: 0px;
+  left: 0px;
+  background-image: linear-gradient(rgba(0, 0, 0, 0) 0%, rgb(240, 20, 30) 100%);
+  background-repeat-x: repeat;
+  background-repeat-y: no-repeat;
+}
+.series-list .cover .titles {
+  position: absolute;
+  bottom: 10px;
+  left: 12px;
+  right: 12px;
+  height: auto;
+  margin-top: 0px;
+  margin-right: 0px;
+  margin-bottom: 0px;
+  margin-left: 0px;
+}
+.series-list .cover h3 {
+  color: rgb(255, 255, 255);
+  text-shadow: black 0px 0px 20px;
+  font-size: 18px;
+  margin-top: 0px;
+  margin-right: 0px;
+  margin-bottom: 0px;
+  margin-left: 0px;
+  text-align: left;
+  white-space: normal;
+  height: auto;
+  overflow-x: visible;
+  overflow-y: visible;
+}
+.quick-icons {
+  height: 40px;
+  color: rgb(255, 255, 255);
+  background-color: rgb(29, 29, 29);
+  overflow-x: hidden;
+  overflow-y: hidden;
+  white-space: nowrap;
+}
+.quick-icons > div {
+  transition-duration: 0.5s;
+  transition-timing-function: initial;
+  transition-delay: initial;
+  transition-property: initial;
+}
+.quick-icons .actions {
+  float: left;
+}
+
+.quick-icons .metadata {
+  float: right;
+  padding-right: 10px;
+}
+.quick-icons .actions a {
+  width: 35px;
+  display: block;
+  line-height: 40px;
+  height: 40px;
+  float: left;
+  text-align: center;
+  cursor: pointer;
+  font-size: 1.7em;
+  text-decoration: none;
+  position: relative;
+}
+.quick-icons .metadata .percentage {
+  font-size: 20px;
+  font-family: "Proxima Nova Semibold";
+  line-height: 40px;
+  cursor: pointer;
+}
+.quick-icons .metadata .percentage .fa {
+  margin-right: 5px;
+  font-size: 16px;
+  color: rgb(97, 97, 97);
+}
+.quick-icons .metadata .percentage .fa.rating-8 {
+  color: #f0141e;
+}

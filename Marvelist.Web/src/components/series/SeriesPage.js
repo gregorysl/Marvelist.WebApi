@@ -1,44 +1,33 @@
-import React from 'react';
+import React, {PropTypes}  from 'react';
 import {connect} from 'react-redux';
-import {Link} from 'react-router';
 import SeriesCard from '../card/SeriesCard.js';
-import * as bookActions from '../../actions/bookActions';
 
 class Series extends React.Component {
   constructor(props) {
     super(props);
   }
 
-  submitBook(input) {
-    this
-      .props
-      .createBook(input);
-  }
-
   render() {
-    let titleInput;
+    let seriesList = this.props.series.map((b, i) => <SeriesCard key={i} series={b}/>);
     return (
-      <div className="row">
+      <div className="row series-list">
         <h3>Series</h3>
-        {this
-          .props
-          .series
-          .map((b, i) => {
-            return (<SeriesCard key={i} series={b}/>);
-          })}
-
+        {seriesList}
       </div>
-    )
+    );
   }
 }
 
 const mapStateToProps = (state, ownProps) => {
   return {series: state.series};
 };
+
 const mapDispatchToProps = (dispatch) => {
-  return {
-    createBook: book => dispatch(bookActions.createBook(book)) //change
-  };
+  return {};
+};
+
+Series.propTypes = {
+    series: PropTypes.array.isRequired
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Series);
