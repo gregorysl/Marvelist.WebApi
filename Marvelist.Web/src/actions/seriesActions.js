@@ -20,3 +20,21 @@ export const fetchSeries = () => {
       });
   };
 };
+
+export const fetchSeriesByIdSuccess = (series) => {
+  return {
+    type: 'FETCH_SERIES_BY_ID_SUCCESS',
+    series
+  };
+};
+export const fetchSeriesById = (seriesId) => {
+  return (dispatch) => {
+    return Axios.get(apiUrl + '/' +seriesId)
+      .then(response => {
+        dispatch(fetchSeriesByIdSuccess(response.data));
+      })
+      .catch(error => {
+        throw(error);
+      });
+  };
+};
