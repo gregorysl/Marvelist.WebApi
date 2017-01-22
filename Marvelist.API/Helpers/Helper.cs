@@ -25,7 +25,10 @@ namespace Marvelist.API.Helpers
 
         public static SeriesViewModel ToSeriesViewModel(this Series x, IUserSeriesService service, string userId)
         {
-            return new SeriesViewModel {Series = x, Following = service.IsFollowing(x.Id, userId)};
+            var svm = new SeriesViewModel();
+            AutoMapper.Mapper.Map(x, svm);
+            svm.Following = service.IsFollowing(x.Id, userId);
+            return svm;
         }
 
         public static ComicsViewModel ToComicViewModel(this Comic x, IUserComicService service, string userId)
