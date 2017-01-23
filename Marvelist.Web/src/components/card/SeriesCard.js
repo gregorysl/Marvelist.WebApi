@@ -25,12 +25,12 @@ class SeriesCard extends React.Component {
                         <a>
                             <i className="fa fa-heart-o"></i>
                         </a>
-                        <a href={this.props.series.Url}>
+                        <a href={this.props.series.Url} target="blank">
                             <i className="fa fa-external-link"></i>
                         </a>
                     </div>
                     <div className="metadata">
-                        <span>{this.props.series.ComicCount}</span>
+                        {this.props.series.ComicCount}
                         <i className="fa fa-folder-o"></i>
                     </div>
                 </div>

@@ -8,14 +8,15 @@ body {
 
 
 .series-card{
-  padding-bottom: 10px;
+  border: 1px rgba(0, 0, 0, 0) solid;
+  margin-bottom: 10px;
 }
 .series-list .cover {
   position: relative;
 }
 
 .series-list>div {
-    padding: 0 0 10px 0;
+    padding: 0;
 }
 .series-list .cover img {
   width: 100%;
@@ -77,18 +78,20 @@ body {
    display: flex;
   color: white;
   float: right;
-  font-size: 1.5em;
+  font-size: 1.3em;
+  margin: 0 5px 0 0;
 }
 .quick-icons .metadata i {
-    line-height: 30px;
-
+    line-height: 25px;
+    margin-left: 2px;
+    
 }
 .quick-icons .actions a {
   color: white;
   left: 5px; 
-  width: 35px;
+  margin-right: 5px;
   cursor: pointer;
-  font-size: 1.5em;
+  font-size: 1.3em;
   text-decoration: none;
   position: relative;
 }
