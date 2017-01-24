@@ -22,8 +22,7 @@ namespace Marvelist.API.Controllers
             var series = _series.All().ToListSeriesViewModel(_userSeries, UserId);
             return Ok(series);
         }
-
-        [Authorize]
+        
         [Route("api/Series/{id:int}")]
         public IHttpActionResult GetById(int id)
         {

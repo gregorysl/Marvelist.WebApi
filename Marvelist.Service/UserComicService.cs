@@ -70,6 +70,7 @@ namespace Marvelist.Service
 
         public bool IsFollowing(int id, string userId)
         {
+            if (string.IsNullOrEmpty(userId)) return false;
             var isFollowing = _repository.IsFollowing(id, userId);
             return isFollowing;
         }
