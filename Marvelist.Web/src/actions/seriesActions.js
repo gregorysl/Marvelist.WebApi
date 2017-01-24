@@ -21,17 +21,18 @@ export const fetchSeries = () => {
   };
 };
 
-export const fetchSeriesByIdSuccess = (series) => {
+export const fetchSeriesByIdSuccess = (seriesDetails) => {
   return {
     type: 'FETCH_SERIES_BY_ID_SUCCESS',
-    series
+    seriesDetails
   };
 };
 export const fetchSeriesById = (seriesId) => {
+  const seriesUrl = 'http://58866a241fe9aa12004b7b5c.mockapi.io/seriesId';
   return (dispatch) => {
-    return Axios.get(apiUrl + '/' +seriesId)
+    return Axios.get(seriesUrl)
       .then(response => {
-        dispatch(fetchSeriesByIdSuccess(response.data));
+        dispatch(fetchSeriesByIdSuccess(response.data[0]));
       })
       .catch(error => {
         throw(error);
