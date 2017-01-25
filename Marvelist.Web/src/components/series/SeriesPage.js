@@ -10,7 +10,7 @@ class Series extends React.Component {
   render() {
     let seriesList = this.props.series.map((b, i) => <SeriesCard key={i} series={b}/>);
     return (
-      <div className="row series-list">
+      <div className="row cards">
         <h3>Series</h3>
         {seriesList}
       </div>
