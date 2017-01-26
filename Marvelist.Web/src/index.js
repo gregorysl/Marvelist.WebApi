@@ -12,8 +12,6 @@ import * as seriesActions from './actions/seriesActions';
 import configureStore from './store/configureStore';
 
 const store = configureStore();
-store.dispatch(bookActions.fetchBooks());
-store.dispatch(seriesActions.fetchSeries());
 
 render(
   <Provider store={store}>

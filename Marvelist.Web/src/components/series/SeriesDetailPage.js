@@ -1,7 +1,7 @@
 import React, {PropTypes} from 'react';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
-import * as seriesActions from '../../actions/seriesActions';
+import {fetchSeriesById} from '../../actions/seriesActions';
 import ComicCard from '../card/ComicCard';
 
 class SeriesDetails extends React.Component {
@@ -10,9 +10,7 @@ class SeriesDetails extends React.Component {
         this.hasComics = false;
     }
     componentWillMount() {
-        this
-            .props
-            .fetchSeriesById(this.props.params.id);
+        this.props.fetchById(this.props.params.id);
     }
     componentWillReceiveProps(nextProps){
         if(this.props.seriesDetails!==nextProps.seriesDetails){
@@ -42,7 +40,7 @@ class SeriesDetails extends React.Component {
 
 SeriesDetails.propTypes = {
     seriesDetails: PropTypes.object.isRequired,
-    fetchSeriesById: PropTypes.func,
+    fetchById: PropTypes.func.isRequired,
     params: PropTypes
         .shape({id: PropTypes.string.isRequired})
         .isRequired
@@ -54,7 +52,7 @@ const mapStateToProps = (state, ownProps) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        fetchSeriesById: seriesId => dispatch(seriesActions.fetchSeriesById(seriesId))
+        fetchById: seriesId => dispatch(fetchSeriesById(seriesId))
     };
 };
 
