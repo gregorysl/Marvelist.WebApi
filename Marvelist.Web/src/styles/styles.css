@@ -1,6 +1,13 @@
 body {
     padding-top: 40px;
-  }
+}
+#app{
+      margin-top: 15px;
+}
+.row {
+    margin-right: 0;
+    margin-left: 0;
+}
 .logo{
   width: 120px;
 }

@@ -20,19 +20,15 @@ class SeriesDetails extends React.Component {
         }
     }
     render() {
-        console.log("test");
         const comicList = this.hasComics ? this.props.seriesDetails.comics.map((x,i)=><ComicCard key={i} comic={x} />) : "";
         return (
-            <div>
-                <h1>{this.props.seriesDetails.title}</h1>
+            <div className="row"> 
                 <div className="media">
                     <div className="media-left">
-                        <a href="#">
                             <img className="media-object" src={this.props.seriesDetails.thumbnail} alt="..."/>
-                        </a>
                     </div>
                     <div className="media-body">
-                        <h4 className="media-heading">Media heading</h4>
+                        <h2 className="media-heading">{this.props.seriesDetails.title}</h2>
                         ...
                     </div>
                 </div>

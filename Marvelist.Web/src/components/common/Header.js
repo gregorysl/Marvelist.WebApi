@@ -21,9 +21,6 @@ const Header = (props) => {
         <div className="navbar-collapse collapse">
           <ul className="nav navbar-nav">
             <li>
-              <Link to="/">Home</Link>
-            </li>
-            <li>
               <Link to="/about">About</Link>
             </li>
             <li>
@@ -31,16 +28,6 @@ const Header = (props) => {
             </li>
             <li>
               <Link to="/series">Series</Link>
-            </li>
-            <li>
-              <label className="searchbox">
-                <input
-                  type="search"
-                  placeholder="Search"
-                  checked="checked"
-                  id="search-input"
-                  className="searchfield vcenter"/>
-              </label>
             </li>
           </ul>
 
