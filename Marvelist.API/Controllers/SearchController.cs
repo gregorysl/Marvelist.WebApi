@@ -1,6 +1,5 @@
 ﻿using System.Linq;
 using System.Web.Http;
-using Marvelist.API.Helpers;
 using Marvelist.Service;
 
 namespace Marvelist.API.Controllers
@@ -8,21 +7,18 @@ namespace Marvelist.API.Controllers
     public class SearchController : BasicController
     {
         private readonly ISeriesService _seriesService;
-        private readonly IUserSeriesService _userSeriesService;
 
-        public SearchController(ISeriesService servicesService, IUserSeriesService userSeriesService)
+        public SearchController(ISeriesService servicesService)
         {
             _seriesService = servicesService;
-            _userSeriesService = userSeriesService;
         }
 
         [Route("api/Search/{text}")]
         [HttpGet]
         public IHttpActionResult Search(string text)
         {
-            var series = _seriesService.GetByText(text).ToList();
-            var svm = series.ToListSeriesViewModel(_userSeriesService, UserId);
-            return Ok(svm);
+            var series = _seriesService.GetByText(text,UserId);
+            return Ok(series);
         }
     }
 }

@@ -76,7 +76,6 @@ namespace Marvelist.Service
             var isFollowing = _repository.IsFollowing(id, userId);
             return isFollowing;
         }
-
     }
 
     public interface IUserSeriesService

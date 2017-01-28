@@ -17,6 +17,7 @@ namespace Marvelist.Tests
         private ISeriesRepository _seriesRepository;
         private IUnitOfWork _unitOfWork;
         private List<Series> _series;
+        private string _userId = "";
 
         [TestInitialize]
         public void Setup()
@@ -50,7 +51,7 @@ namespace Marvelist.Tests
         public void ShouldReturnRightSeries()
         {
             const int id = 1997;
-            var series = _seriesService.GetSeriesById(id);
+            var series = _seriesService.GetSeriesById(id, _userId);
             Assert.AreEqual(_series.Find(x => x.Id == id), series);
         }
 
@@ -58,28 +59,28 @@ namespace Marvelist.Tests
         public void ShouldReturnNullForId()
         {
             const int id = 19971;
-            var series = _seriesService.GetSeriesById(id);
+            var series = _seriesService.GetSeriesById(id, _userId);
             Assert.AreEqual(null, series);
         }
 
         [TestMethod]
         public void ShouldReturnRightSeriesForYear()
         {
-            var series = _seriesService.GetByYear(2013);
+            var series = _seriesService.GetByYear(2013,_userId);
             Assert.AreEqual(1, series.Count);
         }
 
         [TestMethod]
         public void ShouldReturnEmptyListForYear()
         {
-            var series = _seriesService.GetByYear(2020);
+            var series = _seriesService.GetByYear(2020, _userId);
             Assert.AreEqual(0, series.Count);
         }
 
         [TestMethod]
         public void ShouldReturnRightSeriesForText()
         {
-            var series = _seriesService.GetByText("Guardians");
+            var series = _seriesService.GetByText("Guardians", _userId);
             Assert.AreEqual(1, series.Count);
             var firstOrDefault = series.FirstOrDefault();
             if (firstOrDefault != null)
@@ -90,7 +91,7 @@ namespace Marvelist.Tests
         [TestMethod]
         public void ShouldReturnRightSeriesForText1()
         {
-            var series = _seriesService.GetByText("Iron Man");
+            var series = _seriesService.GetByText("Iron Man", _userId);
             Assert.AreEqual(0, series.Count);
         }
     }

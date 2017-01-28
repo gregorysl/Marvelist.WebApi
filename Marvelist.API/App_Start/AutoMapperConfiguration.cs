@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
-using Marvelist.API.ViewModels;
 using Marvelist.Entities;
+using Marvelist.Entities.ViewModels;
 using Marvelous;
 using Comic = Marvelist.Entities.Comic;
 using Series = Marvelist.Entities.Series;

@@ -1,11 +1,11 @@
 ﻿using Microsoft.AspNet.Identity;
 using Microsoft.Owin.Security;
-using Marvelist.API.ViewModels;
 using System;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Http;
 using Marvelist.Entities;
+using Marvelist.Entities.ViewModels;
 
 namespace Marvelist.API.Controllers
 {

@@ -2,6 +2,9 @@ using System.Collections.Generic;
 using System.Linq;
 using Marvelist.DataAccess.Infrastructure;
 using Marvelist.Entities;
+using Marvelist.Entities.ViewModels;
+using Marvelous;
+using Series = Marvelist.Entities.Series;
 
 namespace Marvelist.DataAccess.Repositories
 {

@@ -3,6 +3,7 @@ using System.Linq;
 using Marvelist.DataAccess.Contracts;
 using Marvelist.DataAccess.Repositories;
 using Marvelist.Entities;
+using Marvelist.Entities.ViewModels;
 
 namespace Marvelist.Service
 {
@@ -28,22 +29,33 @@ namespace Marvelist.Service
         {
             return _seriesRepository.GetAll();
         }
-
-        public List<Series> GetByYear(int year)
+        
+        public List<SeriesViewModel> GetAllSeries(string userId)
         {
-            var series = _seriesRepository.GetByYear(year);
+            return _seriesRepository.GetAllSeries(userId);
+        }
+
+        public List<SeriesViewModel> GetByYear(int year, string userId)
+        {
+            var series = _seriesRepository.GetByYear(year,userId);
             return series;
         }
 
-        public List<Series> GetByText(string text)
+        public List<SeriesViewModel> GetByText(string text, string userId)
         {
-            IList<Series> series = _seriesRepository.Filter(text).ToList();
+            var series = _seriesRepository.Filter(text, userId).ToList();
             return series.ToList();
         }
 
-        public Series GetSeriesById(int id)
+        public SeriesComicsViewModel GetSeriesDetailsById(int id, string userId)
         {
-            var series = _seriesRepository.GetById(id);
+            var series = _seriesRepository.GetSeriesDetailsById(id, userId);
+            return series;
+        }
+
+        public SeriesViewModel GetSeriesById(int id, string userId)
+        {
+            var series = _seriesRepository.GetSeriesById(id, userId);
             return series;
         }
 
@@ -56,10 +68,12 @@ namespace Marvelist.Service
 
     public interface ISeriesService
     {
-        Series GetSeriesById(int id);
+        List<SeriesViewModel> GetAllSeries(string userId);
+        SeriesComicsViewModel GetSeriesDetailsById(int id, string userId);
+        SeriesViewModel GetSeriesById(int id, string userId);
         Series Add(Series series);
         List<Series> All();
-        List<Series> GetByYear(int year);
-        List<Series> GetByText(string text);
+        List<SeriesViewModel> GetByYear(int year, string userId);
+        List<SeriesViewModel> GetByText(string text, string userId);
     }
 }
