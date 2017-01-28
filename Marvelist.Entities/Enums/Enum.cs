@@ -1,4 +1,4 @@
-﻿namespace Marvelist.API.Enums
+﻿namespace Marvelist.Entities.Enums
 {
     public enum LoginActions
     {

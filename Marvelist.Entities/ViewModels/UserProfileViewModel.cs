@@ -1,4 +1,4 @@
-﻿namespace Marvelist.API.ViewModels
+﻿namespace Marvelist.Entities.ViewModels
 {
     public class UserProfileViewModel
     {

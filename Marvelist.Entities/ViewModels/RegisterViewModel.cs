@@ -1,7 +1,7 @@
-﻿using Marvelist.API.Enums;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
+using Marvelist.Entities.Enums;
 
-namespace Marvelist.API.ViewModels
+namespace Marvelist.Entities.ViewModels
 {
     public class RegisterViewModel
     {

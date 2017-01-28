@@ -1,14 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
+using Marvelous;
+using Newtonsoft.Json;
 
-namespace Marvelist.API.ViewModels
+
+namespace Marvelist.Entities.ViewModels
 {
     public class Mvm
     {
         public int Id { get; set; }
         public string Url { get; set; }
         public string Title { get; set; }
-        public string Thumbnail { get; set; }
+        public string Thumbnail { get { return ThumbnailData.ToString(Image.PortraitUncanny); } }
+        [JsonIgnore]
+        public MarvelImage ThumbnailData { get; set; }
         public string Description { get; set; }
         public bool Following { get; set; }
     }
