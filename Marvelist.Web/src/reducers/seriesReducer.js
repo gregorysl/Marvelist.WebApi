@@ -1,9 +1,9 @@
 import {FETCH_SERIES_SUCCESS, FETCH_SERIES_BY_ID_SUCCESS} from '../actions/constants';
 
-export const seriesReducer = (state = {}, action) => {
+export const seriesReducer = (state = [], action) => {
     switch (action.type) {
         case FETCH_SERIES_SUCCESS:
-            return {...state,series: action.series};
+            return action.series;
         default:
             return state;
     }
@@ -12,7 +12,7 @@ export const seriesReducer = (state = {}, action) => {
 export const seriesDetailsReducer = (state = {}, action) => {
     switch (action.type) {
         case FETCH_SERIES_BY_ID_SUCCESS:
-            return {...state, seriesDetails: action.seriesDetails};
+            return action.seriesDetails;
         default:
             return state;
     }

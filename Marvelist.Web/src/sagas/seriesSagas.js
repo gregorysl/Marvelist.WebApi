@@ -4,15 +4,8 @@ import Axios from 'axios';
 import auth from '../auth';
 import {FETCH_SERIES_BY_ID, FETCH_SERIES, FETCH_SERIES_SUCCESS, FETCH_SERIES_BY_ID_SUCCESS} from '../actions/constants';
 
-const apiUrl = "http://587f7cab402f50120072c974.mockapi.io/series";
+const apiUrl = "http://localhost/Marvelist/api/Series/y2014";
 
-function fetchSeries() {
-    return Axios
-        .get(apiUrl)
-        .catch(error => {
-            throw(error);
-        });
-}
 export function * fetchSeriesFlow() {
     for (;;) {
         yield take(FETCH_SERIES);
@@ -26,12 +19,12 @@ export function * fetchSeriesFlow() {
     }
 }
 
-export function * fetchSeriesByIdFlow(id) {
+export function * fetchSeriesByIdFlow() {
     for (;;) {
-        yield take(FETCH_SERIES_BY_ID);
+        const {id} = yield take(FETCH_SERIES_BY_ID);
         try {
             let response = yield call(fetchSeriesById, id);
-            yield put({type: FETCH_SERIES_BY_ID_SUCCESS, seriesDetails: response.data[0]});
+            yield put({type: FETCH_SERIES_BY_ID_SUCCESS, seriesDetails: response.data});
             return response;
         } catch (error) {
             let a = 1;
@@ -39,11 +32,28 @@ export function * fetchSeriesByIdFlow(id) {
     }
 }
 
-function fetchSeriesById(seriesId) {
-    const seriesUrl = 'http://58866a241fe9aa12004b7b5c.mockapi.io/seriesId';
+function fetchSeries() {
+    let head = {
+            'headers': {
+                "Content-Type": "application/x-www-form-urlencoded",
+                'Authorization': 'Bearer ' + localStorage.getItem('access_token')
+            }
+        };
     return Axios
-        .get(seriesUrl)
+        .get(apiUrl,head)
         .catch(error => {
             throw(error);
         });
+}
+function fetchSeriesById(id) {
+    const seriesUrl = "http://localhost/Marvelist/api/Series/" + id;
+    let head = {
+            'headers': {
+                "Content-Type": "application/x-www-form-urlencoded",
+                'Authorization': 'Bearer ' + localStorage.getItem('access_token')
+            }
+        };
+    return Axios.get(seriesUrl, head).catch(error => {
+        throw(error);
+    });
 }

@@ -26,7 +26,7 @@ class ComicCard extends React.Component {
                 <div className="quick-icons">
                     <div className="actions">
                         <a>
-                            <i className="fa fa-heart-o"></i>
+                            {this.props.comic.following? <i className="fa fa-heart"></i>:<i className="fa fa-heart-o"></i>}
                         </a>
                         <a href={this.props.comic.url} target="blank">
                             <i className="fa fa-external-link"></i>

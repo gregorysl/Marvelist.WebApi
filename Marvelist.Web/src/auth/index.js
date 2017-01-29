@@ -1,70 +1,63 @@
 import Axios from 'axios';
-//localStorage = global.window.localStorage;
 
 let auth = {
     login(username, password) {
-        if (auth.loggedIn()) 
-            return Promise.resolve(true);
+        // if (auth.loggedIn()) 
+        //     return Promise.resolve(true);
         
-        return request
-            .post('/login', {username, password})
+        return server
+            .login(username, password)
             .then(response => {
-              //  localStorage.token = response.token;
-                return Promise.resolve(true);
+                localStorage.setItem("access_token", response.data.access_token);
+                localStorage.setItem("username", response.data.userName);
+                return Promise.resolve(response);
             });
     },
     logout() {
-        return request.post('/logout');
+        return new Promise(resolve => {
+
+            localStorage.removeItem("access_token");
+            localStorage.removeItem("username");
+            resolve(true);
+        });
     },
     loggedIn() {
-        return true//!!localStorage.token;
+        let token = localStorage.getItem("access_token");
+        return !!token;
     },
     register(username, password) {
-        return request
-            .post('/register', {username, password})
+        return server
+            .register(username, password)
             .then(() => auth.login(username, password));
     },
     onChange() {}
 };
 
 export default auth;
-
-let request = {
-    post(endpoint, data) {
-        switch (endpoint) {
-            case '/login':
-                return server.login(data.username, data.password);
-            case '/register':
-                return server.register(data.username, data.password);
-            case '/logout':
-                return server.logout();
-            default:
-                break;
-        }
-    }
-};
-
+const api = 'http://localhost:7818/';
 let server = {
     login(username, password) {
         return new Promise((resolve, reject) => {
-            const apiUrl = "uri";
-            Axios
-                .post(apiUrl, {username, password})
-                .then(response => {
-                    if (response.status >= 200 && response.status < 300) {
-                        resolve({authenticated: true, token: response.token});
-                    }
-                })
-                .catch(error => {
-                    reject(error);
-                });
+            const apiUrl = api + "Token";
+            let querystring = require('querystring');
+
+            Axios.post(apiUrl, querystring.stringify({username, password, 'grant_type': 'password'}), {
+                headers: {
+                    "Content-Type": "application/x-www-form-urlencoded"
+                }
+            }).then(response => {
+                if (response.status >= 200 && response.status < 300) {
+                    resolve({authenticated: true, data: response.data});
+                }
+            }).catch(error => {
+                reject(error);
+            });
 
         });
     },
     register(username, password) {
         return new Promise((resolve, reject) => {
-
-            const apiUrl = "uri";
+            const apiUrl = api +'/api/Register';
             Axios
                 .post(apiUrl, {username, password})
                 .then(response => {
@@ -78,12 +71,6 @@ let server = {
                     reject(new Error('Username already in use'));
                 });
 
-        });
-    },
-    logout() {
-        return new Promise(resolve => {
-           // localStorage.removeItem('token');
-            resolve(true);
         });
     }
 };

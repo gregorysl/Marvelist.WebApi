@@ -52,16 +52,14 @@ export function* loginFlow () {
       auth: call(authorize, {username, password, isRegistering: false}),
       logout: take(LOGOUT)
     });
-
     if (winner.auth) {
-      yield put({type: SET_AUTH, newAuthState: true});
+      yield put({type: SET_AUTH, data: {newAuthState: true,username:winner.auth.data.username}});
       yield put({type: CHANGE_FORM, newFormState: {username: '', password: ''}});
-      forwardTo('/dashboard');
     } else if (winner.logout) {
       yield put({type: SET_AUTH, newAuthState: false});
       yield call(logout);
-      forwardTo('/');
     }
+      forwardTo('/');
   }
 }
 
@@ -84,7 +82,7 @@ export function* registerFlow () {
     if (wasSuccessful) {
       yield put({type: SET_AUTH, newAuthState: true});
       yield put({type: CHANGE_FORM, newFormState: {username: '', password: ''}});
-      forwardTo('/dashboard');
+      forwardTo('/');
     }
   }
 }
