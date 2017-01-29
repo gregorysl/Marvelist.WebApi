@@ -33,7 +33,7 @@ const mapStateToProps = (state, ownProps) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    fetch: bookId => dispatch(fetchSeries())
+    fetch: () => dispatch(fetchSeries())
   };
 };
 
