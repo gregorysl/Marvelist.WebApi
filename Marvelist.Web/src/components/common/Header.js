@@ -1,32 +1,43 @@
-import React from 'react';
-import {connect} from 'react-redux'
-import {Link} from 'react-router';
-import {logout} from '../../actions/userActions';
+import React, {PropTypes} from "react";
+import {connect} from "react-redux";
+import {Link} from "react-router";
+import {logout} from "../../actions/userActions";
 
 class Header extends React.Component {
   constructor(props) {
-    super(props)
+    super(props);
     this._logout = this
       ._logout
-      .bind(this)
+      .bind(this);
   }
 
+  _logout() {
+    this.props.logout();
+  }
+  
   render() {
     let url = require("../../images/logo.svg");
-    let navButtons = this.props.data.user.loggedIn
+    let navButtons = this.props.user.loggedIn
       ? (
-            <ul className="nav navbar-nav">
-        <li><Link to='/dashboard' className='btn btn--dash btn--nav'>{this.props.data.user.username}</Link></li>
-        <li><a href='#' className='btn btn--login btn--nav' onClick={this._logout}>Logout</a></li>
+        <ul className="nav navbar-nav">
+          <li>
+            <Link to="/dashboard" className="btn btn--dash btn--nav">{this.props.user.username}</Link>
+          </li>
+          <li>
+            <a href="#" className="btn btn--login btn--nav" onClick={this._logout}>Logout</a>
+          </li>
         </ul>
       )
       : (
-            <ul className="nav navbar-nav">
-        <li><Link to='/register' className='btn btn--login btn--nav'>Register</Link></li>
-        <li><Link to='/login' className='btn btn--login btn--nav'>Login</Link>
-        </li>
+        <ul className="nav navbar-nav">
+          <li>
+            <Link to="/register" className="btn btn--login btn--nav">Register</Link>
+          </li>
+          <li>
+            <Link to="/login" className="btn btn--login btn--nav">Login</Link>
+          </li>
         </ul>
-      ) //TODO
+      );
     return (
       <div className="navbar navbar-inverse navbar-fixed-top navbar-marvel">
         <div className="container">
@@ -58,15 +69,21 @@ class Header extends React.Component {
       </div>
     );
   }
-  _logout() {
-    this
-      .props
-      .dispatch(logout())
-  }
 }
 
-function select(state) {
-  return {data: state}
-}
+const mapStateToProps = (state, ownProps) => {
+  return {user: state.user};
+};
 
-export default connect(select)(Header);
+const mapDispatchToProps = (dispatch) => {
+  return {
+    logout: () => dispatch(logout())
+  };
+};
+
+Header.propTypes = {
+  user: PropTypes.object.isRequired,
+  logout: PropTypes.func.isRequired
+};
+
+export default connect(mapStateToProps,mapDispatchToProps)(Header);

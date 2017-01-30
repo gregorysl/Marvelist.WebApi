@@ -15,7 +15,7 @@ let initialState = {
   error: '',
   currentlySending: false,
   loggedIn: auth.loggedIn(),
-  username: localStorage.getItem("username")
+  username: ''
 };
 
 function userReducer (state = initialState, action) {

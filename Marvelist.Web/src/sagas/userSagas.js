@@ -41,7 +41,7 @@ export function* logout () {
   }
 }
 function forwardTo (location) {
-  browserHistory.push(location)
+  browserHistory.push(location);
 }
 
 export function* loginFlow () {

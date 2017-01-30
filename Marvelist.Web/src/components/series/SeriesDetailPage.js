@@ -27,7 +27,7 @@ class SeriesDetails extends React.Component {
                     </div>
                     <div className="media-body">
                         <h2 className="media-heading">{this.props.seriesDetails.title}</h2>
-                        ...
+                        {this.props.seriesDetails.details}
                     </div>
                 </div>
                 <div className="row cards">

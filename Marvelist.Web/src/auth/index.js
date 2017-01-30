@@ -34,7 +34,7 @@ let auth = {
 };
 
 export default auth;
-const api = 'http://localhost:7818/';
+const api = 'http://localhost/Marvelist/';
 let server = {
     login(username, password) {
         return new Promise((resolve, reject) => {
