@@ -6,12 +6,13 @@ import {
   LOGIN_REQUEST,
   REGISTER_REQUEST,
   SET_AUTH,
+  SET_USER,
   LOGOUT,
   CHANGE_FORM,
   REQUEST_ERROR
 } from '../actions/constants';
 
-export function* authorize ({username, password, isRegistering}) {
+export function * authorize({username, password, isRegistering}) {
   yield put({type: SENDING_REQUEST, sending: true});
 
   try {
@@ -30,7 +31,7 @@ export function* authorize ({username, password, isRegistering}) {
     yield put({type: SENDING_REQUEST, sending: false});
   }
 }
-export function* logout () {
+export function * logout() {
   yield put({type: SENDING_REQUEST, sending: true});
   try {
     let response = yield call(auth.logout);
@@ -40,12 +41,12 @@ export function* logout () {
     yield put({type: REQUEST_ERROR, error: error.message});
   }
 }
-function forwardTo (location) {
+function forwardTo(location) {
   browserHistory.push(location);
 }
 
-export function* loginFlow () {
-  for(;;) {
+export function * loginFlow() {
+  for (;;) {
     let request = yield take(LOGIN_REQUEST);
     let {username, password} = request.data;
     let winner = yield race({
@@ -53,18 +54,19 @@ export function* loginFlow () {
       logout: take(LOGOUT)
     });
     if (winner.auth) {
-      yield put({type: SET_AUTH, data: {newAuthState: true,username:winner.auth.data.username}});
-      yield put({type: CHANGE_FORM, newFormState: {username: '', password: ''}});
+      yield put({type: SET_AUTH,newAuthState: true});
+      yield put({type: SET_USER,username: winner.auth.data.userName});
+      yield put({type: CHANGE_FORM,newFormState: {username: '',password: ''}});
     } else if (winner.logout) {
       yield put({type: SET_AUTH, newAuthState: false});
       yield call(logout);
     }
-      forwardTo('/');
+    forwardTo('/');
   }
 }
 
-export function* logoutFlow () {
-  for(;;) {
+export function * logoutFlow() {
+  for (;;) {
     yield take(LOGOUT);
     yield put({type: SET_AUTH, newAuthState: false});
     yield call(logout);
@@ -72,8 +74,8 @@ export function* logoutFlow () {
   }
 }
 
-export function* registerFlow () {
-  for(;;) {
+export function * registerFlow() {
+  for (;;) {
     let request = yield take(REGISTER_REQUEST);
     let {username, password} = request.data;
 
@@ -81,7 +83,7 @@ export function* registerFlow () {
 
     if (wasSuccessful) {
       yield put({type: SET_AUTH, newAuthState: true});
-      yield put({type: CHANGE_FORM, newFormState: {username: '', password: ''}});
+      yield put({type: CHANGE_FORM, newFormState: {username: '',password: ''}});
       forwardTo('/');
     }
   }

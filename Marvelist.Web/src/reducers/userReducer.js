@@ -1,6 +1,7 @@
 import {
   CHANGE_FORM,
   SET_AUTH,
+  SET_USER,
   SENDING_REQUEST,
   REQUEST_ERROR,
   CLEAR_ERROR
@@ -15,7 +16,7 @@ let initialState = {
   error: '',
   currentlySending: false,
   loggedIn: auth.loggedIn(),
-  username: ''
+  username: auth.username()
 };
 
 function userReducer (state = initialState, action) {
@@ -24,6 +25,8 @@ function userReducer (state = initialState, action) {
       return {...state, formState: action.newFormState};
     case SET_AUTH:
       return {...state, loggedIn: action.newAuthState};
+    case SET_USER:
+      return {...state, username:action.username};
     case SENDING_REQUEST:
       return {...state, currentlySending: action.sending};
     case REQUEST_ERROR:

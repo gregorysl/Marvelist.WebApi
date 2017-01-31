@@ -9,13 +9,14 @@ let auth = {
             .login(username, password)
             .then(response => {
                 localStorage.setItem("access_token", response.data.access_token);
+                localStorage.setItem("expires", response.data[".expires"]);
                 localStorage.setItem("username", response.data.userName);
                 return Promise.resolve(response);
             });
     },
     logout() {
         return new Promise(resolve => {
-
+            localStorage.removeItem("expires");       
             localStorage.removeItem("access_token");
             localStorage.removeItem("username");
             resolve(true);
@@ -23,7 +24,24 @@ let auth = {
     },
     loggedIn() {
         let token = localStorage.getItem("access_token");
-        return !!token;
+        return !!token && !this.expired();
+    },
+    expired(){
+        let expiryDate = localStorage.getItem("expires");
+        let expired = !expiryDate|| (new Date(expiryDate)<new Date());
+        if(expired){
+            this.logout();
+        }
+        return expired;
+     },
+    username() {
+        let username = localStorage.getItem('username');
+        if(this.loggedIn() && username){
+            return username;
+        }
+        else{
+            return "";
+        }
     },
     register(username, password) {
         return server
