@@ -1,11 +1,19 @@
 import React, {PropTypes} from 'react';
+import {connect} from 'react-redux';
 import {Link} from 'react-router';
+import { folllowSeries} from '../../actions/seriesActions';
 
 class SeriesCard extends React.Component {
     constructor(props) {
         super(props);
+    this.toggleFollow = this
+      .toggleFollow
+      .bind(this);
     }
 
+  toggleFollow() {
+    this.props.follow(this.props.series.id);
+  }
     render() {
         const url = require("file-loader!../../images/not_found.png");
         return (
@@ -23,7 +31,7 @@ class SeriesCard extends React.Component {
                 <div className="quick-icons">
                     <div className="actions">
                         <a>
-                            {this.props.series.following? <i className="fa fa-heart"></i>:<i className="fa fa-heart-o"></i>}
+                            {this.props.series.following? <i className="fa fa-heart" ></i>:<i className="fa fa-heart-o" onClick={this.toggleFollow}></i>}
                         </a>
                         <a href={this.props.series.url} target="blank">
                             <i className="fa fa-external-link"></i>
@@ -38,7 +46,19 @@ class SeriesCard extends React.Component {
         );
     }
 }
-SeriesCard.propTypes = {
-    series: PropTypes.object.isRequired
+
+const mapStateToProps = (state, ownProps) => {
+  return {};
 };
-export default SeriesCard;
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    follow: (id) => dispatch(folllowSeries(id))
+  };
+};
+
+SeriesCard.propTypes = {
+    series: PropTypes.object.isRequired,
+  follow: PropTypes.func.isRequired
+};
+export default connect(mapStateToProps, mapDispatchToProps)(SeriesCard);
