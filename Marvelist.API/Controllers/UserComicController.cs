@@ -13,7 +13,7 @@ namespace Marvelist.API.Controllers
             _userComicService = userComicService;
         }
 
-        [HttpGet]
+        [HttpPost]
         [Route("{id:int}")]
         public IHttpActionResult Follow(int id)
         {
