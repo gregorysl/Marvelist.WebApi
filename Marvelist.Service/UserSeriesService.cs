@@ -23,20 +23,19 @@ namespace Marvelist.Service
 
         public void Add(int id, string userId)
         {
-            if (string.IsNullOrWhiteSpace(userId) || !IsFollowing(id, userId))
-            {
-                var series = _seriesRepository.GetById(id);
-                if (series == null) return;
+            if(string.IsNullOrWhiteSpace(userId))return;
+            var series = _seriesRepository.GetById(id);
+            if (series == null) return;
+            if (IsFollowing(id, userId)) return;
 
-                var userSeries = new UserSeries
-                {
-                    Date = DateTime.Now,
-                    SeriesId = id,
-                    UserId = userId
-                };
-                _repository.Add(userSeries);
-                SaveChanges();
-            }
+            var userSeries = new UserSeries
+            {
+                Date = DateTime.Now,
+                SeriesId = id,
+                UserId = userId
+            };
+            _repository.Add(userSeries);
+            SaveChanges();
         }
         public void Delete(int id, string userId)
         {

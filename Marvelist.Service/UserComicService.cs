@@ -37,20 +37,19 @@ namespace Marvelist.Service
 
         public void Add(int id, string userId)
         {
-            if (string.IsNullOrWhiteSpace(userId) || !IsFollowing(id, userId))
-            {
-                var comic = _comicRepository.GetById(id);
-                if (comic == null) return;
+            if (string.IsNullOrWhiteSpace(userId)) return;
+            var comic = _comicRepository.GetById(id);
+            if (comic == null) return;
+            if (IsFollowing(id, userId)) return;
 
-                var userComic = new UserComic
-                {
-                    Date = DateTime.Now,
-                    ComicId = id,
-                    UserId = userId
-                };
-                _repository.Add(userComic);
-                SaveChanges();
-            }
+            var userComic = new UserComic
+            {
+                Date = DateTime.Now,
+                ComicId = id,
+                UserId = userId
+            };
+            _repository.Add(userComic);
+            SaveChanges();
         }
 
         public void Delete(int id, string userId)
