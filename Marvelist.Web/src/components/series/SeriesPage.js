@@ -1,7 +1,7 @@
-import React, {PropTypes} from 'react';
-import {connect} from 'react-redux';
+import React, { PropTypes } from 'react';
+import { connect } from 'react-redux';
 import SeriesCard from '../card/SeriesCard.js';
-import {fetchSeries} from '../../actions/seriesActions';
+import { fetchSeries } from '../../actions/seriesActions';
 
 class Series extends React.Component {
   constructor(props) {
@@ -11,13 +11,13 @@ class Series extends React.Component {
   componentWillMount() {
     this.props.fetch();
   }
-    componentWillReceiveProps(nextProps){
-        if(this.props.series!==nextProps.series){
-            this.hasData = true;
-        }
+  componentWillReceiveProps(nextProps) {
+    if (this.props.series !== nextProps.series) {
+      this.hasData = true;
     }
+  }
   render() {
-    let seriesList = this.hasData ?  this.props.series.map((b, i) => <SeriesCard key={i} series={b}/>): "";
+    let seriesList = this.hasData ? this.props.series.map((b, i) => <SeriesCard key={i} series={b} />) : "";
     return (
       <div className="row cards">
         <h3>Series</h3>
@@ -28,7 +28,7 @@ class Series extends React.Component {
 }
 
 const mapStateToProps = (state, ownProps) => {
-  return {series: state.series};
+  return { series: state.series };
 };
 
 const mapDispatchToProps = (dispatch) => {

@@ -1,7 +1,7 @@
-import React, {PropTypes} from "react";
-import {connect} from "react-redux";
-import {Link} from "react-router";
-import {logout} from "../../actions/userActions";
+import React, { PropTypes } from "react";
+import { connect } from "react-redux";
+import { Link } from "react-router";
+import { logout } from "../../actions/userActions";
 
 class Header extends React.Component {
   constructor(props) {
@@ -14,7 +14,7 @@ class Header extends React.Component {
   _logout() {
     this.props.logout();
   }
-  
+
   render() {
     let url = require("../../images/logo.svg");
     let navButtons = this.props.user.loggedIn
@@ -51,7 +51,7 @@ class Header extends React.Component {
               <span className="icon-bar"></span>
               <span className="icon-bar"></span>
             </button>
-            <a href="/"><img className="logo" src ={url}/></a>
+            <a href="/"><img className="logo" src={url} /></a>
           </div>
           <div className="navbar-collapse collapse">
             <ul className="nav navbar-nav">
@@ -72,7 +72,7 @@ class Header extends React.Component {
 }
 
 const mapStateToProps = (state, ownProps) => {
-  return {user: state.user};
+  return { user: state.user };
 };
 
 const mapDispatchToProps = (dispatch) => {
@@ -86,4 +86,4 @@ Header.propTypes = {
   logout: PropTypes.func.isRequired
 };
 
-export default connect(mapStateToProps,mapDispatchToProps)(Header);
+export default connect(mapStateToProps, mapDispatchToProps)(Header);
