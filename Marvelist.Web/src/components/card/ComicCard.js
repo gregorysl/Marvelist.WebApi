@@ -1,18 +1,23 @@
-import React, {PropTypes} from 'react';
-import {Link} from 'react-router';
+import React, { PropTypes } from 'react';
+import { connect } from 'react-redux';
+import ActionsBar from './ActionsBar';
 
 class ComicCard extends React.Component {
     constructor(props) {
         super(props);
+        this.toggleFollow = this.toggleFollow.bind(this);
     }
 
+    toggleFollow() {
+        this.props.follow(this.props.comic.id);
+    }
     render() {
         const url = require("file-loader!../../images/not_found.png");
         return (
             <div className="series-card col-sm-3 col-xs-4">
                 <div className="cover">
-                    <img className="base" src={url}/>
-                    <img className="real" src={`${this.props.comic.thumbnail}`}/>
+                    <img className="base" src={url} />
+                    <img className="real" src={`${this.props.comic.thumbnail}`} />
                     <div className="shadow-base"></div>
                     <div className="titles">
                         <h3>{this.props.comic.title}</h3>
@@ -23,21 +28,22 @@ class ComicCard extends React.Component {
                     <span className="month">Aug</span>
                     <span className="year">2016</span>
                 </div>
-                <div className="quick-icons">
-                    <div className="actions">
-                        <a>
-                            {this.props.comic.following? <i className="fa fa-heart"></i>:<i className="fa fa-heart-o"></i>}
-                        </a>
-                        <a href={this.props.comic.url} target="blank">
-                            <i className="fa fa-external-link"></i>
-                        </a>
-                    </div>
-                </div>
+                <ActionsBar click={this.toggleFollow} {...this.props.comic} />
             </div>
         );
     }
 }
-ComicCard.propTypes = {
-    comic: PropTypes.object.isRequired
+const mapStateToProps = (state, ownProps) => {
+    return {};
 };
-export default ComicCard;
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        follow: (id) => null //dispatch(folllowSeries(id))
+    };
+};
+ComicCard.propTypes = {
+    comic: PropTypes.object.isRequired,
+    follow: PropTypes.func.isRequired
+};
+export default connect(mapStateToProps, mapDispatchToProps)(ComicCard);
