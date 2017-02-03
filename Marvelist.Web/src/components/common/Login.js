@@ -2,25 +2,36 @@ import React, { PropTypes } from "react";
 import { Link } from "react-router";
 import { connect } from "react-redux";
 import { loginRequest } from "../../actions/userActions";
-import Form from "./Form";
 
 class Login extends React.Component {
     constructor(props) {
         super(props);
+        this.state = { username: '', password: '' };
+        this.handleChange = this.handleChange.bind(this);
+        this._onSubmit = this._onSubmit.bind(this);
     }
 
+    _onSubmit(event) {
+        event.preventDefault();
+        this.props.login(this.state.username, this.state.password);
+    }
+    handleChange(event) {
+        const target = event.target;
+        const value = target.value;
+        const name = target.id;
+
+        this.setState({ [name]: value });
+    }
     render() {
-        let {currentlySending, error} = this.props.data;
-
-
         return (
-            <div className="form-page__wrapper">
-                <div className="form-page__form-wrapper">
-                    <div className="form-page__form-header">
-                        <h2 className="form-page__form-heading">Login</h2>
-                    </div>
-                    <Form history={this.props.history} onSubmit={this.props.login} btnText={"Login"} error={error} currentlySending={currentlySending} />
-                </div>
+            <div>
+                <form className="form-signin" onSubmit={this._onSubmit}>
+                    <h2 className="form-signin-heading">Please login</h2>
+                    <input type="text" className="form-control" id="username" value={this.state.username} onChange={this.handleChange} placeholder="Username" autoFocus="" />
+                    <input type="password" className="form-control" id="password" value={this.state.password} onChange={this.handleChange} placeholder="Password" />
+                    <button className="btn btn-lg btn-primary btn-block" type="submit">Login</button>
+                </form>
+
             </div>
         );
     }
