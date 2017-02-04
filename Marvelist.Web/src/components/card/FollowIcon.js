@@ -8,6 +8,7 @@ const FollowIcon = (props) => {
         </a>
     );
 };
+
 FollowIcon.propTypes = {
     click: PropTypes.func.isRequired,
     following: PropTypes.bool.isRequired

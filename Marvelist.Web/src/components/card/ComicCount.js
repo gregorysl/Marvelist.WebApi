@@ -1,4 +1,4 @@
-import React, {PropTypes} from 'react';
+import React, { PropTypes } from 'react';
 
 const ComicCount = (props) => {
     if (!props.count) {
@@ -12,7 +12,7 @@ const ComicCount = (props) => {
     );
 };
 ComicCount.propTypes = {
-    count : PropTypes.number
+    count: PropTypes.number
 };
 
 export default ComicCount;
