@@ -7,7 +7,6 @@ class Series extends React.Component {
   constructor(props) {
     super(props);
     this.hasData = false;
-    this.toggleFollow = this.toggleFollow.bind(this);
   }
   componentWillMount() {
     this.props.fetch();
@@ -17,11 +16,9 @@ class Series extends React.Component {
       this.hasData = true;
     }
   }
-  toggleFollow() {
-    this.props.follow(this.props.series.id);
-  }
   render() {
-    const seriesList = this.hasData ? this.props.series.map((b, i) => <Card key={i} toggleFollow={this.toggleFollow} data={b} seriesLink />) : "";
+  let {follow} = this.props;
+    const seriesList = this.hasData ? this.props.series.map((b, i) => <Card key={i} follow={follow} data={b} seriesLink />) : "";
     return (
       <div className="row cards">
         <h3>Series</h3>

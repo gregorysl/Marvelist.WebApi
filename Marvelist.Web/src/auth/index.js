@@ -2,9 +2,9 @@ import Axios from 'axios';
 
 let auth = {
     login(username, password) {
-        // if (auth.loggedIn()) 
-        //     return Promise.resolve(true);
-        
+        if (auth.loggedIn())
+            return Promise.resolve(true);
+
         return server
             .login(username, password)
             .then(response => {
@@ -16,7 +16,7 @@ let auth = {
     },
     logout() {
         return new Promise(resolve => {
-            localStorage.removeItem("expires");       
+            localStorage.removeItem("expires");
             localStorage.removeItem("access_token");
             localStorage.removeItem("username");
             resolve(true);
@@ -26,29 +26,23 @@ let auth = {
         let token = localStorage.getItem("access_token");
         return !!token && !this.expired();
     },
-    expired(){
+    expired() {
         let expiryDate = localStorage.getItem("expires");
-        let expired = !expiryDate|| (new Date(expiryDate)<new Date());
-        if(expired){
+        let expired = !expiryDate || (new Date(expiryDate) < new Date());
+        if (expired) {
             this.logout();
         }
         return expired;
-     },
+    },
     username() {
         let username = localStorage.getItem('username');
-        if(this.loggedIn() && username){
-            return username;
-        }
-        else{
-            return "";
-        }
+        return this.loggedIn() && username ? username : "";
     },
     register(username, password) {
         return server
             .register(username, password)
             .then(() => auth.login(username, password));
-    },
-    onChange() {}
+    }
 };
 
 export default auth;
@@ -59,13 +53,13 @@ let server = {
             const apiUrl = api + "Token";
             let querystring = require('querystring');
 
-            Axios.post(apiUrl, querystring.stringify({username, password, 'grant_type': 'password'}), {
+            Axios.post(apiUrl, querystring.stringify({ username, password, 'grant_type': 'password' }), {
                 headers: {
                     "Content-Type": "application/x-www-form-urlencoded"
                 }
             }).then(response => {
                 if (response.status >= 200 && response.status < 300) {
-                    resolve({authenticated: true, data: response.data});
+                    resolve({ authenticated: true, data: response.data });
                 }
             }).catch(error => {
                 reject(error);
@@ -75,13 +69,13 @@ let server = {
     },
     register(username, password) {
         return new Promise((resolve, reject) => {
-            const apiUrl = api +'/api/Register';
+            const apiUrl = api + '/api/Register';
             Axios
-                .post(apiUrl, {username, password})
+                .post(apiUrl, { username, password })
                 .then(response => {
                     if (response.status >= 200 && response.status < 300) {
 
-                        resolve({registered: true});
+                        resolve({ registered: true });
                         //resolve({authenticated: true, token: response.token});
                     }
                 })

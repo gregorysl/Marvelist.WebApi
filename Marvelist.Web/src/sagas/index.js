@@ -1,6 +1,6 @@
 import { fork } from 'redux-saga/effects';
 import { loginFlow, logoutFlow, registerFlow } from './userSagas';
-import { fetchSeriesByIdFlow, fetchSeriesFlow, followSeriesFlow } from './seriesSagas';
+import { fetchSeriesByIdFlow, fetchSeriesFlow, followSeriesFlow, followComicFlow } from './seriesSagas';
 
 
 
@@ -10,5 +10,6 @@ export default [
   fork(registerFlow),
   fork(fetchSeriesByIdFlow),
   fork(fetchSeriesFlow),
-  fork(followSeriesFlow)
+  fork(followSeriesFlow),
+  fork(followComicFlow)
 ];
