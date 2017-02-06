@@ -16,6 +16,10 @@ namespace Marvelist.Entities.ViewModels
         public MarvelImage ThumbnailData { get; set; }
         public string Description { get; set; }
         public bool Following { get; set; }
+        public override string ToString()
+        {
+            return $"{Title} {Following}";
+        }
     }
     public class SeriesViewModel : Mvm
     {

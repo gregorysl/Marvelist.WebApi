@@ -58,6 +58,11 @@ namespace Marvelist.Service
             var series = _seriesRepository.GetSeriesById(id, userId);
             return series;
         }
+        public List<ComicsViewModel> GetHomeComics(string userId)
+        {
+            var series = _seriesRepository.GetHomeComics(userId);
+            return series;
+        }
 
         public void SaveChanges()
         {
@@ -75,5 +80,6 @@ namespace Marvelist.Service
         List<Series> All();
         List<SeriesViewModel> GetByYear(int year, string userId);
         List<SeriesViewModel> GetByText(string text, string userId);
+        List<ComicsViewModel> GetHomeComics(string userId);
     }
 }

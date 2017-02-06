@@ -14,5 +14,9 @@ namespace Marvelist.Entities
         public string Url { get; set; }
         public string Title { get; set; }
         public MarvelImage Thumbnail { get; set; }
+        public override string ToString()
+        {
+            return Title;
+        }
     }
 }

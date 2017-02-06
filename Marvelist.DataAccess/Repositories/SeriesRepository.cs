@@ -13,6 +13,68 @@ namespace Marvelist.DataAccess.Repositories
 
         }
 
+
+        public ComicsViewModel GetNextComics(int id, string user)
+        {
+            var uc = DataContext.UserComics.Where(x => x.UserId == user).Select(x => x.ComicId);
+            var seriesId = DataContext.Comics.FirstOrDefault(x => x.Id == id).SeriesId;
+            var results = DataContext.Comics.Where(c => c.SeriesId ==seriesId && !uc.Contains(c.Id)).OrderBy(c => c.Date)
+                .Select(c => new ComicsViewModel
+                {
+                    Date = c.Date,
+                    Description = c.Description,
+                    DiamondCode = c.DiamondCode,
+                    EAN = c.EAN,
+                    Id = c.Id,
+                    Title = c.Title,
+                    IssueNumber = c.IssueNumber,
+                    ThumbnailData = c.Thumbnail,
+                    Url = c.Url,
+                    Following = DataContext.UserComics.Any(comic => comic.ComicId == c.Id && comic.UserId == user),
+                    ISBN = c.ISBN,
+                    ISSN = c.ISSN,
+                    PageCount = c.PageCount,
+                    Price = c.Price,
+                    UPC = c.UPC
+
+                })
+                .OrderBy(c => c.Date)
+                .FirstOrDefault();
+            return results;
+        }
+
+        public List<ComicsViewModel> GetHomeComics(string user)
+        {
+            var uc = DataContext.UserComics.Where(x => x.UserId == user).Select(x => x.ComicId);
+            var us = DataContext.UserSeries.Where(x => x.UserId == user).Select(x => x.SeriesId);
+
+            var results = DataContext.Comics.Where(c => us.Contains(c.SeriesId) && !uc.Contains(c.Id))
+                .GroupBy(x => x.SeriesId)
+                .Select(x => x.OrderBy(c => c.Date).FirstOrDefault())
+                .Select(c => new ComicsViewModel
+                {
+                    Date = c.Date,
+                    Description = c.Description,
+                    DiamondCode = c.DiamondCode,
+                    EAN = c.EAN,
+                    Id = c.Id,
+                    Title = c.Title,
+                    IssueNumber = c.IssueNumber,
+                    ThumbnailData = c.Thumbnail,
+                    Url = c.Url,
+                    Following = DataContext.UserComics.Any(comic => comic.ComicId == c.Id && comic.UserId == user),
+                    ISBN = c.ISBN,
+                    ISSN = c.ISSN,
+                    PageCount = c.PageCount,
+                    Price = c.Price,
+                    UPC = c.UPC
+
+                })
+                .OrderBy(c => c.Date)
+                .ToList();
+            return results;
+        }
+
         public SeriesComicsViewModel GetSeriesDetailsById(int id, string userId)
         {
             var series = DataContext.Series.FirstOrDefault(x => x.Id == id);
@@ -96,5 +158,6 @@ namespace Marvelist.DataAccess.Repositories
         List<SeriesViewModel> Filter(string text, string userId);
         List<SeriesViewModel> GetByYear(int year, string userId);
         List<SeriesViewModel> GetAllSeries(string userId);
+        List<ComicsViewModel> GetHomeComics(string userId);
     }
 }

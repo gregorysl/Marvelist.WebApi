@@ -17,7 +17,15 @@ namespace Marvelist.API.Controllers
         [HttpGet]
         public IHttpActionResult Search(string text)
         {
-            var series = _seriesService.GetByText(text,UserId);
+            var series = _seriesService.GetByText(text, UserId);
+            return Ok(series);
+        }
+
+        [Route("api/Search/")]
+        [HttpGet]
+        public IHttpActionResult Hemo()
+        {
+            var series = _seriesService.GetHomeComics(UserId);
             return Ok(series);
         }
     }
