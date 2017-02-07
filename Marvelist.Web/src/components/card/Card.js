@@ -14,7 +14,7 @@ class Card extends React.Component {
     render() {
         return (
             <div className="series-card col-sm-3 col-xs-4">
-                <Cover seriesLink={this.props.seriesLink} {...this.props.data} />
+                <Cover seriesLink={this.props.seriesLink} homeLink={this.props.homeLink} {...this.props.data} />
                 {this.props.data.date && <CoverDate comicDate={this.props.data.date} />}
                 <ActionsBar click={this.handleClick} {...this.props.data} />
             </div>
@@ -28,6 +28,7 @@ Card.propTypes = {
     toggleFollow: PropTypes.func,
     follow: PropTypes.func.isRequired,
     seriesLink: PropTypes.bool,
+    homeLink: PropTypes.bool,
     data: PropTypes.object.isRequired
 };
 
