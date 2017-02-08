@@ -20,7 +20,7 @@ export function* fetchSeriesFlow() {
 } export function* fetchHomeFlow() {
     for (; ;) {
         yield take(FETCH_HOME_COMICS);
-        let response = yield call(fetchSeries, "Search/");
+        let response = yield call(fetchSeries, "Comics/");
         yield put({ type: FETCH_HOME_COMICS_SUCCESS, homeComics: response.data });
     }
 }
@@ -47,7 +47,7 @@ export function* followComicFlow() {
         const {id} = yield take(FOLLOW_COMIC);
         const url = apiUrl + "FollowC/" + id;
         yield call(post, url, id);
-        let response = yield call(fetchSeries, "Search/");
+        let response = yield call(fetchSeries, "Comics/");
         yield put({ type: FETCH_HOME_COMICS_SUCCESS, homeComics: response.data });
     }
 }
