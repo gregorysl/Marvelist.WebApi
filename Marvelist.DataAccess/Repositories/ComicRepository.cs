@@ -25,10 +25,22 @@ namespace Marvelist.DataAccess.Repositories
             var series = DataContext.Series.FirstOrDefault(x => x.Id == id);
             return series?.Comics.OrderBy(x=>x.IssueNumber).ToList() ?? new List<Comic>();
         }
+        public List<Comic> GetHomeComics(string user)
+        {
+            var uc = DataContext.UserComics.Where(x => x.UserId == user).Select(x => x.ComicId);
+            var us = DataContext.UserSeries.Where(x => x.UserId == user).Select(x => x.SeriesId);
+
+            var results = DataContext.Comics.Where(c => us.Contains(c.SeriesId) && !uc.Contains(c.Id))
+                .GroupBy(x => x.SeriesId, (id, series) => series.OrderBy(c => c.Date).FirstOrDefault())
+                .OrderBy(c => c.Date)
+                .ToList();
+            return results;
+        }
     }
     public interface IComicRepository : IRepository<Comic>
     {
         List<Comic> Filter(string text);
         List<Comic> GetForSeriesId(int id);
+        List<Comic> GetHomeComics(string userId);
     }
 }

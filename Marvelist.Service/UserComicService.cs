@@ -67,6 +67,12 @@ namespace Marvelist.Service
             return comics;
         }
 
+        public List<int> GetAllFollowingId(string id)
+        {
+            var ids = _repository.GetAllFollowingId(id);
+            return ids;
+        }
+
         public bool IsFollowing(int id, string userId)
         {
             if (string.IsNullOrEmpty(userId)) return false;
@@ -88,6 +94,7 @@ namespace Marvelist.Service
         void AddAll(List<int> comicsList, string userId);
         void DeleteAllForSeries(int seriesId, string userId);
         List<Comic> GetAllFollowing(string id);
+        List<int> GetAllFollowingId(string id);
         bool IsFollowing(int id, string userId);
     }
 }

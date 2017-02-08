@@ -1,5 +1,4 @@
-﻿using System.Linq;
-using System.Web.Http;
+﻿using System.Web.Http;
 using Marvelist.Service;
 
 namespace Marvelist.API.Controllers
@@ -18,14 +17,6 @@ namespace Marvelist.API.Controllers
         public IHttpActionResult Search(string text)
         {
             var series = _seriesService.GetByText(text, UserId);
-            return Ok(series);
-        }
-
-        [Route("api/Search/")]
-        [HttpGet]
-        public IHttpActionResult Hemo()
-        {
-            var series = _seriesService.GetHomeComics(UserId);
             return Ok(series);
         }
     }

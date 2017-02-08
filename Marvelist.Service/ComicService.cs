@@ -11,12 +11,18 @@ namespace Marvelist.Service
     {
         private readonly IComicRepository _comicRepository;
         private readonly IUnitOfWork _unitOfWork;
+
         public ComicService(IComicRepository comicRepository, IUnitOfWork unitOfWork)
         {
             _comicRepository = comicRepository;
             _unitOfWork = unitOfWork;
         }
 
+        public List<Comic> GetHomeComics(string userId)
+        {
+            var comics = _comicRepository.GetHomeComics(userId);
+            return comics;
+        }
 
         public Comic Add(Comic comic)
         {
@@ -38,7 +44,8 @@ namespace Marvelist.Service
 
         public List<Comic> GetComicsForWeek(DateTime weekStart, DateTime weekEnd)
         {
-            var comics = _comicRepository.Query(x => x.Date > weekStart && x.Date < weekEnd).OrderBy(x => x.Title).ToList();
+            var comics =
+                _comicRepository.Query(x => x.Date > weekStart && x.Date < weekEnd).OrderBy(x => x.Title).ToList();
             return comics;
         }
 
@@ -62,5 +69,6 @@ namespace Marvelist.Service
         List<Comic> All();
         List<Comic> GetComicsForSeriesId(int id);
         List<Comic> GetComicsForWeek(DateTime weekStart, DateTime weekEnd);
+        List<Comic> GetHomeComics(string userId);
     }
 }

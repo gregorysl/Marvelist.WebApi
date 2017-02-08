@@ -57,27 +57,8 @@ namespace Marvelist.API
             };
 
             app.UseExternalSignInCookie(DefaultAuthenticationTypes.ExternalCookie);
-
             app.UseOAuthAuthorizationServer(oAuthServerOptions);
             app.UseOAuthBearerAuthentication(new OAuthBearerAuthenticationOptions());
-
-            //app.UseOAuthBearerTokens(oAuthServerOptions);
-
-
-
-
-
-            //OAuthAuthorizationServerOptions OAuthServerOptions = new OAuthAuthorizationServerOptions()
-            //{
-
-            //    AllowInsecureHttp = true,
-            //    TokenEndpointPath = new PathString("/token"),
-            //    AccessTokenExpireTimeSpan = TimeSpan.FromMinutes(30),
-            //    Provider = new SimpleAuthorizationServerProvider(),
-            //    RefreshTokenProvider = new SimpleRefreshTokenProvider()
-            //};
-
-            // Token Generation
         }
 
         public static void ConfigureIoc(HttpConfiguration config)
@@ -95,6 +76,7 @@ namespace Marvelist.API
             //SERVICES
             containerBuilder.RegisterType<UserService>().As<IUserService>().InstancePerRequest();
             containerBuilder.RegisterType<SeriesService>().As<ISeriesService>().InstancePerRequest();
+            containerBuilder.RegisterType<ComicService>().As<IComicService>().InstancePerRequest();
             containerBuilder.RegisterType<UserSeriesService>().As<IUserSeriesService>().InstancePerRequest();
             containerBuilder.RegisterType<UserComicService>().As<IUserComicService>().InstancePerRequest();
 

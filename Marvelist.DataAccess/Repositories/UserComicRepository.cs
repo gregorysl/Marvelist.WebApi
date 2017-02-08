@@ -21,6 +21,10 @@ namespace Marvelist.DataAccess.Repositories
         {
             return DataContext.UserComics.Where(x => x.UserId == id).Select(x => x.Comic).ToList();
         }
+        public List<int> GetAllFollowingId(string id)
+        {
+            return DataContext.UserComics.Where(x => x.UserId == id).Select(x => x.ComicId).ToList();
+        }
 
         public void DeleteByComicId(int comicId, string userId)
         {
@@ -38,6 +42,7 @@ namespace Marvelist.DataAccess.Repositories
     {
         bool IsFollowing(int id, string userId);
         List<Comic> GetAllFollowing(string id);
+        List<int> GetAllFollowingId(string id);
         void DeleteByComicId(int comicId, string userId);
         List<int> FilterFollowed(List<int> id, string userId);
     }

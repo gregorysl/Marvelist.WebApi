@@ -11,7 +11,8 @@ namespace Marvelist.Entities.ViewModels
         public int Id { get; set; }
         public string Url { get; set; }
         public string Title { get; set; }
-        public string Thumbnail { get { return ThumbnailData.ToString(Image.PortraitUncanny); } }
+        public string Thumbnail => ThumbnailData.ToString(Image.PortraitUncanny);
+
         [JsonIgnore]
         public MarvelImage ThumbnailData { get; set; }
         public string Description { get; set; }
@@ -31,6 +32,7 @@ namespace Marvelist.Entities.ViewModels
     }
     public class ComicsViewModel : Mvm
     {
+        public int SeriesId { get; set; }
         public int IssueNumber { get; set; }
         public string ISBN { get; set; }
         public string UPC { get; set; }
