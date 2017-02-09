@@ -2,6 +2,7 @@ import React, { PropTypes } from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router";
 import { logout } from "../../actions/userActions";
+import Search from "./Search";
 
 class Header extends React.Component {
   constructor(props) {
@@ -62,6 +63,9 @@ class Header extends React.Component {
                 <Link to="/series">Series</Link>
               </li>
               {navButtons}
+              <li>
+                <Search />
+              </li>
             </ul>
 
           </div>
