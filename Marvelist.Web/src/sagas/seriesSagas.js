@@ -45,7 +45,7 @@ export function* searchFlow() {
         const url = apiUrl + "Search/" + text;
         let response = yield call(get, url);
 debugger;
-        yield put({ type: consts.SEARCH_SUCCESS, seriesDetails: response.data });
+        yield put({ type: consts.SEARCH_SUCCESS, series: response.data });
         forwardTo('/Search/'+text);
     }
 }

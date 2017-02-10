@@ -6,10 +6,12 @@ import { fetchSeries, folllowSeries } from '../../actions/seriesActions';
 class Series extends React.Component {
   constructor(props) {
     super(props);
+    debugger;
     this.hasData = false;
   }
   componentWillMount() {
-    this.props.fetch();
+    if(!this.props.params.text)
+      this.props.fetch();
   }
   componentWillReceiveProps(nextProps) {
     if (this.props.series !== nextProps.series) {
