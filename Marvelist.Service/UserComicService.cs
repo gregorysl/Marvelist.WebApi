@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Marvelist.DataAccess.Contracts;
 using Marvelist.DataAccess.Repositories;
 using Marvelist.Entities;
+using Marvelist.Entities.ViewModels;
 
 namespace Marvelist.Service
 {
@@ -73,6 +74,11 @@ namespace Marvelist.Service
             return ids;
         }
 
+        public List<ComicsViewModel> GetAllFollowingForSeriesId(int seriesId, string userId)
+        {
+            return _repository.GetAllFollowingForSeriesId(seriesId, userId);
+        }
+
         public bool IsFollowing(int id, string userId)
         {
             if (string.IsNullOrEmpty(userId)) return false;
@@ -95,6 +101,7 @@ namespace Marvelist.Service
         void DeleteAllForSeries(int seriesId, string userId);
         List<Comic> GetAllFollowing(string id);
         List<int> GetAllFollowingId(string id);
+        List<ComicsViewModel> GetAllFollowingForSeriesId(int seriesId,string userId);
         bool IsFollowing(int id, string userId);
     }
 }

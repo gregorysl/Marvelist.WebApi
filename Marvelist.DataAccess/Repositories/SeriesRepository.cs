@@ -13,42 +13,6 @@ namespace Marvelist.DataAccess.Repositories
 
         }
 
-        public SeriesComicsViewModel GetSeriesDetailsById(int id, string userId)
-        {
-            var series = DataContext.Series.FirstOrDefault(x => x.Id == id);
-
-            return series == null
-                ? null
-                : new SeriesComicsViewModel
-                {
-                    Id = series.Id,
-                    Description = series.Description,
-                    Following = DataContext.UserSeries.Any(us => us.SeriesId == series.Id && us.UserId == userId),
-                    ThumbnailData = series.Thumbnail,
-                    Title = series.Title,
-                    Url = series.Url,
-                    Comics = series.Comics.OrderBy(x => x.IssueNumber).Select(c => new ComicsViewModel
-                    {
-                        Date = c.Date,
-                        Description = c.Description,
-                        DiamondCode = c.DiamondCode,
-                        EAN = c.EAN,
-                        Id = c.Id,
-                        Title = c.Title,
-                        IssueNumber = c.IssueNumber,
-                        ThumbnailData = c.Thumbnail,
-                        Url = c.Url,
-                        Following = DataContext.UserComics.Any(comic => comic.ComicId == c.Id && comic.UserId == userId),
-                        ISBN = c.ISBN,
-                        ISSN = c.ISSN,
-                        PageCount = c.PageCount,
-                        Price = c.Price,
-                        UPC = c.UPC
-
-                    }).ToList()
-                };
-        }
-
         public SeriesViewModel GetSeriesById(int id, string userId)
         {
             var series = DataContext.Series.Where(x => x.Id == id);
@@ -92,7 +56,6 @@ namespace Marvelist.DataAccess.Repositories
 
     public interface ISeriesRepository : IRepository<Series>
     {
-        SeriesComicsViewModel GetSeriesDetailsById(int id, string userId);
         SeriesViewModel GetSeriesById(int id, string userId);
         List<SeriesViewModel> Filter(string text, string userId);
         List<SeriesViewModel> GetByYear(int year, string userId);

@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Marvelist.DataAccess.Infrastructure;
 using Marvelist.Entities;
+using Marvelist.Entities.ViewModels;
 
 namespace Marvelist.DataAccess.Repositories
 {
@@ -11,7 +12,7 @@ namespace Marvelist.DataAccess.Repositories
         {
 
         }
-        
+
         public bool IsFollowing(int id, string userId)
         {
             return DataContext.UserComics.Any(x => x.UserId == userId && x.ComicId == id);
@@ -37,6 +38,30 @@ namespace Marvelist.DataAccess.Repositories
             var contains = DataContext.UserComics.Where(x => toFilter.Contains(x.ComicId)).Select(x => x.Id);
             return toFilter.Except(contains).ToList();
         }
+
+        public List<ComicsViewModel> GetAllFollowingForSeriesId(int seriesId, string userId)
+        {
+            var comics = DataContext.Comics.Where(x => x.SeriesId == seriesId).Select(c => new ComicsViewModel
+            {
+                Date = c.Date,
+                Description = c.Description,
+                DiamondCode = c.DiamondCode,
+                EAN = c.EAN,
+                Id = c.Id,
+                Title = c.Title,
+                IssueNumber = c.IssueNumber,
+                ThumbnailData = c.Thumbnail,
+                Url = c.Url,
+                Following = DataContext.UserComics.Any(x => x.UserId == userId && x.ComicId == c.Id),
+                ISBN = c.ISBN,
+                ISSN = c.ISSN,
+                PageCount = c.PageCount,
+                Price = c.Price,
+                UPC = c.UPC,
+                SeriesId = c.SeriesId
+            }).OrderBy(x=>x.IssueNumber).ToList();
+            return comics;
+        }
     }
     public interface IUserComicRepository : IRepository<UserComic>
     {
@@ -45,5 +70,6 @@ namespace Marvelist.DataAccess.Repositories
         List<int> GetAllFollowingId(string id);
         void DeleteByComicId(int comicId, string userId);
         List<int> FilterFollowed(List<int> id, string userId);
+        List<ComicsViewModel> GetAllFollowingForSeriesId(int seriesId, string userId);
     }
 }
