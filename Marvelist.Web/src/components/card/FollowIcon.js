@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react';
 
 const FollowIcon = (props) => {
-    const classFollowing = `fa fa-heart${props.following ? "" : "-o"}`;
+    const classFollowing = `fa fa-check-square${props.following ? "" : "-o"}`;
     return (
         <a>
             <i className={classFollowing} onClick={props.click}></i>

@@ -7,9 +7,7 @@ import Search from "./Search";
 class Header extends React.Component {
   constructor(props) {
     super(props);
-    this._logout = this
-      ._logout
-      .bind(this);
+    this._logout = this._logout.bind(this);
   }
 
   _logout() {
@@ -52,7 +50,7 @@ class Header extends React.Component {
               <span className="icon-bar"></span>
               <span className="icon-bar"></span>
             </button>
-            <a href="/"><img className="logo" src={url} /></a>
+            <Link to="/"><img className="logo" src={url} /></Link>
           </div>
           <div className="navbar-collapse collapse">
             <ul className="nav navbar-nav">
