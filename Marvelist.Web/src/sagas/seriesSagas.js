@@ -11,7 +11,9 @@ export function* fetchSeriesFlow() {
         let response = yield call(fetchSeries, "Series/y2014");
         yield put({ type: consts.FETCH_SERIES_SUCCESS, series: response.data });
     }
-} export function* fetchHomeFlow() {
+}
+
+export function* fetchHomeFlow() {
     for (; ;) {
         yield take(consts.FETCH_HOME_COMICS);
         let response = yield call(fetchSeries, "Comics/");
@@ -52,6 +54,18 @@ export function* followComicFlow() {
         yield call(post, url, id);
         let response = yield call(fetchSeries, "Comics/");
         yield put({ type: consts.FETCH_HOME_COMICS_SUCCESS, homeComics: response.data });
+    }
+}
+
+export function* readAllComicsFlow() {
+    for (; ;) {
+        const {seriesId} = yield take(consts.READ_ALL_COMIC);
+        const url = apiUrl + "FollowC/all" + seriesId;
+        yield call(post, url, seriesId);
+        debugger
+        const url2 = apiUrl + "Series/" + seriesId;
+        let response = yield call(get, url2, seriesId);
+        yield put({ type: consts.FETCH_SERIES_BY_ID_SUCCESS, seriesDetails: response.data });
     }
 }
 

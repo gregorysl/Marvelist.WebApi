@@ -171,3 +171,52 @@ body {
   border-top-left-radius: 0;
   border-top-right-radius: 0;
 }
+
+progress[value] {
+    /* Get rid of the default appearance */
+    appearance: none;
+    
+    /* This unfortunately leaves a trail of border behind in Firefox and Opera. We can remove that by setting the border to none. */
+    border: none;
+    
+    /* Add dimensions */
+    width: 100%; height: 20px;
+    
+      background-color: #f0141e;
+    
+      color: #f0141e;
+    
+    position: relative;
+    margin: 0 0 1.5em; 
+}
+
+progress[value]::-webkit-progress-bar {
+    background-color: white;
+    border: 1px solid #f0141e;
+}
+
+progress[value]::-webkit-progress-value {
+
+      background-color: #f0141e;
+    
+      color: #f0141e;
+    
+    
+}
+
+
+.progress {
+  border-radius: 0;
+  box-shadow: none;
+  border: 1px solid black;
+  background-color: #faafb3;
+}
+.progress-bar-new {
+  background-color: #f0141e;
+}
+.progress span {
+  text-align: center;
+  width: 100%;
+  color: black;
+  font-size: 14px;
+}

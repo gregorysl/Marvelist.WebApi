@@ -10,8 +10,8 @@ export const seriesReducer = (state = [], action) => {
             return state;
     }
 };
-
-export const seriesDetailsReducer = (state = {}, action) => {
+const initialDetailState = { "comicCount": 0, "read": 0, "comics": [], "id": 0, "url": "", "title": "", "thumbnail": "", "description": null, "following": true };
+export const seriesDetailsReducer = (state = initialDetailState, action) => {
     switch (action.type) {
         case FETCH_SERIES_BY_ID_SUCCESS:
             return action.seriesDetails;
