@@ -1,16 +1,19 @@
 import React, { PropTypes } from 'react';
+import { PLACE } from '../../actions/constants';
 
 const Title = (props) => {
     let title = "";
-    if (props.seriesLink) {
-        title = (<a href={`/Series/${props.id}`}>{props.title}</a>);
+    switch (props.link) {
+        case PLACE.HOME:
+            title = (<a href={`/Series/${props.seriesId}`}>{props.title}</a>);
+            break;
+        case PLACE.SERIES:
+            title = (<a href={`/Series/${props.id}`}>{props.title}</a>);
+            break;
+        default:
+            title = (props.title);
+            break;
     }
-    else if (props.homeLink) {
-        title = (<a href={`/Series/${props.seriesId}`}>{props.title}</a>);
-    } else {
-        title = (props.title);
-    }
-
     return (
         <div className="titles">
             <h3>
@@ -21,8 +24,7 @@ const Title = (props) => {
 };
 
 Title.propTypes = {
-    seriesLink: PropTypes.bool,
-    homeLink: PropTypes.bool,
+    link: PropTypes.number,
     id: PropTypes.number,
     seriesId: PropTypes.number,
     title: PropTypes.string.isRequired

@@ -2,6 +2,7 @@ import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 import Card from '../card/Card';
 import { fetchHome, folllowComic } from '../../actions/seriesActions';
+import { PLACE } from '../../actions/constants';
 
 class HomePage extends React.Component {
   constructor(props) {
@@ -21,7 +22,7 @@ class HomePage extends React.Component {
 
   render() {
     let {follow} = this.props;
-    const comics = this.hasData ? this.props.home.map((b, i) => <Card key={i} follow={follow} data={b} homeLink />) : "";
+    const comics = this.hasData ? this.props.home.map((b, i) => <Card key={i} follow={follow} data={b} link={PLACE.HOME} />) : "";
     return (
       <div className="row cards">
         {comics}

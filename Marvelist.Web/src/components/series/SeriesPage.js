@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import Card from '../card/Card';
 import TextHeader from './TextHeader';
 import { fetchSeries, folllowSeries, search } from '../../actions/seriesActions';
+import { PLACE } from '../../actions/constants';
 
 class Series extends React.Component {
   constructor(props) {
@@ -32,7 +33,7 @@ class Series extends React.Component {
   }
   render() {
     let {follow} = this.props;
-    const seriesList = this.props.series.map((b, i) => <Card key={i} follow={follow} data={b} seriesLink />);
+    const seriesList = this.props.series.map((b, i) => <Card key={i} follow={follow} data={b} link={PLACE.SERIES} />);
     return (
       <div className="row cards">
         <TextHeader text={this.props.params.text} />
