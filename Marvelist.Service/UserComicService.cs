@@ -85,7 +85,7 @@ namespace Marvelist.Service
             var isFollowing = _repository.IsFollowing(id, userId);
             return isFollowing;
         }
-        
+
         public void SaveChanges()
         {
             _unitOfWork.SaveChanges();
@@ -101,8 +101,7 @@ namespace Marvelist.Service
         void DeleteAllForSeries(int seriesId, string userId);
         List<Comic> GetAllFollowing(string id);
         List<int> GetAllFollowingId(string id);
-        List<ComicsViewModel> GetAllFollowingForSeriesId(int seriesId,string userId);
+        List<ComicsViewModel> GetAllFollowingForSeriesId(int seriesId, string userId);
         bool IsFollowing(int id, string userId);
     }
 }
-    

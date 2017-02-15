@@ -1,4 +1,5 @@
-﻿using System.Web.Http;
+﻿using System.Linq;
+using System.Web.Http;
 using Marvelist.Service;
 
 namespace Marvelist.API.Controllers
@@ -7,10 +8,12 @@ namespace Marvelist.API.Controllers
     public class UserComicController : BasicController
     {
         private readonly IUserComicService _userComicService;
+        private readonly IComicService _comicService;
 
-        public UserComicController(IUserComicService userComicService)
+        public UserComicController(IUserComicService userComicService, IComicService comicService)
         {
             _userComicService = userComicService;
+            _comicService = comicService;
         }
 
         [HttpPost]
@@ -25,6 +28,16 @@ namespace Marvelist.API.Controllers
             {
                 _userComicService.Add(id, UserId);
             }
+            return Ok();
+        }
+
+
+        [HttpPost]
+        [Route("all{seriesId:int}")]
+        public IHttpActionResult FollowAll(int seriesId)
+        {
+            var comics = _comicService.GetComicsForSeriesId(seriesId).Select(x => x.Id).ToList();
+            _userComicService.AddAll(comics,UserId);
             return Ok();
         }
     }
