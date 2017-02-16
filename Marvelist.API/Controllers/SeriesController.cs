@@ -17,13 +17,15 @@ namespace Marvelist.API.Controllers
             _userComic = userComic;
         }
 
+        [HttpGet]
         [Route("api/Series")]
         public IHttpActionResult GetAll()
         {
             var series = _series.GetAllSeries(UserId);
             return Ok(series);
         }
-        
+
+        [HttpGet]
         [Route("api/Series/{id:int}")]
         public IHttpActionResult GetById(int id)
         {
@@ -45,10 +47,19 @@ namespace Marvelist.API.Controllers
             return Ok(results);
         }
 
+        [HttpGet]
         [Route("api/Series/y{year:int}")]
         public IHttpActionResult GetByYear(int year)
         {
             var series = _series.GetByYear(year,UserId);
+            return Ok(series);
+        }
+
+        [HttpGet]
+        [Route("api/dashboard")]
+        public IHttpActionResult Dashboard()
+        {
+            var series = _series.GetAllFollowedSeries(UserId);
             return Ok(series);
         }
         //Todo: New comics

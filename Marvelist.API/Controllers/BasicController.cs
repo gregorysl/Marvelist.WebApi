@@ -16,7 +16,8 @@ namespace Marvelist.API.Controllers
             {
                 var identity = (ClaimsIdentity) RequestContext.Principal.Identity;
                 var claim = identity.Claims.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier);
-                return claim == null ? "" : claim.Value;
+                //return claim == null ? "" : claim.Value;
+                return "3ac97d04-ebd6-4699-9fb4-6320b25a9321";
             }
         }
     }

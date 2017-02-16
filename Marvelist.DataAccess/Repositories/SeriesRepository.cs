@@ -24,6 +24,23 @@ namespace Marvelist.DataAccess.Repositories
             var seriesViewModels = ToSeriesViewModel(DataContext.Series, userId);
             return seriesViewModels;
         }
+        public List<SeriesComicsViewModel> GetAllFollowedSeries(string userId)
+        {
+            var series = DataContext.UserSeries.Where(x => x.UserId == userId).Select(x =>
+            new SeriesComicsViewModel
+            {
+                Id = x.Id,
+                Description = x.Series.Description,
+                Following = true,
+                ThumbnailData = x.Series.Thumbnail,
+                Title = x.Series.Title,
+                Url = x.Series.Url,
+                ComicCount = x.Series.Comics.Count,
+                //Read = x.Series.Comics.Count(x => x.Following) TODO
+            }).ToList();
+            
+            return series;
+        }
 
         public List<SeriesViewModel> Filter(string text, string userId)
         {
@@ -56,6 +73,7 @@ namespace Marvelist.DataAccess.Repositories
 
     public interface ISeriesRepository : IRepository<Series>
     {
+        List<SeriesComicsViewModel> GetAllFollowedSeries(string userId);
         SeriesViewModel GetSeriesById(int id, string userId);
         List<SeriesViewModel> Filter(string text, string userId);
         List<SeriesViewModel> GetByYear(int year, string userId);

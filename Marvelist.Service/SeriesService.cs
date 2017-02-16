@@ -40,6 +40,10 @@ namespace Marvelist.Service
         {
             return _seriesRepository.GetAllSeries(userId);
         }
+        public List<SeriesComicsViewModel> GetAllFollowedSeries(string userId)
+        {
+            return _seriesRepository.GetAllFollowedSeries(userId);
+        }
 
         public List<SeriesViewModel> GetByYear(int year, string userId)
         {
@@ -69,6 +73,7 @@ namespace Marvelist.Service
     public interface ISeriesService
     {
         List<SeriesViewModel> GetAllSeries(string userId);
+        List<SeriesComicsViewModel> GetAllFollowedSeries(string userId);
         SeriesViewModel GetSeriesById(int id, string userId);
         Series GetById(int id);
         Series Add(Series series);
