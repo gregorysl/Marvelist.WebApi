@@ -36,8 +36,8 @@ namespace Marvelist.DataAccess.Repositories
                 Title = x.Series.Title,
                 Url = x.Series.Url,
                 ComicCount = x.Series.Comics.Count,
-                //Read = x.Series.Comics.Count(x => x.Following) TODO
-            }).ToList();
+                Read = DataContext.UserComics.Count(c=>x.Series.Comics.Select(s=>s.Id).Contains(c.ComicId)) 
+            }).OrderBy(x=>x.Title).ToList();
             
             return series;
         }
@@ -52,7 +52,7 @@ namespace Marvelist.DataAccess.Repositories
 
         public List<SeriesViewModel> GetByYear(int year, string userId)
         {
-            var series = DataContext.Series.Where(x => x.StartYear == year).OrderBy(x => x.StartYear);
+            var series = DataContext.Series.Where(x => x.StartYear == year);
             return ToSeriesViewModel(series, userId);
         }
 
@@ -67,7 +67,7 @@ namespace Marvelist.DataAccess.Repositories
                 ThumbnailData = c.Thumbnail,
                 Title = c.Title,
                 Url = c.Url
-            }).ToList();
+            }).OrderBy(x=>x.Title).ToList();
         }
     }
 

@@ -27,14 +27,7 @@ namespace Marvelist.Tests
             _unitOfWork = new Mock<IUnitOfWork>().Object;
             _seriesService = new SeriesService(_seriesRepository, _unitOfWork);
         }
-
-        [TestMethod]
-        public void ShouldReturnAllSeries()
-        {
-            var series = _seriesService.All();
-            Assert.AreEqual(_series, series);
-        }
-
+        
         [TestMethod]
         public void ShouldAddNewSeries()
         {

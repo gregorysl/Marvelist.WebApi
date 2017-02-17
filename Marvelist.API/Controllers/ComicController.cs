@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using System.Web.Http;
 using Marvelist.Entities.ViewModels;
 using Marvelist.Service;
@@ -16,7 +15,7 @@ namespace Marvelist.API.Controllers
             _comicService = comicService;
             _userComicService = userComicService;
         }
-        
+
         [Route("api/Comics/")]
         [HttpGet]
         public IHttpActionResult HomeComics()
@@ -41,7 +40,7 @@ namespace Marvelist.API.Controllers
                 Price = c.Price,
                 UPC = c.UPC,
                 SeriesId = c.SeriesId
-            }).ToList();
+            }).OrderBy(c => c.Date).ThenBy(c => c.Title).ToList();
             return Ok(results);
         }
     }

@@ -30,12 +30,7 @@ namespace Marvelist.Service
             SaveChanges();
             return series;
         }
-
-        public List<Series> All()
-        {
-            return _seriesRepository.GetAll();
-        }
-
+        
         public List<SeriesViewModel> GetAllSeries(string userId)
         {
             return _seriesRepository.GetAllSeries(userId);
@@ -77,7 +72,6 @@ namespace Marvelist.Service
         SeriesViewModel GetSeriesById(int id, string userId);
         Series GetById(int id);
         Series Add(Series series);
-        List<Series> All();
         List<SeriesViewModel> GetByYear(int year, string userId);
         List<SeriesViewModel> GetByText(string text, string userId);
     }
