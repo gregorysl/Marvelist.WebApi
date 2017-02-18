@@ -7,8 +7,8 @@ const apiUrl = "http://localhost/Marvelist/api/";
 
 export function* fetchSeriesFlow() {
     for (; ;) {
-        yield take(consts.FETCH_SERIES);
-        let response = yield call(fetchSeries, "Series/y2014");
+        let {url} = yield take(consts.FETCH_SERIES);
+        let response = yield call(fetchSeries, url);
         yield put({ type: consts.FETCH_SERIES_SUCCESS, series: response.data });
     }
 }
@@ -44,16 +44,21 @@ export function* followSeriesFlow() {
         const {id} = yield take(consts.FOLLOW_SERIES);
         const url = apiUrl + "FollowS/" + id;
         let response = yield call(post, url, id);
+        yield put({ type: consts.FETCH_SERIES_BY_ID, id });
     }
 }
 
 export function* followComicFlow() {
     for (; ;) {
-        const {id} = yield take(consts.FOLLOW_COMIC);
+        const {id, home, seriesId} = yield take(consts.FOLLOW_COMIC);
         const url = apiUrl + "FollowC/" + id;
         yield call(post, url, id);
-        let response = yield call(fetchSeries, "Comics/");
-        yield put({ type: consts.FETCH_HOME_COMICS_SUCCESS, homeComics: response.data });
+        if (home) {
+            yield put({ type: consts.FETCH_HOME_COMICS });
+        } else {
+            yield put({ type: consts.FETCH_SERIES_BY_ID, id:seriesId });
+
+        }
     }
 }
 
