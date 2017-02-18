@@ -8,31 +8,32 @@ import { PLACE } from '../../actions/constants';
 class Series extends React.Component {
   constructor(props) {
     super(props);
+    this.state = { showFollowed:false };
   }
   componentWillMount() {
-
-    if (!this.props.params.text) {
-      this.props.fetch();
-    }
-    else {
-      this.props.search(this.props.params.text);
-    }
+    if (this.props.route.path === "/dashboard" || this.props.route.path === "/series") {
+        this.props.fetch(this.props.route.path);
+      }
+      else if (this.props.params.text) {
+        this.props.search(this.props.params.text);
+      }
   }
   componentDidMount() {
   }
 
   componentWillReceiveProps(nextProps) {
     if (this.props.params != nextProps.params) {
-      if (!nextProps.params.text) {
-        this.props.fetch();
+      if (nextProps.route.path === "/dashboard" || nextProps.route.path === "/series") {
+        nextProps.fetch(nextProps.route.path);
       }
-      else {
+      else if (nextProps.params.text) {
         nextProps.search(nextProps.params.text);
       }
     }
   }
   render() {
     let {follow} = this.props;
+    //.filter(x=>this.state.showFollowed || x.following==this.state.showFollowed)
     const seriesList = this.props.series.map((b, i) => <Card key={i} follow={follow} data={b} link={PLACE.SERIES} />);
     return (
       <div className="row cards">
@@ -49,7 +50,7 @@ const mapStateToProps = (state, ownProps) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    fetch: () => dispatch(fetchSeries()),
+    fetch: (text) => dispatch(fetchSeries(text)),
     search: (text) => dispatch(search(text)),
     follow: (id) => dispatch(folllowSeries(id))
   };
@@ -59,7 +60,9 @@ Series.propTypes = {
   series: PropTypes.array.isRequired,
   fetch: PropTypes.func.isRequired,
   follow: PropTypes.func.isRequired,
-  params: PropTypes.shape({ text: PropTypes.string }).isRequired
+  search: PropTypes.func.isRequired,
+  params: PropTypes.shape({ text: PropTypes.string }).isRequired,
+  route: PropTypes.shape({ path: PropTypes.string }).isRequired
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Series);

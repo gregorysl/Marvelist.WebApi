@@ -9,7 +9,7 @@ class Card extends React.Component {
         this.handleClick = this.handleClick.bind(this);
     }
     handleClick() {
-        this.props.follow(this.props.data.id);
+        this.props.follow(this.props.data.id, this.props.data.seriesId);
     }
     render() {
         return (
@@ -21,8 +21,6 @@ class Card extends React.Component {
         );
     }
 }
-
-
 
 Card.propTypes = {
     toggleFollow: PropTypes.func,

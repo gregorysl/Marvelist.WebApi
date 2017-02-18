@@ -15,5 +15,6 @@ export default (
     <Route path="/series" component={Series} />
     <Route path="/search/:text" component={Series} />
     <Route path="/series/:id" component={SeriesDetails} />
+    <Route path="/dashboard" component={Series} />
   </Route>
 );

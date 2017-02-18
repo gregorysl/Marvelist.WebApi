@@ -48,5 +48,4 @@ HomePage.propTypes = {
   follow: PropTypes.func.isRequired
 };
 
-
 export default connect(mapStateToProps, mapDispatchToProps)(HomePage);
