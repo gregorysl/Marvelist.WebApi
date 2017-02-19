@@ -11,25 +11,24 @@ class Series extends React.Component {
     this.state = { showFollowed:false };
   }
   componentWillMount() {
-    if (this.props.route.path === "/dashboard" || this.props.route.path === "/series") {
-        this.props.fetch(this.props.route.path);
-      }
-      else if (this.props.params.text) {
-        this.props.search(this.props.params.text);
-      }
+      this.getData(this.props);
   }
   componentDidMount() {
   }
 
   componentWillReceiveProps(nextProps) {
     if (this.props.params != nextProps.params) {
-      if (nextProps.route.path === "/dashboard" || nextProps.route.path === "/series") {
-        nextProps.fetch(nextProps.route.path);
-      }
-      else if (nextProps.params.text) {
-        nextProps.search(nextProps.params.text);
-      }
+      this.getData(nextProps);
     }
+  }
+  getData(props){
+      if (props.route.path === "/dashboard" || props.route.path === "/series") {
+        props.fetch(props.route.path);
+      }
+      else if (props.params.text) {
+        props.search(props.params.text);
+      }
+    
   }
   render() {
     let {follow} = this.props;

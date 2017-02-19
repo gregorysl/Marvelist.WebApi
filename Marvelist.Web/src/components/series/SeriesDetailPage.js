@@ -32,9 +32,9 @@ class SeriesDetails extends React.Component {
                     <div className="media-body">
                         <h2 className="media-heading">{this.props.seriesDetails.title}</h2>
                         {this.props.seriesDetails.details}
-                        <ProgressBar percent={percent} />
+                        <ProgressBar percent={percent} following={this.props.seriesDetails.following} />
                         <FollowButton following={this.props.seriesDetails.following} click={folllowSeries} id={this.props.seriesDetails.id} />
-                        <ReadAllButton percent={percent} click={readAllComic}  id={this.props.seriesDetails.id} />
+                        <ReadAllButton following={this.props.seriesDetails.following} percent={percent} click={readAllComic} id={this.props.seriesDetails.id} />
                     </div>
                 </div>
                 <div className="row cards">
@@ -65,7 +65,7 @@ const mapDispatchToProps = (dispatch) => {
         fetchById: seriesId => dispatch(fetchSeriesById(seriesId)),
         folllowSeries: seriesId => dispatch(folllowSeries(seriesId)),
         readAllComic: seriesId => dispatch(readAllComic(seriesId)),
-        follow: comicId => dispatch(folllowComic(comicId))
+        follow: (comicId, seriesId) => dispatch(folllowComic(comicId, false, seriesId))
     };
 };
 

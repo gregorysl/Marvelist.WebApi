@@ -41,10 +41,15 @@ export function* searchFlow() {
 
 export function* followSeriesFlow() {
     for (; ;) {
-        const {id} = yield take(consts.FOLLOW_SERIES);
+        const {id, detailPage} = yield take(consts.FOLLOW_SERIES);
         const url = apiUrl + "FollowS/" + id;
         let response = yield call(post, url, id);
-        yield put({ type: consts.FETCH_SERIES_BY_ID, id });
+        if (detailPage) {
+            yield put({ type: consts.FETCH_SERIES_BY_ID, id });
+        }
+        else { 
+            yield put({ type: consts.FOLLOW_SERIES_SUCCESS, id });            
+        }
     }
 }
 
@@ -56,7 +61,7 @@ export function* followComicFlow() {
         if (home) {
             yield put({ type: consts.FETCH_HOME_COMICS });
         } else {
-            yield put({ type: consts.FETCH_SERIES_BY_ID, id:seriesId });
+            yield put({ type: consts.FETCH_SERIES_BY_ID, id: seriesId });
 
         }
     }
