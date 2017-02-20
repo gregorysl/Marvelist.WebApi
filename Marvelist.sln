@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
+VisualStudioVersion = 14.0.25123.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Marvelist.Tests", "Marvelist.Tests\Marvelist.Tests.csproj", "{5BC8F634-736C-42FE-A200-CF8E4CF8960F}"
 EndProject
@@ -12,10 +12,6 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Marvelist.Service", "Marvelist.Service\Marvelist.Service.csproj", "{D015EC0D-DE98-47D7-B31C-9A4FE435EA59}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Marvelist.API", "Marvelist.API\Marvelist.API.csproj", "{96093264-9F83-4489-ADBE-9A25FC0D40F2}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tools", "Tools", "{A837EB17-2B3C-4E34-A85E-1655CFA5D411}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JsonToSqlInsertParser", "JsonToSqlInsertParser\JsonToSqlInsertParser.csproj", "{9BF0B543-6427-4D36-8FC3-64BD3BC6B289}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -43,15 +39,8 @@ Global
 		{96093264-9F83-4489-ADBE-9A25FC0D40F2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{96093264-9F83-4489-ADBE-9A25FC0D40F2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{96093264-9F83-4489-ADBE-9A25FC0D40F2}.Release|Any CPU.Build.0 = Release|Any CPU
-		{9BF0B543-6427-4D36-8FC3-64BD3BC6B289}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{9BF0B543-6427-4D36-8FC3-64BD3BC6B289}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{9BF0B543-6427-4D36-8FC3-64BD3BC6B289}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{9BF0B543-6427-4D36-8FC3-64BD3BC6B289}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
-	EndGlobalSection
-	GlobalSection(NestedProjects) = preSolution
-		{9BF0B543-6427-4D36-8FC3-64BD3BC6B289} = {A837EB17-2B3C-4E34-A85E-1655CFA5D411}
 	EndGlobalSection
 EndGlobal

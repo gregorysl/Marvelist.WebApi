@@ -7,11 +7,12 @@ class ReadAllButton extends React.Component {
     }
 
     handleClick() {
+        debugger;
         this.props.click(this.props.id);
     }
 
+
     render() {
-        if (!this.props.following) return null;
         const disabled = this.props.percent == 100 ? "btn disabled" : "btn ";
         return (
             <button onClick={this.handleClick} className={disabled}>Mark all as read</button>
@@ -22,8 +23,7 @@ class ReadAllButton extends React.Component {
 ReadAllButton.propTypes = {
     percent: PropTypes.number.isRequired,
     click: PropTypes.func.isRequired,
-    id: PropTypes.number.isRequired,
-    following: PropTypes.bool.isRequired
+    id: PropTypes.number.isRequired
 };
 
 export default ReadAllButton;
