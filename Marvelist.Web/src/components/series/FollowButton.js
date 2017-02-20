@@ -7,7 +7,7 @@ class FollowButton extends React.Component {
     }
 
     handleClick() {
-        this.props.click(this.props.id);
+        this.props.click(this.props.id, true);
     }
 
     render() {

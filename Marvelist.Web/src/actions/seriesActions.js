@@ -12,8 +12,8 @@ export const fetchSeriesById = (id) => {
   return { type: FETCH_SERIES_BY_ID, id };
 };
 
-export const folllowSeries = (id) => {
-  return { type: FOLLOW_SERIES, id };
+export const folllowSeries = (id, detailPage) => {
+  return { type: FOLLOW_SERIES, id, detailPage };
 };
 
 export const folllowComic = (id, home, seriesId) => {
