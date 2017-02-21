@@ -6,7 +6,13 @@
         xmlns:local="clr-namespace:JsonToSqlInsertParser"
         mc:Ignorable="d"
         Title="MainWindow" Height="350" Width="525">
-    <Grid>
-        
-    </Grid>
+    <StackPanel>
+        <StackPanel Margin="5" Orientation="Horizontal">
+            <TextBlock VerticalAlignment="Center">Input file:</TextBlock>
+            <TextBox Width="200"></TextBox>
+            <Button>Browse</Button>
+            <TextBlock VerticalAlignment="Center">Data type:</TextBlock>
+            <ComboBox></ComboBox>
+        </StackPanel>
+    </StackPanel>
 </Window>
