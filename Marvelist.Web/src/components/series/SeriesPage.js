@@ -8,36 +8,47 @@ import { PLACE } from '../../actions/constants';
 class Series extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { showFollowed:false };
+    this.filterBoxChange = this.filterBoxChange.bind(this);
+    this.state = { showFollowed: true };
   }
+
   componentWillMount() {
-    if (this.props.route.path === "/dashboard" || this.props.route.path === "/series") {
-        this.props.fetch(this.props.route.path);
-      }
-      else if (this.props.params.text) {
-        this.props.search(this.props.params.text);
-      }
+    this.getData(this.props);
   }
-  componentDidMount() {
-  }
+
 
   componentWillReceiveProps(nextProps) {
     if (this.props.params != nextProps.params) {
-      if (nextProps.route.path === "/dashboard" || nextProps.route.path === "/series") {
-        nextProps.fetch(nextProps.route.path);
-      }
-      else if (nextProps.params.text) {
-        nextProps.search(nextProps.params.text);
-      }
+      this.getData(nextProps);
     }
+  }
+
+  getData(props) {
+    if (props.route.path === "/dashboard" || props.route.path === "/series") {
+      props.fetch(props.route.path);
+    }
+    else if (props.params.text) {
+      props.search(props.params.text);
+    }
+
+  }
+  filterBoxChange() {
+    this.setState({ ...this.state, showFollowed: !this.state.showFollowed });
+
+  }
+  getFilteredSeries() {
+    return this.state.showFollowed ? this.props.series : this.props.series.filter(x => x.following == false);
   }
   render() {
     let {follow} = this.props;
-    //.filter(x=>this.state.showFollowed || x.following==this.state.showFollowed)
-    const seriesList = this.props.series.map((b, i) => <Card key={i} follow={follow} data={b} link={PLACE.SERIES} />);
+    const seriesList = this.getFilteredSeries().map((b, i) => <Card key={i} follow={follow} data={b} link={PLACE.SERIES} />);
     return (
       <div className="row cards">
         <TextHeader text={this.props.params.text} />
+        <div className="paper-toggle">
+          <input type="checkbox" id="toggle" name="toggle" onChange={this.filterBoxChange} checked={this.state.showFollowed} />
+          <label htmlFor="toggle">Show following series</label>
+        </div>
         {seriesList}
       </div>
     );
