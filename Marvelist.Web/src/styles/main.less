@@ -1,16 +1,17 @@
-body {
-    padding-top: 40px;
+@body-background:green;
+
+html{
+    min-height:100%;/* make sure it is at least as tall as the viewport */
+    position:relative;
 }
-#app{
-      margin-top: 15px;
+body{
+    height:100%; /* force the BODY element to match the height of the HTML element */
 }
-.row {
-    margin-right: 0;
-    margin-left: 0;
-}
+
 .logo{
-  width: 120px;
+  height: 50px;
 }
+
 
 .cards>div {
     padding: 0;
@@ -172,51 +173,14 @@ body {
   border-top-right-radius: 0;
 }
 
-progress[value] {
-    /* Get rid of the default appearance */
-    appearance: none;
-    
-    /* This unfortunately leaves a trail of border behind in Firefox and Opera. We can remove that by setting the border to none. */
-    border: none;
-    
-    /* Add dimensions */
-    width: 100%; height: 20px;
-    
-      background-color: #f0141e;
-    
-      color: #f0141e;
-    
-    position: relative;
-    margin: 0 0 1.5em; 
-}
-
-progress[value]::-webkit-progress-bar {
-    background-color: white;
-    border: 1px solid #f0141e;
-}
-
-progress[value]::-webkit-progress-value {
-
-      background-color: #f0141e;
-    
-      color: #f0141e;
-    
-    
-}
 
 
-.progress {
-  border-radius: 0;
-  box-shadow: none;
-  border: 1px solid black;
-  background-color: #faafb3;
+.ant-layout-header {
+    height: 50px;
+    line-height: 50px;
 }
-.progress-bar-new {
-  background-color: #f0141e;
-}
-.progress span {
-  text-align: center;
-  width: 100%;
-  color: black;
-  font-size: 14px;
+
+.ant-menu {
+    height: 50px;
+    line-height: 50px;
 }
