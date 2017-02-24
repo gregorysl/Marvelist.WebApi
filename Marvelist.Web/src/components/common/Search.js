@@ -2,33 +2,23 @@ import React, { PropTypes } from "react";
 import { Link, browserHistory } from "react-router";
 import { connect } from "react-redux";
 import { search } from "../../actions/seriesActions";
+import { Input } from 'antd';
 
-class Search extends React.Component {
+const Search = Input.Search;
+class SearchBar extends React.Component {
     constructor(props) {
         super(props);
-        this.state = { text: '' };
-        this.handleChange = this.handleChange.bind(this);
-        this._onSubmit = this._onSubmit.bind(this);
+        this.onSearch = this.onSearch.bind(this);
     }
 
-    _onSubmit(event) {
-        event.preventDefault();
-        browserHistory.push('/Search/' + this.state.text);
-    }
-    handleChange(event) {
-        this.setState({ text: event.target.value });
+    onSearch(value) {
+        browserHistory.push('/search/' + value);
     }
     render() {
         return (
-                <form onSubmit={this._onSubmit}>
-                    <input type="text" className="form-control" id="text" value={this.state.text} onChange={this.handleChange} placeholder="Search" />
-                </form>
+            <Search placeholder="Search" style={{ width: 200 }} onSearch={this.onSearch} />
         );
     }
 }
 
-Search.propTypes = {
-};
-
-
-export default Search;
+export default SearchBar;
