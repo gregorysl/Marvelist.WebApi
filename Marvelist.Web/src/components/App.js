@@ -1,13 +1,20 @@
-import React, {PropTypes} from 'react';
-import Header from './common/Header';
+import React, { PropTypes } from 'react';
+import HeaderMy from './common/Header';
+import { Layout, Menu, Breadcrumb } from 'antd';
+const { Header, Content, Footer } = Layout;
 
 class App extends React.Component {
   render() {
     return (
-      <div className="container">
-        <Header/>
+      <Layout className="layout">
+        <Header>
+          <HeaderMy />
+        </Header>
+        <Content style={{ padding:"0 50px"}}>
         {this.props.children}
-      </div>
+        </Content>
+      </Layout>
+
     );
   }
 }

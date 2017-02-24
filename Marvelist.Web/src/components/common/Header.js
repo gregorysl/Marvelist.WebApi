@@ -2,9 +2,11 @@ import React, { PropTypes } from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router";
 import { logout } from "../../actions/userActions";
-import Search from "./Search";
+import SearchBar from "./Search";
+import { Menu, Input } from 'antd';
 
-class Header extends React.Component {
+
+class HeaderMy extends React.Component {
   constructor(props) {
     super(props);
     this._logout = this._logout.bind(this);
@@ -18,56 +20,28 @@ class Header extends React.Component {
     let url = require("../../images/logo.svg");
     let navButtons = this.props.user.loggedIn
       ? (
-        <ul className="nav navbar-nav">
-          <li>
-            <Link to="/dashboard" className="btn btn--dash btn--nav">{this.props.user.username}</Link>
-          </li>
-          <li>
-            <a href="#" className="btn btn--login btn--nav" onClick={this._logout}>Logout</a>
-          </li>
-        </ul>
+        <Menu theme="dark" mode="horizontal" defaultSelectedKeys={['2']} >
+          <Menu.Item><Link to="/dashboard" >{this.props.user.username}</Link></Menu.Item>
+          <Menu.Item><a href="#"  onClick={this._logout}>Logout</a></Menu.Item>
+        </Menu>
       )
       : (
-        <ul className="nav navbar-nav">
-          <li>
-            <Link to="/register" className="btn btn--login btn--nav">Register</Link>
-          </li>
-          <li>
-            <Link to="/login" className="btn btn--login btn--nav">Login</Link>
-          </li>
-        </ul>
+        <Menu theme="dark" mode="horizontal" defaultSelectedKeys={['2']} >
+          <Menu.Item><Link to="/register">Register</Link></Menu.Item>
+          <Menu.Item><Link to="/login">Login</Link></Menu.Item>
+        </Menu>
       );
     return (
-      <div className="navbar navbar-inverse navbar-fixed-top navbar-marvel">
-        <div className="container">
-          <div className="navbar-header">
-            <button
-              type="button"
-              className="navbar-toggle"
-              data-toggle="collapse"
-              data-target=".navbar-collapse">
-              <span className="icon-bar"></span>
-              <span className="icon-bar"></span>
-              <span className="icon-bar"></span>
-            </button>
-            <Link to="/"><img className="logo" src={url} /></Link>
-          </div>
-          <div className="navbar-collapse collapse">
-            <ul className="nav navbar-nav">
-              <li>
-                <Link to="/about">About</Link>
-              </li>
-              <li>
-                <Link to="/series">Series</Link>
-              </li>
-              {navButtons}
-              <li>
-                <Search />
-              </li>
-            </ul>
-
-          </div>
-        </div>
+      <div style={{ display: 'flex' }}>
+        <Link to="/"><img className="logo" src={url} /></Link>
+        <Menu theme="dark" mode="horizontal" defaultSelectedKeys={['2']} style={{ flex: '1' }} >
+          <Menu.Item><Link to="/series">Series</Link></Menu.Item>
+          <Menu.Item><Link to="/about">About</Link></Menu.Item>
+          <Menu.Item>
+            <SearchBar />
+          </Menu.Item>
+        </Menu>
+        {navButtons}
       </div>
     );
   }
@@ -83,9 +57,9 @@ const mapDispatchToProps = (dispatch) => {
   };
 };
 
-Header.propTypes = {
+HeaderMy.propTypes = {
   user: PropTypes.object.isRequired,
   logout: PropTypes.func.isRequired
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Header);
+export default connect(mapStateToProps, mapDispatchToProps)(HeaderMy);
