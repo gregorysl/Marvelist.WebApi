@@ -1,13 +1,10 @@
 import React, { PropTypes } from 'react';
+import { Progress } from 'antd';
 
 const ProgressBar = (props) => {
     if (!props.following) return null;
     return (
-        <div className="progress">
-            <div className="progress-bar progress-bar-new" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style={{ width: props.percent + "%" }}>
-                <span>{props.percent}%</span>
-            </div>
-        </div>
+        <Progress trailColor='black' type="circle" percent={props.percent} />
     );
 };
 

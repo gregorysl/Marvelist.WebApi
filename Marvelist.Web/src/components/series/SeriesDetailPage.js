@@ -22,7 +22,7 @@ class SeriesDetails extends React.Component {
     render() {
         let {follow, folllowSeries, readAllComic} = this.props;
         const comicList = this.props.seriesDetails.comics.map((x, i) => <Card key={i} follow={follow} data={x} />);
-        let percent = (this.props.seriesDetails.read / this.props.seriesDetails.comicCount) * 100;
+        let percent = Math.round((this.props.seriesDetails.read / this.props.seriesDetails.comicCount) * 100* 100) / 100;
         return (
             <div className="row">
                 <div className="media">
