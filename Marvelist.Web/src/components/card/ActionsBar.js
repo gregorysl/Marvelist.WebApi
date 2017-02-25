@@ -3,8 +3,9 @@ import FollowIcon from './FollowIcon';
 import ComicCount from './ComicCount';
 
 const ActionsBar = (props) => {
+    const barColor = `quick-icons ${props.following ? "" : "red"}`;
     return (
-        <div className="quick-icons">
+        <div className={barColor}>
             <div className="actions">
                 <FollowIcon following={props.following} click={props.click} />
                 <a href={props.url} target="blank">
