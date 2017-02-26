@@ -1,4 +1,5 @@
 import React, { PropTypes } from 'react';
+import { Button } from 'antd';
 
 class FollowButton extends React.Component {
     constructor(props) {
@@ -13,10 +14,10 @@ class FollowButton extends React.Component {
     render() {
         const text = this.props.following ? "Following" : "Follow";
         return (
-            <button className="btn " onClick={this.handleClick} >{text}</button>
+            <Button type="primary" onClick={this.handleClick}>{text}</Button>
         );
     }
-};
+}
 
 FollowButton.propTypes = {
     following: PropTypes.bool.isRequired,

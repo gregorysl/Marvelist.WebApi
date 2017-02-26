@@ -1,4 +1,5 @@
 import React, { PropTypes } from 'react';
+import { Button } from 'antd';
 
 class ReadAllButton extends React.Component {
     constructor(props) {
@@ -12,12 +13,12 @@ class ReadAllButton extends React.Component {
 
     render() {
         if (!this.props.following) return null;
-        const disabled = this.props.percent == 100 ? "btn disabled" : "btn ";
+        const disabled = this.props.percent == 100;
         return (
-            <button onClick={this.handleClick} className={disabled}>Mark all as read</button>
+            <Button type="primary" onClick={this.handleClick} disabled={disabled}>Mark all as read</Button>
         );
     }
-};
+}
 
 ReadAllButton.propTypes = {
     percent: PropTypes.number.isRequired,
