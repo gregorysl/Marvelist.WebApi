@@ -1,4 +1,7 @@
 export default {
     "body-background": "white",
-    'primary-color': '#f0141e'
+    "primary-color": "#f0141e",
+    "layout-header-background":"#f0141e",
+    "component-background": "#f0141e",
+    "text-color": "white"
 };
