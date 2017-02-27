@@ -20,21 +20,22 @@ class HeaderMy extends React.Component {
     let url = require("../../images/logo.svg");
     let navButtons = this.props.user.loggedIn
       ? (
-        <Menu theme="dark" mode="horizontal" defaultSelectedKeys={['2']} >
+        <Menu mode="horizontal"  >
           <Menu.Item><Link to="/dashboard" >{this.props.user.username}</Link></Menu.Item>
           <Menu.Item><a href="#"  onClick={this._logout}>Logout</a></Menu.Item>
         </Menu>
       )
       : (
-        <Menu theme="dark" mode="horizontal" defaultSelectedKeys={['2']} >
+        <Menu mode="horizontal" >
           <Menu.Item><Link to="/register">Register</Link></Menu.Item>
           <Menu.Item><Link to="/login">Login</Link></Menu.Item>
         </Menu>
       );
     return (
       <div style={{ display: 'flex' }}>
-        <Link to="/"><img className="logo" src={url} /></Link>
-        <Menu theme="dark" mode="horizontal" defaultSelectedKeys={['2']} style={{ flex: '1' }} >
+        
+        <Menu  mode="horizontal" style={{ flex: '1' }} >
+          <Menu.Item><Link to="/"><img className="logo" src={url} /></Link></Menu.Item>
           <Menu.Item><Link to="/series">Series</Link></Menu.Item>
           <Menu.Item><Link to="/about">About</Link></Menu.Item>
           <Menu.Item>
