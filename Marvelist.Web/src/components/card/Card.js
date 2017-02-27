@@ -4,18 +4,23 @@ import ActionsBar from './ActionsBar';
 import CoverDate from './CoverDate';
 import { Spin, Row, Col, Card } from 'antd';
 
-class Card1 extends React.Component {
+class MarvelistCard extends React.Component {
     constructor(props) {
         super(props);
-        this.loading = !!props.loading;
+        this.loading = false;
         this.handleClick = this.handleClick.bind(this);
     }
+    componentWillReceiveProps(nextProps) {
+        if (this.props.data !== nextProps.data) {
+            this.loading = false;
+        }
+    }
     handleClick() {
+        this.loading = true;
         this.props.follow(this.props.data.id, this.props.data.seriesId);
     }
     render() {
         return (
-
             <Col className="series-card" xs={{ span: 8 }} sm={{ span: 6 }} lg={{ span: 4 }} >
                 <Spin size="large" spinning={this.loading}>
                     <Card bodyStyle={{ padding: 0 }}>
@@ -29,11 +34,11 @@ class Card1 extends React.Component {
     }
 }
 
-Card1.propTypes = {
+MarvelistCard.propTypes = {
     toggleFollow: PropTypes.func,
     follow: PropTypes.func.isRequired,
     link: PropTypes.number,
     data: PropTypes.object.isRequired
 };
 
-export default Card1;
+export default MarvelistCard;
