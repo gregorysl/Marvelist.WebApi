@@ -2,18 +2,24 @@ import React, { PropTypes } from "react";
 import { Link } from "react-router";
 import { connect } from "react-redux";
 import { loginRequest } from "../../actions/userActions";
+import { Form, Icon, Input, Button, Checkbox } from 'antd';
+const FormItem = Form.Item;
 
 class Login extends React.Component {
     constructor(props) {
         super(props);
         this.state = { username: '', password: '' };
         this.handleChange = this.handleChange.bind(this);
-        this._onSubmit = this._onSubmit.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
     }
 
-    _onSubmit(event) {
+    handleSubmit(event) {
         event.preventDefault();
-        this.props.login(this.state.username, this.state.password);
+        this.props.form.validateFields((err, values) => {
+            if (!err) {
+                this.props.login(this.state.username, this.state.password);
+            }
+        });
     }
     handleChange(event) {
         const target = event.target;
@@ -23,16 +29,32 @@ class Login extends React.Component {
         this.setState({ [name]: value });
     }
     render() {
+        const { getFieldDecorator } = this.props.form;
         return (
-            <div>
-                <form className="form-signin" onSubmit={this._onSubmit}>
-                    <h2 className="form-signin-heading">Please login</h2>
-                    <input type="text" className="form-control" id="username" value={this.state.username} onChange={this.handleChange} placeholder="Username" autoFocus="" />
-                    <input type="password" className="form-control" id="password" value={this.state.password} onChange={this.handleChange} placeholder="Password" />
-                    <button className="btn btn-lg btn-primary btn-block" type="submit">Login</button>
-                </form>
+            <Form onSubmit={this.handleSubmit} className="login-form">
+                <FormItem>
+                    {getFieldDecorator('username', {
+                        rules: [{ required: true, message: 'Please input your username!' }]
+                    })(
+                        <Input addonBefore={<Icon type="user" />} placeholder="Username" onChange={this.handleChange} />
+                        )}
+                </FormItem>
+                <FormItem>
+                    {getFieldDecorator('password', {
+                        rules: [{ required: true, message: 'Please input your Password!' }]
+                    })(
+                        <Input addonBefore={<Icon type="lock" />} type="password" placeholder="Password" onChange={this.handleChange} />
+                        )}
+                </FormItem>
+                <FormItem>
+                    <a className="login-form-forgot">Forgot password</a>
+                    <Button type="primary" htmlType="submit" className="login-form-button">
+                        Log in
+          </Button>
+                    Or <a>register now!</a>
+                </FormItem>
+            </Form>
 
-            </div>
         );
     }
 }
@@ -54,5 +76,7 @@ Login.propTypes = {
     login: PropTypes.func.isRequired
 };
 
+const WrappedNormalLoginForm = Form.create()(connect(mapStateToProps, mapDispatchToProps)(Login));
 
-export default connect(mapStateToProps, mapDispatchToProps)(Login);
+
+export default WrappedNormalLoginForm;

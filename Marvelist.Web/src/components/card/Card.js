@@ -23,7 +23,7 @@ class MarvelistCard extends React.Component {
         return (
             <Col className="series-card" xs={{ span: 8 }} sm={{ span: 6 }} lg={{ span: 4 }} >
                 <Spin size="large" spinning={this.loading}>
-                    <Card bodyStyle={{ padding: 0 }}>
+                    <Card bordered={false} bodyStyle={{ padding: 0 }}>
                         <Cover link={this.props.link} {...this.props.data} />
                         {this.props.data.date && <CoverDate comicDate={this.props.data.date} />}
                         <ActionsBar click={this.handleClick} {...this.props.data} />
