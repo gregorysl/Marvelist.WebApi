@@ -62,7 +62,7 @@ body{
 
 }
 .quick-icons {
-  height: 35px;
+  height: 36px;
   color: rgb(255, 255, 255);
   background-color: @marvel;
 }
@@ -197,7 +197,106 @@ body{
     line-height: 50px;
 }
 
+.login-form {
+  max-width: 300px;
+    margin: 0 auto;
+    padding-top: 50px;
+}
+.login-form-forgot {
+  float: right;
+}
+.login-form-button {
+  width: 100%;
+}
 
-.rc-progress-circle-path{
-  color: @marvel;
+
+
+
+
+
+
+
+article, .content{
+  margin: 0;
+  overflow: hidden;
+  padding: 0;
+  position: relative;
+}
+
+
+article {
+  height: 340px;
+  margin: 10px auto;
+  max-width: 800px;
+  -webkit-transition: all .35s ease-in-out;
+  -moz-transition: all .35s ease-in-out;
+  transition: all .35s ease-in-out;
+}
+
+article img {
+  height: 100%;
+  width:auto;
+  -webkit-transition: all .35s ease-in-out;
+  -moz-transition: all .35s ease-in-out;
+  transition: all .35s ease-in-out;
+}
+
+article h2 {
+  font-weight: 400;
+  margin: 0;
+  padding: 6px 0;
+}
+
+article .image {
+  position: relative;
+  height: 100%;
+}
+
+
+article .content {
+  color: #FFF;
+  padding: 0px;
+  position: absolute;
+  right: 0;
+  text-shadow: 0 1px 2px rgba(0,0,0,0.25);
+  top: 0;
+  width: 70%;
+  z-index: 3;
+  -webkit-transition: all .35s ease-in-out;
+  -moz-transition: all .35s ease-in-out;
+  transition: all .35s ease-in-out;
+}
+
+
+@media only screen and (min-width: 1300px) {
+  section {
+    margin: 10px auto;
+    text-align: center;
+  }
+  article {
+    display: inline-block;
+    margin: 0 auto;
+    text-align: left;
+    width: 640px;
+    width: 49%;
+  }
+}
+@media only screen and (max-width: 620px) {
+  article {
+    height: auto;
+  }
+  article img {
+    height: 380px;
+    width: 100%;
+  }
+  article .overlay {
+    display: none;
+  }
+  article .content {
+    color: #000;
+    padding: 10px 20px;
+    position: relative;
+    height: auto;
+    width: initial;
+  }
 }

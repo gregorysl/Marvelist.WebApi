@@ -6,6 +6,7 @@ import Card from '../card/Card';
 import ReadAllButton from './ReadAllButton';
 import FollowButton from './FollowButton';
 import ProgressBar from './ProgressBar';
+import { Row, Col } from 'antd';
 
 class SeriesDetails extends React.Component {
     constructor(props) {
@@ -21,22 +22,26 @@ class SeriesDetails extends React.Component {
     }
     render() {
         let {follow, folllowSeries, readAllComic} = this.props;
-        const comicList = this.props.seriesDetails.comics.map((x, i) => <Card key={i} follow={follow} data={x} />);
-        let percent = Math.round((this.props.seriesDetails.read / this.props.seriesDetails.comicCount) * 100* 100) / 100;
+        const details = this.props.seriesDetails;
+        const comicList = details.comics.map((x, i) => <Card key={i} follow={follow} data={x} />);
+        let percent = Math.round((details.read / details.comicCount) * 100 * 100) / 100;
         return (
             <div className="row">
-                <div className="media">
-                    <div className="media-left">
-                        <img className="media-object" src={this.props.seriesDetails.thumbnail} />
-                    </div>
-                    <div className="media-body">
-                        <h2 className="media-heading">{this.props.seriesDetails.title}</h2>
-                        {this.props.seriesDetails.details}
-                        <ProgressBar percent={percent} following={this.props.seriesDetails.following} />
-                        <FollowButton following={this.props.seriesDetails.following} click={folllowSeries} id={this.props.seriesDetails.id} />
-                        <ReadAllButton following={this.props.seriesDetails.following} percent={percent} click={readAllComic} id={this.props.seriesDetails.id} />
-                    </div>
-                </div>
+                <Row type="flex" justify="center" style={{ 'paddingTop': '20px' }} >
+                    <Col md={5} sm={24} style={{ height: '340px' }} >
+                        <img style={{ height: '100%' }} src={details.thumbnail} alt="" />
+                    </Col>
+                    <Col md={3} sm={12} xs={24} >
+                        <ProgressBar percent={percent} following={details.following} />
+                    </Col>
+                    <Col md={8} sm={12} >
+                        <h2>{details.title}</h2>
+                        <FollowButton following={details.following} click={folllowSeries} id={details.id} />
+                        <ReadAllButton following={details.following} percent={percent} click={readAllComic} id={details.id} />
+                        <p>{details.details}</p>
+
+                    </Col>
+                </Row>
                 <div className="row cards">
                     {comicList}
                 </div>
@@ -63,7 +68,7 @@ const mapStateToProps = (state, ownProps) => {
 const mapDispatchToProps = (dispatch) => {
     return {
         fetchById: seriesId => dispatch(fetchSeriesById(seriesId)),
-        folllowSeries: seriesId => dispatch(folllowSeries(seriesId)),
+        folllowSeries: seriesId => dispatch(folllowSeries(seriesId, true)),
         readAllComic: seriesId => dispatch(readAllComic(seriesId)),
         follow: (comicId, seriesId) => dispatch(folllowComic(comicId, false, seriesId))
     };
