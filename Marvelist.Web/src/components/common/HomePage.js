@@ -16,7 +16,7 @@ class HomePage extends React.Component {
   }
   componentWillReceiveProps(nextProps) {
     if (this.props.home !== nextProps.home) {
-      let {follow} = nextProps;
+      let { follow } = nextProps;
       this.data = nextProps.home.map((b, i) => <Card key={i} follow={follow} data={b} link={PLACE.HOME} />);
     }
   }
