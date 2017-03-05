@@ -19,9 +19,10 @@ namespace Marvelist.DataAccess.Repositories
             return ToSeriesViewModel(series, userId).FirstOrDefault();
         }
 
-        public List<SeriesViewModel> GetAllSeries(string userId)
+        public List<SeriesViewModel> GetAllSeries(string userId, int page, int pagesize)
         {
-            var seriesViewModels = ToSeriesViewModel(DataContext.Series, userId);
+            var series = DataContext.Series.OrderBy(x => x.Title).Skip(page*pagesize).Take(pagesize);
+            var seriesViewModels = ToSeriesViewModel(series, userId);
             return seriesViewModels;
         }
         public List<SeriesComicsViewModel> GetAllFollowedSeries(string userId)
@@ -77,6 +78,6 @@ namespace Marvelist.DataAccess.Repositories
         SeriesViewModel GetSeriesById(int id, string userId);
         List<SeriesViewModel> Filter(string text, string userId);
         List<SeriesViewModel> GetByYear(int year, string userId);
-        List<SeriesViewModel> GetAllSeries(string userId);
+        List<SeriesViewModel> GetAllSeries(string userId, int page, int pagesize);
     }
 }

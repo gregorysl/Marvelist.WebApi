@@ -31,9 +31,9 @@ namespace Marvelist.Service
             return series;
         }
         
-        public List<SeriesViewModel> GetAllSeries(string userId)
+        public List<SeriesViewModel> GetAllSeries(string userId, int page, int pagesize)
         {
-            return _seriesRepository.GetAllSeries(userId);
+            return _seriesRepository.GetAllSeries(userId, page, pagesize);
         }
         public List<SeriesComicsViewModel> GetAllFollowedSeries(string userId)
         {
@@ -67,7 +67,7 @@ namespace Marvelist.Service
 
     public interface ISeriesService
     {
-        List<SeriesViewModel> GetAllSeries(string userId);
+        List<SeriesViewModel> GetAllSeries(string userId, int page, int pagesize);
         List<SeriesComicsViewModel> GetAllFollowedSeries(string userId);
         SeriesViewModel GetSeriesById(int id, string userId);
         Series GetById(int id);

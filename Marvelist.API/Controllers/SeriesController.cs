@@ -20,9 +20,9 @@ namespace Marvelist.API.Controllers
 
         [HttpGet]
         [Route("api/Series")]
-        public IHttpActionResult GetAll()
+        public IHttpActionResult GetAll(int page = 0, int pagesize = 50)
         {
-            var series = _series.GetAllSeries(UserId);
+            var series = _series.GetAllSeries(UserId, page, pagesize);
             return Ok(series);
         }
 
