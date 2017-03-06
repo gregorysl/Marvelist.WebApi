@@ -1,44 +1,52 @@
 import webpack from 'webpack';
+import ExtractTextPlugin from 'extract-text-webpack-plugin';
+import WebpackMd5Hash from 'webpack-md5-hash';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
 import autoprefixer from 'autoprefixer';
 import path from 'path';
 import theme from './src/styles/theme';
+
+const GLOBALS = {
+  'process.env.NODE_ENV': JSON.stringify('production'),
+  __DEV__: false
+};
 
 
 export default {
   resolve: {
     extensions: ['*', '.js', '.jsx', '.json']
   },
-  devtool: 'inline-source-map',
-  entry: [
-    './src/webpack-public-path',
-    'webpack-hot-middleware/client?reload=true',
-    path.resolve(__dirname, 'src/index.js') 
-  ],
+  devtool: 'source-map', 
+  entry: path.resolve(__dirname, 'src/index'),
   target: 'web',
   output: {
     path: path.resolve(__dirname, 'dist'),
     publicPath: '/',
-    filename: 'bundle.js'
+    filename: '[name].[chunkhash].js'
   },
   plugins: [
-    new webpack.DefinePlugin({
-      'process.env.NODE_ENV': JSON.stringify('development'),
-      __DEV__: true
-    }),
-    new webpack.HotModuleReplacementPlugin(),
-    new webpack.NoEmitOnErrorsPlugin(),
+    new WebpackMd5Hash(),
+    new webpack.DefinePlugin(GLOBALS),
+    new ExtractTextPlugin('[name].[contenthash].css'),
     new HtmlWebpackPlugin({
       template: 'src/index.ejs',
       minify: {
         removeComments: true,
-        collapseWhitespace: true
+        collapseWhitespace: true,
+        removeRedundantAttributes: true,
+        useShortDoctype: true,
+        removeEmptyAttributes: true,
+        removeStyleLinkTypeAttributes: true,
+        keepClosingSlash: true,
+        minifyJS: true,
+        minifyCSS: true,
+        minifyURLs: true
       },
       inject: true
     }),
     new webpack.LoaderOptionsPlugin({
-      minimize: false,
-      debug: true,
+      minimize: true,
+      debug: false,
       noInfo: true,
       options: {
         lessLoader: {
