@@ -18,6 +18,11 @@ namespace Marvelist.DataAccess.Repositories
             return series?.Comics.OrderBy(x => x.IssueNumber).ToList() ?? new List<Comic>();
         }
 
+        public int GetSeriesIdForComicId(int id)
+        {
+            return DataContext.Comics.Find(id).SeriesId;
+        }
+
         public List<Comic> GetHomeComics(string user)
         {
             var uc = DataContext.UserComics.Where(x => x.UserId == user).Select(x => x.ComicId);
@@ -33,6 +38,8 @@ namespace Marvelist.DataAccess.Repositories
     public interface IComicRepository : IRepository<Comic>
     {
         List<Comic> GetForSeriesId(int id);
+        int GetSeriesIdForComicId(int id);
         List<Comic> GetHomeComics(string userId);
+
     }
 }

@@ -41,6 +41,11 @@ namespace Marvelist.Service
             var comics = _comicRepository.GetForSeriesId(id);
             return comics;
         }
+        public int GetSeriesIdForComicId(int id)
+        {
+            var comics = _comicRepository.GetSeriesIdForComicId(id);
+            return comics;
+        }
 
         public List<Comic> GetComicsForWeek(DateTime weekStart, DateTime weekEnd)
         {
@@ -70,5 +75,6 @@ namespace Marvelist.Service
         List<Comic> GetComicsForSeriesId(int id);
         List<Comic> GetComicsForWeek(DateTime weekStart, DateTime weekEnd);
         List<Comic> GetHomeComics(string userId);
+        int GetSeriesIdForComicId(int id);
     }
 }

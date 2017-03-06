@@ -9,11 +9,13 @@ namespace Marvelist.API.Controllers
     {
         private readonly IUserComicService _userComicService;
         private readonly IComicService _comicService;
+        private readonly IUserSeriesService _userSeries;
 
-        public UserComicController(IUserComicService userComicService, IComicService comicService)
+        public UserComicController(IUserComicService userComicService, IComicService comicService, IUserSeriesService userSeries)
         {
             _userComicService = userComicService;
             _comicService = comicService;
+            _userSeries = userSeries;
         }
 
         [HttpPost]
@@ -26,6 +28,11 @@ namespace Marvelist.API.Controllers
             }
             else
             {
+                var seriesId = _comicService.GetSeriesIdForComicId(id);
+                if (!_userSeries.IsFollowing(seriesId, UserId))
+                {
+                    _userSeries.Add(seriesId, UserId);
+                }
                 _userComicService.Add(id, UserId);
             }
             return Ok();
