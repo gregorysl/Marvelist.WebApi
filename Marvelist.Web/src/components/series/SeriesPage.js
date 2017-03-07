@@ -4,12 +4,14 @@ import Card from '../card/Card';
 import TextHeader from './TextHeader';
 import { fetchSeries, folllowSeries, search } from '../../actions/seriesActions';
 import { PLACE } from '../../actions/constants';
-import { Switch, Icon } from 'antd';
+import { Switch, Icon, Pagination } from 'antd';
 
 class Series extends React.Component {
   constructor(props) {
     super(props);
     this.mapData = this.mapData.bind(this);
+    this.filterBoxChange = this.filterBoxChange.bind(this);
+    //todo move to store
     this.state = { showFollowed: true };
     this.data = "";
   }
@@ -24,7 +26,7 @@ class Series extends React.Component {
     }
     if (this.props.series !== nextProps.series) {
       let {follow} = nextProps;
-      this.data = this.mapData(nextProps);
+      this.data = this.mapData(nextProps, this.state.showFollowed);
     }
   }
 
@@ -35,26 +37,29 @@ class Series extends React.Component {
     else if (props.params.text) {
       props.search(props.params.text);
     }
+  }
 
+  filterBoxChange(checked) {
+    this.setState({ showFollowed: checked });
+    this.data = this.mapData(this.props, checked);
   }
-  filterBoxChange() {
-    this.setState({ ...this.state, showFollowed: !this.state.showFollowed });
-    this.data = this.mapData(this.props);
-  }
-  mapData(props) {
-    const series = this.state.showFollowed ? props.series : props.series.filter(x => x.following == false);
+
+  mapData(props, showFollowed) {
+    const series = showFollowed ? props.series : props.series.filter(x => !x.following);
     return series.map((b, i) => <Card key={i} follow={props.follow} data={b} link={PLACE.SERIES} />);
   }
+
   render() {
     return (
-      <div className="row cards">
-        <TextHeader text={this.props.params.text} />
-         <Switch checkedChildren={"Show following series"} unCheckedChildren={"Hide following series"} />
-        <div className="paper-toggle">
-          <input type="checkbox" id="toggle" name="toggle" onChange={this.filterBoxChange} checked={this.state.showFollowed} />
-          <label htmlFor="toggle">Show following series</label>
+      <div>
+        <div className="row">
+          <TextHeader text={this.props.params.text} />
+          <p><Switch checkedChildren={"Show"} unCheckedChildren={"Hide"} onChange={this.filterBoxChange} defaultChecked /> following series </p>
+          <Pagination  defaultPageSize={50} />
         </div>
-        {this.data}
+        <div className="row cards">
+          {this.data}
+        </div>
       </div>
     );
   }
