@@ -1,44 +1,41 @@
-import express from 'express';
+import browserSync from 'browser-sync';
+import historyApiFallback from 'connect-history-api-fallback';
 import webpack from 'webpack';
-import path from 'path';
+import webpackDevMiddleware from 'webpack-dev-middleware';
+import webpackHotMiddleware from 'webpack-hot-middleware';
 import config from '../webpack.config.dev';
-import open from 'open';
 
-/* eslint-disable no-console */
+const bundler = webpack(config);
 
-const port = 3000;
-const app = express();
-const compiler = webpack(config);
+browserSync({
+  port: 3000,
+  ui: {
+    port: 3001
+  },
+  server: {
+    baseDir: 'src',
 
-let allowCrossDomain = function(req, res, next) {
-    if ('OPTIONS' == req.method) {
-      res.header('Access-Control-Allow-Origin', '*');
-      res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,PATCH,OPTIONS');
-      res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization, Content-Length, X-Requested-With');
-      res.send(200);
-    }
-    else {
-      next();
-    }
-};
+    middleware: [
+      historyApiFallback(),
 
-app.use(allowCrossDomain);
-
-app.use(require('webpack-dev-middleware')(compiler, {
-  noInfo: true,
-  publicPath: config.output.publicPath
-}));
-
-app.use(require('webpack-hot-middleware')(compiler));
-
-app.get('*', function(req, res) {
-  res.sendFile(path.join( __dirname, '../src/index.html'));
-});
-
-app.listen(port, function(err) {
-  if (err) {
-    console.log(err);
-  } else {
-    open(`http://localhost:${port}`);
-  }
+      webpackDevMiddleware(bundler, {
+        publicPath: config.output.publicPath,
+        noInfo: false,
+        quiet: false,
+        stats: {
+          assets: false,
+          colors: true,
+          version: false,
+          hash: false,
+          timings: false,
+          chunks: false,
+          chunkModules: false
+        },
+      }),
+      webpackHotMiddleware(bundler)
+    ]
+  },
+  files: [
+    'src/*.html'
+  ]
 });
