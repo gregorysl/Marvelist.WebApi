@@ -9,7 +9,7 @@ const ActionsBar = (props) => {
             <div className="actions">
                 <FollowIcon following={props.following} click={props.click} />
                 <a href={props.url} target="blank">
-                    <i className="anticon anticon-link"></i>
+                    <i className="anticon anticon-link"/>
                 </a>
             </div>
             <ComicCount count={props.comicCount} />

@@ -7,7 +7,7 @@ const ComicCount = (props) => {
     return (
         <div className="metadata">
             {props.count}
-            <i className="anticon anticon-book"></i>
+            <i className="anticon anticon-book"/>
         </div>
     );
 };
