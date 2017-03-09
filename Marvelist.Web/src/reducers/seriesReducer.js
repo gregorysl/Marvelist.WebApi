@@ -1,9 +1,10 @@
 import * as consts from '../actions/constants';
+import update from 'immutability-helper';
 
-export const seriesReducer = (state = [], action) => {
+export const seriesReducer = (state = { count: 0, series: [] }, action) => {
     switch (action.type) {
         case consts.FETCH_SERIES_SUCCESS:
-            return action.series.map(x => ({ ...x, loading: false }));
+            return { ...state, count: action.data.count, series: action.data.series.map(x => ({ ...x, loading: false })) };
         case consts.SEARCH_SUCCESS:
             return action.series.map(x => ({ ...x, loading: false }));
         case consts.FOLLOW_SERIES: {
@@ -37,10 +38,10 @@ export const seriesDetailsReducer = (state = initialDetailState, action) => {
         case consts.FOLLOW_COMIC: {
             if (!action.home) {
                 let idx = state.comics.findIndex(x => x.id == action.id);
-                let item = state.comics[idx];
-                item.loading = true;
+                const newData = update(state, { comics: { [idx]: { loading: { $set: true } } } });
+                return [...newData];
             }
-            return { ...state };
+            return state;
         }
         default:
             return state;
@@ -54,10 +55,10 @@ export const homeComicsReducer = (state = [], action) => {
         case consts.FOLLOW_COMIC: {
             if (action.home) {
                 let idx = state.findIndex(x => x.id == action.id);
-                let item = state[idx];
-                item.loading = true;
+                const newData = update(state, { [idx]: { loading: { $set: true } } });
+                return [...newData];
             }
-            return [...state];
+            return state;
         }
 
         default:

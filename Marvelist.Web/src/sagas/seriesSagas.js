@@ -9,7 +9,7 @@ export function* fetchSeriesFlow() {
     for (; ;) {
         let { url } = yield take(consts.FETCH_SERIES);
         let response = yield call(fetchSeries, url);
-        yield put({ type: consts.FETCH_SERIES_SUCCESS, series: response.data });
+        yield put({ type: consts.FETCH_SERIES_SUCCESS, data: response.data });
     }
 }
 
