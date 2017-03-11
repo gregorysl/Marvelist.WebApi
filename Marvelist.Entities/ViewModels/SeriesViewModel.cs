@@ -15,23 +15,34 @@ namespace Marvelist.Entities.ViewModels
 
         [JsonIgnore]
         public MarvelImage ThumbnailData { get; set; }
+
         public string Description { get; set; }
         public bool Following { get; set; }
+
         public override string ToString()
         {
             return $"{Title} {Following}";
         }
     }
+
     public class SeriesViewModel : Mvm
     {
         public int ComicCount { get; set; }
     }
+
+    public class SeriesPaginatedModel
+    {
+        public List<SeriesViewModel> Series { get; set; }
+        public int Count { get; set; }
+    }
+
     public class SeriesComicsViewModel : Mvm
     {
         public int ComicCount { get; set; }
         public int Read { get; set; }
         public List<ComicsViewModel> Comics { get; set; }
     }
+
     public class ComicsViewModel : Mvm
     {
         public int SeriesId { get; set; }

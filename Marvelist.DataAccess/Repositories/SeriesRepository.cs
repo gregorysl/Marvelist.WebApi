@@ -19,27 +19,29 @@ namespace Marvelist.DataAccess.Repositories
             return ToSeriesViewModel(series, userId).FirstOrDefault();
         }
 
-        public List<SeriesViewModel> GetAllSeries(string userId, int page, int pagesize)
+        public SeriesPaginatedModel GetAllSeries(string userId, int page, int pagesize)
         {
-            var series = DataContext.Series.OrderBy(x => x.Title).Skip(page*pagesize).Take(pagesize);
+            var allSeries = DataContext.Series.OrderBy(x => x.Title);
+            var series = allSeries.Skip(page * pagesize).Take(pagesize);
             var seriesViewModels = ToSeriesViewModel(series, userId);
-            return seriesViewModels;
+            return new SeriesPaginatedModel { Count = allSeries.Count(), Series = seriesViewModels };
         }
+
         public List<SeriesComicsViewModel> GetAllFollowedSeries(string userId)
         {
             var series = DataContext.UserSeries.Where(x => x.UserId == userId).Select(x =>
-            new SeriesComicsViewModel
-            {
-                Id = x.Id,
-                Description = x.Series.Description,
-                Following = true,
-                ThumbnailData = x.Series.Thumbnail,
-                Title = x.Series.Title,
-                Url = x.Series.Url,
-                ComicCount = x.Series.Comics.Count,
-                Read = DataContext.UserComics.Count(c=>x.Series.Comics.Select(s=>s.Id).Contains(c.ComicId)) 
-            }).OrderBy(x=>x.Title).ToList();
-            
+                new SeriesComicsViewModel
+                {
+                    Id = x.Id,
+                    Description = x.Series.Description,
+                    Following = true,
+                    ThumbnailData = x.Series.Thumbnail,
+                    Title = x.Series.Title,
+                    Url = x.Series.Url,
+                    ComicCount = x.Series.Comics.Count,
+                    Read = DataContext.UserComics.Count(c => x.Series.Comics.Select(s => s.Id).Contains(c.ComicId))
+                }).OrderBy(x => x.Title).ToList();
+
             return series;
         }
 
@@ -68,7 +70,7 @@ namespace Marvelist.DataAccess.Repositories
                 ThumbnailData = c.Thumbnail,
                 Title = c.Title,
                 Url = c.Url
-            }).OrderBy(x=>x.Title).ToList();
+            }).OrderBy(x => x.Title).ToList();
         }
     }
 
@@ -78,6 +80,6 @@ namespace Marvelist.DataAccess.Repositories
         SeriesViewModel GetSeriesById(int id, string userId);
         List<SeriesViewModel> Filter(string text, string userId);
         List<SeriesViewModel> GetByYear(int year, string userId);
-        List<SeriesViewModel> GetAllSeries(string userId, int page, int pagesize);
+        SeriesPaginatedModel GetAllSeries(string userId, int page, int pagesize);
     }
 }
