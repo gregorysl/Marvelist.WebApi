@@ -4,7 +4,7 @@ import Card from '../card/Card';
 import TextHeader from './TextHeader';
 import { fetchSeries, folllowSeries, search } from '../../actions/seriesActions';
 import { PLACE } from '../../actions/constants';
-import { Switch, Icon, Pagination } from 'antd';
+import { Switch, Pagination } from 'antd';
 
 class Series extends React.Component {
   constructor(props) {
@@ -25,7 +25,6 @@ class Series extends React.Component {
       this.getData(nextProps);
     }
     if (this.props.series !== nextProps.series) {
-      let {follow} = nextProps;
       this.data = this.mapData(nextProps, this.state.showFollowed);
     }
   }
@@ -50,12 +49,13 @@ class Series extends React.Component {
   }
 
   render() {
+    let { pageData } = this.props;
     return (
       <div>
         <div className="row">
           <TextHeader text={this.props.params.text} />
           <p><Switch checkedChildren={"Show"} unCheckedChildren={"Hide"} onChange={this.filterBoxChange} defaultChecked /> following series </p>
-          <Pagination  defaultPageSize={50} />
+          <Pagination defaultPageSize={50} total={pageData.count} pageSize={pageData.pageSize} />
         </div>
         <div className="row cards">
           {this.data}
@@ -65,8 +65,11 @@ class Series extends React.Component {
   }
 }
 
-const mapStateToProps = (state, ownProps) => {
-  return { series: state.series };
+const mapStateToProps = (state) => {
+  return {
+    series: state.series.series,
+    pageData: state.series.pageData
+  };
 };
 
 const mapDispatchToProps = (dispatch) => {
@@ -78,10 +81,11 @@ const mapDispatchToProps = (dispatch) => {
 };
 
 Series.propTypes = {
-  series: PropTypes.array.isRequired,
   fetch: PropTypes.func.isRequired,
   follow: PropTypes.func.isRequired,
   search: PropTypes.func.isRequired,
+  series: PropTypes.array,
+  pageData: PropTypes.object,
   params: PropTypes.shape({ text: PropTypes.string }).isRequired,
   route: PropTypes.shape({ path: PropTypes.string }).isRequired
 };

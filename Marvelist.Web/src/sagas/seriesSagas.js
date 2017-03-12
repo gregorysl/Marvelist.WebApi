@@ -35,7 +35,7 @@ export function* searchFlow() {
         const { text } = yield take(consts.SEARCH);
         const url = apiUrl + "Search/" + text;
         let response = yield call(get, url);
-        yield put({ type: consts.SEARCH_SUCCESS, series: response.data });
+        yield put({ type: consts.SEARCH_SUCCESS, data: response.data });
     }
 }
 

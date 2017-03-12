@@ -1,12 +1,12 @@
 import * as consts from '../actions/constants';
 import update from 'immutability-helper';
 
-export const seriesReducer = (state = { count: 0, series: [] }, action) => {
+export const seriesReducer = (state = { pageData: { count: 0, pageSize: 0, page: 0 }, series: [] }, action) => {
     switch (action.type) {
         case consts.FETCH_SERIES_SUCCESS:
-            return { ...state, count: action.data.count, series: action.data.series.map(x => ({ ...x, loading: false })) };
+            return { ...state, pageData: action.data.pageData, series: action.data.series.map(x => ({ ...x, loading: false })) };
         case consts.SEARCH_SUCCESS:
-            return action.series.map(x => ({ ...x, loading: false }));
+            return { ...state, pageData: action.data.pageData, series: action.data.series.map(x => ({ ...x, loading: false })) };
         case consts.FOLLOW_SERIES: {
             if (!action.detailPage) {
                 let idx = state.findIndex(x => x.id == action.id);
