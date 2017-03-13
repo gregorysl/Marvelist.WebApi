@@ -20,8 +20,8 @@ namespace Marvelist.Tests
                     s.Id = series.Last().Id + 1;
                     series.Add(s);
                 }));
-            repo.Setup(x => x.Filter(It.IsAny<string>(), It.IsAny<string>()))
-                .Returns(new Func<string,string, List<SeriesViewModel>>((id,userId) => Filter(id,userId, series)));
+            repo.Setup(x => x.Filter(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<int>(), It.IsAny<int>()))
+                .Returns(new Func<string,string, int, int, SeriesPaginatedModel>((id,userId,page, pageSize) => Filter(id,userId, series, page,pageSize)));
             repo.Setup(x => x.GetByYear(It.IsAny<int>(), It.IsAny<string>()))
                 .Returns(new Func<int,string, List<SeriesViewModel>>((year,userId) => GetForYear(series, year, userId)));
             repo.Setup(x => x.GetById(It.IsAny<int>()))
@@ -35,10 +35,20 @@ namespace Marvelist.Tests
             return ToSeriesViewModel(forYear,userId);
         }
 
-        private static List<SeriesViewModel> Filter(string id,string userId, IEnumerable<Series> series)
+        private static SeriesPaginatedModel Filter(string id,string userId, IEnumerable<Series> series, int page, int pagesize)
         {
             var filter = id.Split(' ').Aggregate(series, (current, txt) => current.Where(x => x.Title.Contains(txt))).AsQueryable();
-            return ToSeriesViewModel(filter,userId);
+            var seriesViewModels = ToSeriesViewModel(filter, userId);
+            return new SeriesPaginatedModel
+            {
+                PageData = new PageData
+                {
+                    Count = filter.Count(),
+                    Page = page,
+                    PageSize = pagesize
+                },
+                Series = seriesViewModels
+            };
         }
 
 

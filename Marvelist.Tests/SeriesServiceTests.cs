@@ -27,7 +27,7 @@ namespace Marvelist.Tests
             _unitOfWork = new Mock<IUnitOfWork>().Object;
             _seriesService = new SeriesService(_seriesRepository, _unitOfWork);
         }
-        
+
         [TestMethod]
         public void ShouldAddNewSeries()
         {
@@ -59,7 +59,7 @@ namespace Marvelist.Tests
         [TestMethod]
         public void ShouldReturnRightSeriesForYear()
         {
-            var series = _seriesService.GetByYear(2013,_userId);
+            var series = _seriesService.GetByYear(2013, _userId);
             Assert.AreEqual(1, series.Count);
         }
 
@@ -73,9 +73,9 @@ namespace Marvelist.Tests
         [TestMethod]
         public void ShouldReturnRightSeriesForText()
         {
-            var series = _seriesService.GetByText("Guardians", _userId);
-            Assert.AreEqual(1, series.Count);
-            var firstOrDefault = series.FirstOrDefault();
+            var series = _seriesService.GetByText("Guardians", _userId, 0, 10);
+            Assert.AreEqual(1, series.PageData.Count);
+            var firstOrDefault = series.Series.FirstOrDefault();
             if (firstOrDefault != null)
                 Assert.AreEqual("Guardians of the Galaxy (2013 - Present)", firstOrDefault.Title);
             else Assert.Fail("Should return series.");
@@ -84,8 +84,8 @@ namespace Marvelist.Tests
         [TestMethod]
         public void ShouldReturnRightSeriesForText1()
         {
-            var series = _seriesService.GetByText("Iron Man", _userId);
-            Assert.AreEqual(0, series.Count);
+            var series = _seriesService.GetByText("Iron Man", _userId, 0, 10);
+            Assert.AreEqual(0, series.PageData.Count);
         }
     }
 }
