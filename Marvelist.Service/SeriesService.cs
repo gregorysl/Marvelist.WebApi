@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 using Marvelist.DataAccess.Contracts;
 using Marvelist.DataAccess.Repositories;
 using Marvelist.Entities;
@@ -46,10 +45,10 @@ namespace Marvelist.Service
             return series;
         }
 
-        public List<SeriesViewModel> GetByText(string text, string userId)
+        public SeriesPaginatedModel GetByText(string text, string userId, int page, int pagesize)
         {
-            var series = _seriesRepository.Filter(text, userId).ToList();
-            return series.ToList();
+            var series = _seriesRepository.Filter(text, userId, page, pagesize);
+            return series;
         }
 
         public SeriesViewModel GetSeriesById(int id, string userId)
@@ -73,6 +72,6 @@ namespace Marvelist.Service
         Series GetById(int id);
         Series Add(Series series);
         List<SeriesViewModel> GetByYear(int year, string userId);
-        List<SeriesViewModel> GetByText(string text, string userId);
+        SeriesPaginatedModel GetByText(string text, string userId, int page, int pagesize);
     }
 }

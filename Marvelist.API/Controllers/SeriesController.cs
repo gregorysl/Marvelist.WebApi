@@ -66,9 +66,9 @@ namespace Marvelist.API.Controllers
 
         [Route("api/Search/{text}")]
         [HttpGet]
-        public IHttpActionResult Search(string text)
+        public IHttpActionResult Search(string text, int page = 0, int pagesize = 50)
         {
-            var series = _series.GetByText(text, UserId);
+            var series = _series.GetByText(text, UserId, page, pagesize);
             return Ok(series);
         }
 

@@ -33,8 +33,16 @@ namespace Marvelist.Entities.ViewModels
     public class SeriesPaginatedModel
     {
         public List<SeriesViewModel> Series { get; set; }
-        public int Count { get; set; }
+        public PageData PageData { get; set; }
     }
+
+    public class PageData
+    {
+        public int Count { get; set; }
+        public int Page { get; set; }
+        public int PageSize { get; set; }
+    }
+
 
     public class SeriesComicsViewModel : Mvm
     {
