@@ -15,11 +15,9 @@ const Title = (props) => {
             break;
     }
     return (
-        <div className="titles">
-            <h3>
+            <h1>
                 {title}
-            </h3>
-        </div>
+            </h1>
     );
 };
 

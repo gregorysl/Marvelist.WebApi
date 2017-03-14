@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import { Link } from "react-router";
 import { logout } from "../../actions/userActions";
 import SearchBar from "./Search";
-import { Menu, Input } from 'antd';
+import { Menu } from 'antd';
 
 
 class HeaderMy extends React.Component {
@@ -22,7 +22,7 @@ class HeaderMy extends React.Component {
       ? (
         <Menu mode="horizontal"  >
           <Menu.Item><Link to="/dashboard" >{this.props.user.username}</Link></Menu.Item>
-          <Menu.Item><a href="#"  onClick={this._logout}>Logout</a></Menu.Item>
+          <Menu.Item><a href="#" onClick={this._logout}>Logout</a></Menu.Item>
         </Menu>
       )
       : (
@@ -32,15 +32,12 @@ class HeaderMy extends React.Component {
         </Menu>
       );
     return (
-      <div style={{ display: 'flex' }}>
-        
-        <Menu  mode="horizontal" style={{ flex: '1' }} >
-          <Menu.Item><Link to="/"><img className="logo" src={url} /></Link></Menu.Item>
+      <div style={{ display: 'flex', maxHeight: '50px' }}>
+        <Link to="/"><img className="logo" src={url} /></Link>
+        <Menu mode="horizontal" style={{ flex: '1' }} >
           <Menu.Item><Link to="/series">Series</Link></Menu.Item>
           <Menu.Item><Link to="/about">About</Link></Menu.Item>
-          <Menu.Item>
-            <SearchBar />
-          </Menu.Item>
+          <Menu.Item><SearchBar /></Menu.Item>
         </Menu>
         {navButtons}
       </div>
@@ -48,7 +45,7 @@ class HeaderMy extends React.Component {
   }
 }
 
-const mapStateToProps = (state, ownProps) => {
+const mapStateToProps = (state) => {
   return { user: state.user };
 };
 
