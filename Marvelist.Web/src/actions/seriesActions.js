@@ -1,7 +1,7 @@
 import { FETCH_SERIES, FETCH_SERIES_BY_ID, FOLLOW_SERIES, FOLLOW_COMIC, FETCH_HOME_COMICS, SEARCH, READ_ALL_COMIC } from '../actions/constants';
 
-export const fetchSeries = (url) => {
-  return { type: FETCH_SERIES, url };
+export const fetchSeries = (url, page) => {
+  return { type: FETCH_SERIES, url, page };
 };
 
 export const fetchHome = () => {
@@ -24,6 +24,6 @@ export const readAllComic = (seriesId) => {
   return { type: READ_ALL_COMIC, seriesId };
 };
 
-export const search = (text) => {
-  return { type: SEARCH, text };
+export const search = (text, page) => {
+  return { type: SEARCH, text, page };
 };

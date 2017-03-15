@@ -7,8 +7,8 @@ const apiUrl = "http://localhost/Marvelist/api/";
 
 export function* fetchSeriesFlow() {
     for (; ;) {
-        let { url } = yield take(consts.FETCH_SERIES);
-        let response = yield call(fetchSeries, url);
+        let { url, page } = yield take(consts.FETCH_SERIES);
+        let response = yield call(fetchSeries, url + '?page=' + page);
         yield put({ type: consts.FETCH_SERIES_SUCCESS, data: response.data });
     }
 }
@@ -32,8 +32,8 @@ export function* fetchSeriesByIdFlow() {
 
 export function* searchFlow() {
     for (; ;) {
-        const { text } = yield take(consts.SEARCH);
-        const url = apiUrl + "Search/" + text;
+        const { text, page } = yield take(consts.SEARCH);
+        const url = apiUrl + "Search/" + text + '?page=' + page;
         let response = yield call(get, url);
         yield put({ type: consts.SEARCH_SUCCESS, data: response.data });
     }
