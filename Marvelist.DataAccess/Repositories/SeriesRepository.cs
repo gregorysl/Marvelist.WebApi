@@ -28,7 +28,7 @@ namespace Marvelist.DataAccess.Repositories
             {
                 PageData = new PageData
                 {
-                    Count = series.Count(),
+                    Count = seriesViewModels.Count(),
                     Page = page,
                     PageSize = pagesize
                 }
