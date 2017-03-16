@@ -15,9 +15,9 @@ const Title = (props) => {
             break;
     }
     return (
-            <h1>
-                {title}
-            </h1>
+        <h2 className="[ info-card-header ]" >
+            {title}
+        </h2>
     );
 };
 

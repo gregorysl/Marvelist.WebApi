@@ -1,22 +1,26 @@
 import React, { PropTypes } from 'react';
 import Title from './Title';
+import CoverDate from './CoverDate';
 
 const Cover = (props) => {
     const url = require("file-loader!../../images/not_found.png");
     return (
-        <div className="cover">
+        <div className="[ info-card ]">
+            {props.date && <CoverDate comicDate={props.date} />}
             <img className="base" src={url} />
-            <img className="real" src={`${props.thumbnail}`} />
-            <div className="shadow-base"></div>
-            <Title {...props} />
+            <img src={props.thumbnail} />
+            <div className="[ info-card-details ] animate">
+                <Title link={props.link} {...props} />
+                <p className="[ info-card-detail ]">{props.description}</p>
+            </div>
         </div>
     );
 };
 
 Cover.propTypes = {
-    id: PropTypes.number,
-    thumbnail: PropTypes.string.isRequired,
-    title: PropTypes.string.isRequired
+    id: PropTypes.number
+    // thumbnail: PropTypes.string.isRequired,
+    // title: PropTypes.string.isRequired
 };
 
 export default Cover;
