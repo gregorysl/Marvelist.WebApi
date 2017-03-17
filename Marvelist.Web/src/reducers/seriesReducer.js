@@ -9,18 +9,16 @@ export const seriesReducer = (state = { pageData: { count: 0, pageSize: 0, page:
             return { ...state, pageData: action.data.pageData, series: action.data.series.map(x => ({ ...x, loading: false })) };
         case consts.FOLLOW_SERIES: {
             if (!action.detailPage) {
-                let idx = state.findIndex(x => x.id == action.id);
-                let item = state[idx];
-                item.loading = true;
+                let idx = state.series.findIndex(x => x.id == action.id);
+                const newData = update(state, { series: { [idx]: { loading: { $set: true } } } });
+                return { ...newData };
             }
-            return [...state];
+            return { ...state };
         }
         case consts.FOLLOW_SERIES_SUCCESS: {
-            let idx = state.findIndex(x => x.id == action.id);
-            let item = state[idx];
-            item.following = !item.following;
-            item.loading = false;
-            return [...state];
+            let idx = state.series.findIndex(x => x.id == action.id);
+            const newData = update(state, { series: { [idx]: { loading: { $set: false } } } });
+            return { ...newData };
         }
         default:
             return state;
