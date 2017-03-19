@@ -1,9 +1,9 @@
 import React, { PropTypes } from "react";
 import { connect } from "react-redux";
-import { Link } from "react-router";
+import { Link, browserHistory } from "react-router";
 import { logout } from "../../actions/userActions";
-import SearchBar from "./Search";
-import { Menu } from 'antd';
+import { Menu, Input } from 'antd';
+const Search = Input.Search;
 
 
 class HeaderMy extends React.Component {
@@ -14,6 +14,9 @@ class HeaderMy extends React.Component {
 
   _logout() {
     this.props.logout();
+  }
+  onSearch(value) {
+    browserHistory.push('/search/' + value);
   }
 
   render() {
@@ -37,7 +40,7 @@ class HeaderMy extends React.Component {
         <Menu mode="horizontal" style={{ flex: '1' }} >
           <Menu.Item><Link to="/series">Series</Link></Menu.Item>
           <Menu.Item><Link to="/about">About</Link></Menu.Item>
-          <Menu.Item><SearchBar /></Menu.Item>
+          <Menu.Item><Search placeholder="Search" style={{ width: 200 }} onSearch={this.onSearch} /></Menu.Item>
         </Menu>
         {navButtons}
       </div>
