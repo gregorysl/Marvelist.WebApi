@@ -80,7 +80,7 @@ let server = {
                     }
                 })
                 .catch(error => {
-                    reject(new Error('Username already in use'));
+                    reject(new Error('Username already in use. Error: ' + error));
                 });
 
         });

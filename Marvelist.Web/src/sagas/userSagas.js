@@ -1,4 +1,4 @@
-import { take, call, put, fork, race } from 'redux-saga/effects';
+import { take, call, put, race } from 'redux-saga/effects';
 import { browserHistory } from 'react-router';
 import auth from '../auth';
 import {
@@ -11,7 +11,7 @@ import {
   REQUEST_ERROR
 } from '../actions/constants';
 
-export function* authorize({username, password, isRegistering}) {
+export function* authorize({ username, password, isRegistering }) {
   yield put({ type: SENDING_REQUEST, sending: true });
 
   try {
@@ -47,7 +47,7 @@ function forwardTo(location) {
 export function* loginFlow() {
   for (; ;) {
     let request = yield take(LOGIN_REQUEST);
-    let {username, password} = request.data;
+    let { username, password } = request.data;
     let winner = yield race({
       auth: call(authorize, { username, password, isRegistering: false }),
       logout: take(LOGOUT)
@@ -75,7 +75,7 @@ export function* logoutFlow() {
 export function* registerFlow() {
   for (; ;) {
     let request = yield take(REGISTER_REQUEST);
-    let {username, password} = request.data;
+    let { username, password } = request.data;
 
     let wasSuccessful = yield call(authorize, { username, password, isRegistering: true });
 

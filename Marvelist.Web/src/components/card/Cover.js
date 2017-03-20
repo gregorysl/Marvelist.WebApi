@@ -18,9 +18,11 @@ const Cover = (props) => {
 };
 
 Cover.propTypes = {
-    id: PropTypes.number
-    // thumbnail: PropTypes.string.isRequired,
-    // title: PropTypes.string.isRequired
+    id: PropTypes.number,
+    date: PropTypes.string.isRequired,
+    thumbnail: PropTypes.string.isRequired,
+    description: PropTypes.string.isRequired,
+    link: PropTypes.string.isRequired
 };
 
 export default Cover;

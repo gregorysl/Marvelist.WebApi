@@ -101,7 +101,8 @@ Series.propTypes = {
   series: PropTypes.array,
   pageData: PropTypes.object,
   params: PropTypes.shape({ text: PropTypes.string }).isRequired,
-  route: PropTypes.shape({ path: PropTypes.string }).isRequired
+  route: PropTypes.shape({ path: PropTypes.string }).isRequired,
+  location: React.PropTypes.object
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Series);

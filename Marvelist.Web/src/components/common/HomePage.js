@@ -29,7 +29,7 @@ class HomePage extends React.Component {
     );
   }
 }
-const mapStateToProps = (state, ownProps) => {
+const mapStateToProps = (state) => {
   return { home: state.homeComics, user: state.user };
 };
 

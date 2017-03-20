@@ -1,6 +1,5 @@
 import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
 import { fetchSeriesById, folllowComic, folllowSeries, readAllComic } from '../../actions/seriesActions';
 import Card from '../card/Card';
 import DetailsHeader from './DetailsHeader';
@@ -42,7 +41,7 @@ SeriesDetails.propTypes = {
         .isRequired
 };
 
-const mapStateToProps = (state, ownProps) => {
+const mapStateToProps = (state) => {
     return { seriesDetails: state.seriesDetails };
 };
 

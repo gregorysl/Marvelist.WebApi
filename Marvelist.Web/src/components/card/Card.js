@@ -10,7 +10,6 @@ class MarvelistCard extends React.Component {
     }
 
     handleClick() {
-        debugger;
         this.props.follow(this.props.data.id, this.props.data.seriesId);
     }
 
