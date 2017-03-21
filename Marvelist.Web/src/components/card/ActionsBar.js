@@ -6,12 +6,10 @@ const ActionsBar = (props) => {
     const barColor = `quick-icons ${props.following ? "" : "red"}`;
     return (
         <div className={barColor}>
-            <div className="actions">
-                <FollowIcon following={props.following} click={props.click} />
-                <a href={props.url} target="blank">
-                    <i className="anticon anticon-link"/>
-                </a>
-            </div>
+            <FollowIcon following={props.following} click={props.click} />
+            <a href={props.url} target="blank">
+                <i className="anticon anticon-link" />
+            </a>
             <ComicCount count={props.comicCount} />
         </div>
     );
