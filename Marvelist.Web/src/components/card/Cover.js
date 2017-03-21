@@ -19,10 +19,10 @@ const Cover = (props) => {
 
 Cover.propTypes = {
     id: PropTypes.number,
-    date: PropTypes.string.isRequired,
+    date: PropTypes.string,
     thumbnail: PropTypes.string.isRequired,
     description: PropTypes.string.isRequired,
-    link: PropTypes.string.isRequired
+    link: PropTypes.number
 };
 
 export default Cover;
