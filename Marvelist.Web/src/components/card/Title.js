@@ -3,7 +3,7 @@ import { PLACE } from '../../actions/constants';
 
 const Title = (props) => {
     let title = "";
-    switch (props.link) {
+    switch (props.place) {
         case PLACE.HOME:
             title = (<a href={`/Series/${props.seriesId}`}>{props.title}</a>);
             break;
@@ -22,7 +22,7 @@ const Title = (props) => {
 };
 
 Title.propTypes = {
-    link: PropTypes.number,
+    place: PropTypes.number,
     id: PropTypes.number,
     seriesId: PropTypes.number,
     title: PropTypes.string.isRequired

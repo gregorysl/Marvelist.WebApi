@@ -54,7 +54,7 @@ class Series extends React.Component {
 
   mapData(props, showFollowed) {
     const series = showFollowed ? props.series : props.series.filter(x => !x.following);
-    return series.map((b, i) => <Card key={i} follow={props.follow} data={b} link={PLACE.SERIES} />);
+    return series.map((b, i) => <Card key={i} follow={props.follow} data={b} place={PLACE.SERIES} />);
   }
   onChangePage(page) {
     let url = this.props.location.pathname + '?page=' + page;

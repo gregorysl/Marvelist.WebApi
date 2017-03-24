@@ -10,7 +10,7 @@ const Cover = (props) => {
             <img className="base" src={url} />
             <img src={props.thumbnail} />
             <div className="[ info-card-details ] animate">
-                <Title link={props.link} {...props} />
+                <Title place={props.place} {...props} />
                 <p className="[ info-card-detail ]">{props.description}</p>
             </div>
         </div>
@@ -22,7 +22,7 @@ Cover.propTypes = {
     date: PropTypes.string,
     thumbnail: PropTypes.string.isRequired,
     description: PropTypes.string.isRequired,
-    link: PropTypes.number
+    place: PropTypes.number
 };
 
 export default Cover;

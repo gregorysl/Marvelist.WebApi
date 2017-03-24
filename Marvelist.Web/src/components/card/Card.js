@@ -18,7 +18,7 @@ class MarvelistCard extends React.Component {
             <Col xs={12} sm={6} md={6} lg={4} >
                 <Spin size="large" spinning={this.props.data.loading}>
                     <Card bordered={false} bodyStyle={{ padding: 0 }}>
-                        <Cover link={this.props.link} {...this.props.data} />
+                        <Cover place={this.props.place} {...this.props.data} />
                         <ActionsBar click={this.handleClick} {...this.props.data} />
                     </Card>
                 </Spin>
@@ -30,7 +30,7 @@ class MarvelistCard extends React.Component {
 MarvelistCard.propTypes = {
     toggleFollow: PropTypes.func,
     follow: PropTypes.func.isRequired,
-    link: PropTypes.number,
+    place: PropTypes.number,
     data: PropTypes.object.isRequired
 };
 
