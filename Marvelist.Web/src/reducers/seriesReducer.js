@@ -1,7 +1,8 @@
 import * as consts from '../actions/constants';
 import update from 'immutability-helper';
 
-export const seriesReducer = (state = { pageData: { count: 0, pageSize: 0, page: 0 }, series: [] }, action) => {
+const initialStateSeries = { pageData: { count: 0, pageSize: 0, page: 0 }, series: [] };
+export const seriesReducer = (state = initialStateSeries, action) => {
     switch (action.type) {
         case consts.FETCH_SERIES_SUCCESS:
             return { ...state, pageData: action.data.pageData, series: action.data.series.map(x => ({ ...x, loading: false })) };
@@ -20,6 +21,8 @@ export const seriesReducer = (state = { pageData: { count: 0, pageSize: 0, page:
             const newData = update(state, { series: { [idx]: { loading: { $set: false } } } });
             return { ...newData };
         }
+        case consts.LOGOUT:
+            return { ...initialStateSeries };
         default:
             return state;
     }
@@ -41,6 +44,8 @@ export const seriesDetailsReducer = (state = initialDetailState, action) => {
             }
             return state;
         }
+        case consts.LOGOUT:
+            return { ...initialDetailState };
         default:
             return state;
     }
@@ -58,7 +63,8 @@ export const homeComicsReducer = (state = [], action) => {
             }
             return state;
         }
-
+        case consts.LOGOUT:
+            return [];
         default:
             return state;
     }
