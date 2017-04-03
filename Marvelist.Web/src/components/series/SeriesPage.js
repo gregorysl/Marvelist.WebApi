@@ -29,9 +29,7 @@ class Series extends React.Component {
     else if (this.props.params != nextProps.params) {
       this.getData(nextProps);
     }
-    if (this.props.series !== nextProps.series) {
-      this.data = this.mapData(nextProps, this.state.showFollowed);
-    }
+    this.data = this.mapData(nextProps, this.state.showFollowed);
   }
 
   getData(props) {
@@ -56,6 +54,7 @@ class Series extends React.Component {
     const series = showFollowed ? props.series : props.series.filter(x => !x.following);
     return series.map((b, i) => <Card key={i} follow={props.follow} data={b} place={PLACE.SERIES} />);
   }
+
   onChangePage(page) {
     let url = this.props.location.pathname + '?page=' + page;
     browserHistory.push(url);
