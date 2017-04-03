@@ -18,7 +18,7 @@ export const seriesReducer = (state = initialStateSeries, action) => {
         }
         case consts.FOLLOW_SERIES_SUCCESS: {
             let idx = state.series.findIndex(x => x.id == action.id);
-            const newData = update(state, { series: { [idx]: { loading: { $set: false } } } });
+            const newData = update(state, { series: { [idx]: { loading: { $set: false }, following: { $apply: function (x) { return !x; } } } } });
             return { ...newData };
         }
         case consts.LOGOUT:
