@@ -1,15 +1,17 @@
 import React, { PropTypes } from 'react';
 import FollowIcon from './FollowIcon';
+import UrlIcon from './UrlIcon';
 import ComicCount from './ComicCount';
 
 const ActionsBar = (props) => {
+    if (props.following == null) {
+        return null;
+    }
     const barColor = `quick-icons ${props.following ? "" : "red"}`;
     return (
         <div className={barColor}>
             <FollowIcon following={props.following} click={props.click} />
-            <a href={props.url} target="blank">
-                <i className="anticon anticon-link" />
-            </a>
+            <UrlIcon url={props.url} />
             <ComicCount count={props.comicCount} />
         </div>
     );
@@ -17,9 +19,9 @@ const ActionsBar = (props) => {
 
 ActionsBar.propTypes = {
     comicCount: PropTypes.number,
-    following: PropTypes.bool.isRequired,
+    following: PropTypes.bool,
     click: PropTypes.func.isRequired,
-    url: PropTypes.string.isRequired
+    url: PropTypes.string
 };
 
 export default ActionsBar;
