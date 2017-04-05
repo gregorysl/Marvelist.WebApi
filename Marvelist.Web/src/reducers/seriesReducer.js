@@ -1,11 +1,15 @@
 import * as consts from '../actions/constants';
 import update from 'immutability-helper';
 
-const initialStateSeries = { pageData: { count: 0, pageSize: 0, page: 0 }, series: [] };
-export const seriesReducer = (state = initialStateSeries, action) => {
+const emptyPageDataState = { pageData: { count: 0, pageSize: 0, page: 0 } };
+const loadingCardState = { description: "", "title": "LOADING", "thumbnail": "http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available/portrait_uncanny.jpg", "loading": true };
+const initialSeriesState = { ...emptyPageDataState, series: [] };
+const loadingSeriesCardState = { ...emptyPageDataState, series: [loadingCardState] }
+export const seriesReducer = (state = initialSeriesState, action) => {
     switch (action.type) {
+        case consts.CARD_LOADING:
+            return { ...state, ...loadingSeriesCardState };
         case consts.FETCH_SERIES_SUCCESS:
-            return { ...state, pageData: action.data.pageData, series: action.data.series.map(x => ({ ...x, loading: false })) };
         case consts.SEARCH_SUCCESS:
             return { ...state, pageData: action.data.pageData, series: action.data.series.map(x => ({ ...x, loading: false })) };
         case consts.FOLLOW_SERIES: {
@@ -18,11 +22,11 @@ export const seriesReducer = (state = initialStateSeries, action) => {
         }
         case consts.FOLLOW_SERIES_SUCCESS: {
             let idx = state.series.findIndex(x => x.id == action.id);
-            const newData = update(state, { series: { [idx]: { loading: { $set: false }, following: { $apply: function (x) { return !x; } } } } });
+            const newData = update(state, { series: { [idx]: { loading: { $set: false }, following: { $apply: function(x) {return !x;} } } } });
             return { ...newData };
         }
         case consts.LOGOUT:
-            return { ...initialStateSeries };
+            return { ...initialSeriesState };
         default:
             return state;
     }
@@ -51,7 +55,8 @@ export const seriesDetailsReducer = (state = initialDetailState, action) => {
     }
 };
 
-export const homeComicsReducer = (state = [], action) => {
+
+export const homeComicsReducer = (state = [loadingCardState], action) => {
     switch (action.type) {
         case consts.FETCH_HOME_COMICS_SUCCESS:
             return action.homeComics.map(x => ({ ...x, loading: false }));

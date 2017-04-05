@@ -26,6 +26,8 @@ export const FETCH_HOME_COMICS_SUCCESS = 'FETCH_HOME_COMICS_SUCCESS';
 export const SEARCH = 'SEARCH';
 export const SEARCH_SUCCESS = 'SEARCH_SUCCESS';
 
+export const CARD_LOADING = 'CARD_LOADING';
+
 export const PLACE = {
     SERIES:1,
     HOME:2
