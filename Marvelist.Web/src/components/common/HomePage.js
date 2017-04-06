@@ -13,12 +13,16 @@ class HomePage extends React.Component {
     if (this.props.user.loggedIn) {
       this.props.fetch();
     }
+    this.mapData(this.props);
   }
   componentWillReceiveProps(nextProps) {
     if (this.props.home !== nextProps.home) {
-      let { follow } = nextProps;
-      this.data = nextProps.home.map((b, i) => <Card key={i} follow={follow} data={b} place={PLACE.HOME} />);
+      this.mapData(nextProps);
     }
+  }
+  mapData(props) {
+    let { follow } = props;
+    this.data = props.home.map((b, i) => <Card key={i} follow={follow} data={b} place={PLACE.HOME} />);
   }
 
   render() {
