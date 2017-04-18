@@ -2,6 +2,7 @@ import React, { PropTypes } from "react";
 import { connect } from "react-redux";
 import { loginRequest } from "../../actions/userActions";
 import { Form, Icon, Input, Button } from 'antd';
+import FastFormItem from './FastFormItem';
 const FormItem = Form.Item;
 
 class Register extends React.Component {
@@ -31,16 +32,8 @@ class Register extends React.Component {
                         <Input addonBefore={<Icon type="mail" />} placeholder="E-mail" />
                         )}
                 </FormItem>
-                <FormItem>
-                    {getFieldDecorator('username', { rules: [{ required: true, message: 'Username is required!' }] })(
-                        <Input addonBefore={<Icon type="user" />} placeholder="Username" />
-                    )}
-                </FormItem>
-                <FormItem>
-                    {getFieldDecorator('password', { rules: [{ required: true, message: 'Please input your Password!' }] })(
-                        <Input addonBefore={<Icon type="lock" />} type="password" placeholder="Password" />
-                    )}
-                </FormItem>
+                <FastFormItem placeholder="Username" name="username" form={this.props.form} icon="user" />
+                <FastFormItem placeholder="Password" name="password" form={this.props.form} icon="lock" type="password"  />
                 <FormItem>
                     {getFieldDecorator('confirm', {
                         rules: [{ required: true, message: 'Please confirm your password!' }, {
