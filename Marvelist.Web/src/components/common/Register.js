@@ -20,29 +20,14 @@ class Register extends React.Component {
         });
     }
     render() {
+        const arr = [{ type: 'email', message: 'The input is not valid E-mail!' }];
         const { getFieldDecorator } = this.props.form;
         return (
             <Form onSubmit={this.handleSubmit} className="login-form">
-                <FormItem>
-                    {getFieldDecorator('email', {
-                        rules: [{
-                            type: 'email', message: 'The input is not valid E-mail!'
-                        }, { required: true, message: 'Please input your E-mail!', }]
-                    })(
-                        <Input addonBefore={<Icon type="mail" />} placeholder="E-mail" />
-                        )}
-                </FormItem>
-                <FastFormItem placeholder="Username" name="username" form={this.props.form} icon="user" />
-                <FastFormItem placeholder="Password" name="password" form={this.props.form} icon="lock" type="password"  />
-                <FormItem>
-                    {getFieldDecorator('confirm', {
-                        rules: [{ required: true, message: 'Please confirm your password!' }, {
-                            validator: this.checkPassword,
-                        }]
-                    })(
-                        <Input addonBefore={<Icon type="lock" />} type="password" placeholder="Password confirmation" />
-                        )}
-                </FormItem>
+                <FastFormItem placeholder="E-mail" name="email" decorator={getFieldDecorator} icon="mail" rules={arr} />
+                <FastFormItem placeholder="Username" name="username" decorator={getFieldDecorator} icon="user" />
+                <FastFormItem placeholder="Password" name="password" decorator={getFieldDecorator} icon="lock" type="password" />
+                <FastFormItem placeholder="Confirm Password" name="confirm" decorator={getFieldDecorator} icon="lock" type="password" />
                 <FormItem>
                     <Button type="primary" htmlType="submit" className="login-form-button">Log in</Button>
                     Or <a>register now!</a>
