@@ -9,8 +9,17 @@ class Register extends React.Component {
     constructor(props) {
         super(props);
         this.handleSubmit = this.handleSubmit.bind(this);
+        this.checkPassword = this.checkPassword.bind(this);
     }
 
+    checkPassword(rule, value, callback) {
+        const form = this.props.form;
+        if (value && value !== form.getFieldValue('password')) {
+            callback('These passwords don\'t match.');
+        } else {
+            callback();
+        }
+    }
     handleSubmit(event) {
         event.preventDefault();
         this.props.form.validateFields((err, values) => {
@@ -27,7 +36,7 @@ class Register extends React.Component {
                 <FastFormItem placeholder="E-mail" name="email" decorator={getFieldDecorator} icon="mail" rules={arr} />
                 <FastFormItem placeholder="Username" name="username" decorator={getFieldDecorator} icon="user" />
                 <FastFormItem placeholder="Password" name="password" decorator={getFieldDecorator} icon="lock" type="password" />
-                <FastFormItem placeholder="Confirm Password" name="confirm" decorator={getFieldDecorator} icon="lock" type="password" />
+                <FastFormItem placeholder="Confirm Password" name="confirm" decorator={getFieldDecorator} icon="lock" type="password" rules={[{ validator: this.checkPassword }]} />
                 <FormItem>
                     <Button type="primary" htmlType="submit" className="login-form-button">Log in</Button>
                     Or <a>register now!</a>
