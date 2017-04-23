@@ -11,14 +11,14 @@ import {
   REQUEST_ERROR
 } from '../actions/constants';
 
-export function* authorize({ username, password, isRegistering }) {
+export function* authorize({ email, username, password, isRegistering }) {
   yield put({ type: SENDING_REQUEST, sending: true });
 
   try {
     let response;
 
     if (isRegistering) {
-      response = yield call(auth.register, username, password);
+      response = yield call(auth.register, username, password, email);
     } else {
       response = yield call(auth.login, username, password);
     }
@@ -75,9 +75,9 @@ export function* logoutFlow() {
 export function* registerFlow() {
   for (; ;) {
     let request = yield take(REGISTER_REQUEST);
-    let { username, password } = request.data;
+    let { email, username, password } = request.data;
 
-    let wasSuccessful = yield call(authorize, { username, password, isRegistering: true });
+    let wasSuccessful = yield call(authorize, { email, username, password, isRegistering: true });
 
     if (wasSuccessful) {
       yield put({ type: SET_AUTH, newAuthState: true });

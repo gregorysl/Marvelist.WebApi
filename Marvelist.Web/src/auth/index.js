@@ -38,9 +38,9 @@ let auth = {
         let username = localStorage.getItem('username');
         return this.loggedIn() && username ? username : "";
     },
-    register(username, password) {
+    register(username, password, email) {
         return server
-            .register(username, password)
+            .register(username, password, email)
             .then(() => auth.login(username, password));
     }
 };
@@ -67,16 +67,14 @@ let server = {
 
         });
     },
-    register(username, password) {
+    register(username, password, email) {
         return new Promise((resolve, reject) => {
             const apiUrl = api + '/api/Register';
             Axios
-                .post(apiUrl, { username, password })
+                .post(apiUrl, { username, password, email })
                 .then(response => {
                     if (response.status >= 200 && response.status < 300) {
-
                         resolve({ registered: true });
-                        //resolve({authenticated: true, token: response.token});
                     }
                 })
                 .catch(error => {
