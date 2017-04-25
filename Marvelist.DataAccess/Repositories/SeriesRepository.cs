@@ -37,10 +37,10 @@ namespace Marvelist.DataAccess.Repositories
             };
         }
 
-        public List<SeriesComicsViewModel> GetAllFollowedSeries(string userId)
+        public SeriesPaginatedModel GetAllFollowedSeries(string userId)
         {
-            var series = DataContext.UserSeries.Where(x => x.UserId == userId).Select(x =>
-                new SeriesComicsViewModel
+            var seriesViewModels = DataContext.UserSeries.Where(x => x.UserId == userId).Select(x =>
+                new SeriesViewModel
                 {
                     Id = x.Id,
                     Description = x.Series.Description,
@@ -50,9 +50,18 @@ namespace Marvelist.DataAccess.Repositories
                     Url = x.Series.Url,
                     ComicCount = x.Series.Comics.Count,
                     Read = DataContext.UserComics.Count(c => x.Series.Comics.Select(s => s.Id).Contains(c.ComicId))
-                }).OrderBy(x => x.Title).ToList();
-
-            return series;
+                }).OrderBy(x => x.Title);
+            return new SeriesPaginatedModel
+            {
+                PageData = new PageData
+                {
+                    Count = seriesViewModels.Count(),
+                    Page = 0,
+                    PageSize = seriesViewModels.Count()
+                }
+                ,
+                Series = seriesViewModels.ToList()
+            };
         }
 
         public SeriesPaginatedModel Filter(string text, string userId, int page, int pagesize)
@@ -97,7 +106,7 @@ namespace Marvelist.DataAccess.Repositories
 
     public interface ISeriesRepository : IRepository<Series>
     {
-        List<SeriesComicsViewModel> GetAllFollowedSeries(string userId);
+        SeriesPaginatedModel GetAllFollowedSeries(string userId);
         SeriesViewModel GetSeriesById(int id, string userId);
         SeriesPaginatedModel Filter(string text, string userId, int page, int pagesize);
         List<SeriesViewModel> GetByYear(int year, string userId);

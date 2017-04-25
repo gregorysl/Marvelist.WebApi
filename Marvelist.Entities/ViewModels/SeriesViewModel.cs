@@ -27,6 +27,7 @@ namespace Marvelist.Entities.ViewModels
 
     public class SeriesViewModel : Mvm
     {
+        public int Read { get; set; }
         public int ComicCount { get; set; }
     }
 
@@ -44,10 +45,8 @@ namespace Marvelist.Entities.ViewModels
     }
 
 
-    public class SeriesComicsViewModel : Mvm
+    public class SeriesWithDetailsViewModel : SeriesViewModel
     {
-        public int ComicCount { get; set; }
-        public int Read { get; set; }
         public List<ComicsViewModel> Comics { get; set; }
     }
 

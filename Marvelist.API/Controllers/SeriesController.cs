@@ -33,7 +33,7 @@ namespace Marvelist.API.Controllers
             var series = _series.GetById(id);
             var isFollowing = _userSeries.IsFollowing(id, UserId);
             var comics = _userComic.GetAllFollowingForSeriesId(id, UserId);
-            var results = new SeriesComicsViewModel
+            var results = new SeriesWithDetailsViewModel
             {
                 Id = series.Id,
                 Description = series.Description,

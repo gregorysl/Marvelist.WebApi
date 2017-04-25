@@ -18,7 +18,7 @@ namespace Marvelist.API
                 mapper.CreateMap<Series, SeriesViewModel>()
                     .ForMember(a => a.Thumbnail, b => b.MapFrom(c => c.Thumbnail.ToString(Image.PortraitUncanny)))
                     .ForMember(a => a.ComicCount, b => b.MapFrom(c => c.Comics.Count));
-                mapper.CreateMap<Series, SeriesComicsViewModel>()
+                mapper.CreateMap<Series, SeriesWithDetailsViewModel>()
                     .ForMember(a => a.Thumbnail, b => b.MapFrom(c => c.Thumbnail.ToString(Image.PortraitUncanny)));
                 mapper.CreateMap<Comic, ComicsViewModel>()
                     .ForMember(a => a.Thumbnail, b => b.MapFrom(c => c.Thumbnail.ToString(Image.PortraitUncanny)));
