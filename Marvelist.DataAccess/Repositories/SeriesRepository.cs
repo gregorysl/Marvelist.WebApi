@@ -42,7 +42,7 @@ namespace Marvelist.DataAccess.Repositories
             var seriesViewModels = DataContext.UserSeries.Where(x => x.UserId == userId).Select(x =>
                 new SeriesViewModel
                 {
-                    Id = x.Id,
+                    Id = x.SeriesId,
                     Description = x.Series.Description,
                     Following = true,
                     ThumbnailData = x.Series.Thumbnail,
