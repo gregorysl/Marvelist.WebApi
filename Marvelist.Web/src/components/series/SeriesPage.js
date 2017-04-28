@@ -51,8 +51,9 @@ class Series extends React.Component {
   }
 
   mapData(props, showFollowed) {
+    const dashboard = props.route.path === "/dashboard";
     const series = showFollowed ? props.series : props.series.filter(x => !x.following);
-    return series.map((b, i) => <Card key={i} follow={props.follow} data={b} place={PLACE.SERIES} />);
+    return series.map((b, i) => <Card key={i} follow={props.follow} data={b} place={PLACE.SERIES} dashboard={dashboard} />);
   }
 
   onChangePage(page) {
