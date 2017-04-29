@@ -49,8 +49,7 @@ namespace Marvelist.Service
 
         public List<Comic> GetComicsForWeek(DateTime weekStart, DateTime weekEnd)
         {
-            var comics =
-                _comicRepository.Query(x => x.Date > weekStart && x.Date < weekEnd).OrderBy(x => x.Title).ToList();
+            var comics = _comicRepository.GetComicsForWeek(weekStart, weekEnd);
             return comics;
         }
 

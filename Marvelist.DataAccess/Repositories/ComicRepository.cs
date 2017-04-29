@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Marvelist.DataAccess.Infrastructure;
@@ -34,12 +35,18 @@ namespace Marvelist.DataAccess.Repositories
                 .ToList();
             return results;
         }
+
+        public List<Comic> GetComicsForWeek(DateTime weekStart, DateTime weekEnd)
+        {
+            return DataContext.Comics.Where(x => x.Date > weekStart && x.Date < weekEnd).OrderBy(x => x.Title).ToList();
+        }
     }
     public interface IComicRepository : IRepository<Comic>
     {
         List<Comic> GetForSeriesId(int id);
         int GetSeriesIdForComicId(int id);
         List<Comic> GetHomeComics(string userId);
+        List<Comic> GetComicsForWeek(DateTime weekStart, DateTime weekEnd);
 
     }
 }
