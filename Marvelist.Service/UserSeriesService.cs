@@ -49,8 +49,11 @@ namespace Marvelist.Service
 
         public void AddByComicId(int comicId, string userId)
         {
-            var seriesId = _seriesRepository.Query(x => x.Comics.Any(z => z.Id == comicId)).First().Id;
-            Add(seriesId, userId);
+            var seriesId = _seriesRepository.GetSeriesIdByComicId(comicId);
+            if (seriesId.HasValue)
+            {
+                Add(seriesId.Value, userId);
+            }
         }
 
         public void SaveChanges()

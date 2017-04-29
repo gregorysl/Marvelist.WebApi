@@ -19,6 +19,13 @@ namespace Marvelist.DataAccess.Repositories
             return ToSeriesViewModel(series, userId).FirstOrDefault();
         }
 
+        public int? GetSeriesIdByComicId(int id)
+        {
+            var comic = DataContext.Comics.FirstOrDefault(x => x.Id == id);
+            if(comic == null)return null;
+            return comic.SeriesId;
+        }
+
         public SeriesPaginatedModel GetAllSeries(string userId, int page, int pagesize)
         {
             var allSeries = DataContext.Series.OrderBy(x => x.Title);
@@ -108,6 +115,7 @@ namespace Marvelist.DataAccess.Repositories
     {
         SeriesPaginatedModel GetAllFollowedSeries(string userId);
         SeriesViewModel GetSeriesById(int id, string userId);
+        int? GetSeriesIdByComicId(int id);
         SeriesPaginatedModel Filter(string text, string userId, int page, int pagesize);
         List<SeriesViewModel> GetByYear(int year, string userId);
         SeriesPaginatedModel GetAllSeries(string userId, int page, int pagesize);
