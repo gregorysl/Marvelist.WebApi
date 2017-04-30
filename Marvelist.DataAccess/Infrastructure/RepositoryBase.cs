@@ -29,11 +29,6 @@ namespace Marvelist.DataAccess.Infrastructure
             _dbset.Add(entity);
             return entity;
         }
-        public virtual void Update(T entity)
-        {
-            _dbset.Attach(entity);
-            _dataContext.Entry(entity).State = EntityState.Modified;
-        }
         public virtual void Delete(T entity)
         {
             _dbset.Remove(entity);
@@ -52,15 +47,6 @@ namespace Marvelist.DataAccess.Infrastructure
         public virtual List<T> GetAll()
         {
             return _dbset.ToList();
-        }
-        public virtual IEnumerable<T> GetMany(Expression<Func<T, bool>> where)
-        {
-            return _dbset.Where(where).ToList();
-        }
-
-        public virtual IQueryable<T> Query(Expression<Func<T, bool>> where)
-        {
-            return _dbset.Where(where);
         }
     }
 }
