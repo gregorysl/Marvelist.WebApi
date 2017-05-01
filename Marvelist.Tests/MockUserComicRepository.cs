@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Linq.Expressions;
 using Marvelist.DataAccess.Repositories;
 using Marvelist.Entities;
 using Moq;
@@ -45,11 +44,10 @@ namespace Marvelist.Tests
                 {
                     userComics.Remove(userComics.FirstOrDefault(z => z.UserId == userId && z.ComicId == id));
                 });
-            repo.Setup(moq => moq.DeleteMany(It.IsAny<Expression<Func<UserComic, bool>>>()))
-                .Callback((Expression<Func<UserComic, bool>> predicate) =>
+            repo.Setup(moq => moq.DeleteAllForSeries(It.IsAny<int>(), It.IsAny<string>()))
+                .Callback((int seriesId, string userId) =>
                 {
-                    var aa = predicate.Compile();
-                    var uc = userComics.Where(aa).ToList();
+                    var uc = userComics.Where(x => x.UserId == userId && x.Comic.SeriesId == seriesId).ToList();
                     foreach (var userComic in uc)
                     {
                         userComics.Remove(userComic);
