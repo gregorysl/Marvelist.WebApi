@@ -10,6 +10,5 @@ namespace Marvelist.DataAccess.Infrastructure
         List<T> GetAll();
         T Add(T entity);
         void Delete(T entity);
-        void DeleteMany(Expression<Func<T, bool>> where);
     }
 }

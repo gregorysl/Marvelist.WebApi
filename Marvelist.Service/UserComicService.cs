@@ -32,7 +32,7 @@ namespace Marvelist.Service
 
         public void DeleteAllForSeries(int seriesId, string userId)
         {
-            _repository.DeleteMany(x => x.UserId == userId && x.Comic.SeriesId == seriesId);
+            _repository.DeleteAllForSeries(seriesId, userId);
             SaveChanges();
         }
 

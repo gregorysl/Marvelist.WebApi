@@ -9,11 +9,11 @@ namespace Marvelist.DataAccess.Infrastructure
     public abstract class RepositoryBase<T> where T : class, new()
     {
         private MarvelEntities _dataContext;
-        private readonly IDbSet<T> _dbset;
+        protected readonly IDbSet<T> Dbset;
         protected RepositoryBase(IDatabaseFactory databaseFactory)
         {
             DatabaseFactory = databaseFactory;
-            _dbset = DataContext.Set<T>();
+            Dbset = DataContext.Set<T>();
         }
 
         protected IDatabaseFactory DatabaseFactory
@@ -26,27 +26,21 @@ namespace Marvelist.DataAccess.Infrastructure
 
         public virtual T Add(T entity)
         {
-            _dbset.Add(entity);
+            Dbset.Add(entity);
             return entity;
         }
         public virtual void Delete(T entity)
         {
-            _dbset.Remove(entity);
-        }
-        public virtual void DeleteMany(Expression<Func<T, bool>> where)
-        {
-            IEnumerable<T> objects = _dbset.Where(where).AsEnumerable();
-            foreach (T obj in objects)
-                _dbset.Remove(obj);
+            Dbset.Remove(entity);
         }
         public virtual T GetById(int id)
         {
-            return _dbset.Find(id);
+            return Dbset.Find(id);
         }
 
         public virtual List<T> GetAll()
         {
-            return _dbset.ToList();
+            return Dbset.ToList();
         }
     }
 }

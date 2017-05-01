@@ -1,5 +1,7 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using Marvelist.DataAccess.Infrastructure;
 using Marvelist.Entities;
 using Marvelist.Entities.ViewModels;
@@ -62,6 +64,13 @@ namespace Marvelist.DataAccess.Repositories
             }).OrderBy(x=>x.IssueNumber).ToList();
             return comics;
         }
+
+        public virtual void DeleteAllForSeries(int seriesId, string userId)
+        {
+            var objects = Dbset.Where(x => x.UserId == userId && x.Comic.SeriesId == seriesId).ToList();
+            foreach (var obj in objects)
+                Dbset.Remove(obj);
+        }
     }
     public interface IUserComicRepository : IRepository<UserComic>
     {
@@ -71,5 +80,6 @@ namespace Marvelist.DataAccess.Repositories
         void DeleteByComicId(int comicId, string userId);
         List<int> FilterFollowed(List<int> id, string userId);
         List<ComicsViewModel> GetAllFollowingForSeriesId(int seriesId, string userId);
+        void DeleteAllForSeries(int seriesId, string userId);
     }
 }
