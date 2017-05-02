@@ -4,7 +4,7 @@ let auth = {
     login(username, password) {
         if (auth.loggedIn())
             return Promise.resolve(true);
-
+        debugger
         return server
             .login(username, password)
             .then(response => {
@@ -62,7 +62,7 @@ let server = {
                     resolve({ authenticated: true, data: response.data });
                 }
             }).catch(error => {
-                reject(error);
+                reject(new Error(error.response.data.error_description));
             });
 
         });

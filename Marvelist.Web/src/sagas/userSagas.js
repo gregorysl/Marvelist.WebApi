@@ -22,9 +22,10 @@ export function* authorize({ email, username, password, isRegistering }) {
     } else {
       response = yield call(auth.login, username, password);
     }
+    debugger
     return response;
   } catch (error) {
-    yield put({ type: REQUEST_ERROR, error: error.message });
+    yield put({ type: REQUEST_ERROR, error: error });
     return false;
   } finally {
     yield put({ type: SENDING_REQUEST, sending: false });
@@ -52,14 +53,16 @@ export function* loginFlow() {
       auth: call(authorize, { username, password, isRegistering: false }),
       logout: take(LOGOUT)
     });
+    debugger
     if (winner.auth) {
       yield put({ type: SET_AUTH, newAuthState: true });
       yield put({ type: SET_USER, username: winner.auth.data.userName });
+      forwardTo('/');
     } else if (winner.logout) {
       yield put({ type: SET_AUTH, newAuthState: false });
       yield call(logout);
+      forwardTo('/');
     }
-    forwardTo('/');
   }
 }
 
