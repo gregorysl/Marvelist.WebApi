@@ -4,8 +4,9 @@ import Card from '../card/Card';
 import TextHeader from './TextHeader';
 import { fetchSeries, folllowSeries, search } from '../../actions/seriesActions';
 import { PLACE } from '../../actions/constants';
-import { Switch, Pagination } from 'antd';
+import { Switch } from 'antd';
 import { browserHistory } from "react-router";
+import Pager from "../common/Pager";
 
 class Series extends React.Component {
   constructor(props) {
@@ -69,7 +70,7 @@ class Series extends React.Component {
         <div className="row">
           <TextHeader text={this.props.params.text} />
           <p><Switch checkedChildren={"Show"} unCheckedChildren={"Hide"} onChange={this.filterBoxChange} defaultChecked /> following series </p>
-          <Pagination current={page} total={pageData.count} pageSize={pageData.pageSize} onChange={this.onChangePage} />
+          <Pager pageData={this.props.pageData} onChangePage={this.onChangePage} />
         </div>
         <div className="row cards">
           {this.data}
