@@ -28,6 +28,11 @@ export const SEARCH_SUCCESS = 'SEARCH_SUCCESS';
 
 export const CARD_LOADING = 'CARD_LOADING';
 
+
+export const FILTER_SHOW_FOLLOWED = 'FILTER_SHOW_FOLLOWED';
+
+
+
 export const PLACE = {
     SERIES:1,
     HOME:2
