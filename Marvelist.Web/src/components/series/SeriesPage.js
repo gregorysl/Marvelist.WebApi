@@ -2,7 +2,7 @@ import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 import Card from '../card/Card';
 import TextHeader from './TextHeader';
-import { fetchSeries, folllowSeries, search } from '../../actions/seriesActions';
+import * as actions from '../../actions/seriesActions';
 import { PLACE } from '../../actions/constants';
 import { Switch } from 'antd';
 import { browserHistory } from "react-router";
@@ -15,7 +15,7 @@ class Series extends React.Component {
     this.filterBoxChange = this.filterBoxChange.bind(this);
     this.onChangePage = this.onChangePage.bind(this);
     //todo move to store
-    this.state = { showFollowed: true };
+   // this.state = { showFollowed: true };
     this.data = "";
   }
 
@@ -30,7 +30,7 @@ class Series extends React.Component {
     else if (this.props.params != nextProps.params) {
       this.getData(nextProps);
     }
-    this.data = this.mapData(nextProps, this.state.showFollowed);
+    this.data = this.mapData(nextProps);
   }
 
   getData(props) {
@@ -47,13 +47,14 @@ class Series extends React.Component {
   }
 
   filterBoxChange(checked) {
-    this.setState({ showFollowed: checked });
+    this.props.followedFilter(!this.props.filters.showFollowed);
     this.data = this.mapData(this.props, checked);
   }
 
-  mapData(props, showFollowed) {
+  mapData(props) {
     const dashboard = props.route.path === "/dashboard";
-    const series = showFollowed ? props.series : props.series.filter(x => !x.following);
+    debugger;
+    const series = props.filters.showFollowed ? props.series : props.series.filter(x => !x.following);
     return series.map((b, i) => <Card key={i} follow={props.follow} data={b} place={PLACE.SERIES} dashboard={dashboard} />);
   }
 
@@ -63,8 +64,6 @@ class Series extends React.Component {
   }
 
   render() {
-    let { pageData } = this.props;
-    let page = pageData.page + 1;
     return (
       <div>
         <div className="row">
@@ -82,6 +81,7 @@ class Series extends React.Component {
 
 const mapStateToProps = (state) => {
   return {
+    filters: state.series.filters,
     series: state.series.series,
     pageData: state.series.pageData
   };
@@ -89,9 +89,10 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    fetch: (text, page) => dispatch(fetchSeries(text, page)),
-    search: (text, page) => dispatch(search(text, page)),
-    follow: (id) => dispatch(folllowSeries(id))
+    followedFilter: (show) => dispatch(actions.setFollowedFilter(show)),
+    fetch: (text, page) => dispatch(actions.fetchSeries(text, page)),
+    search: (text, page) => dispatch(actions.search(text, page)),
+    follow: (id) => dispatch(actions.folllowSeries(id))
   };
 };
 

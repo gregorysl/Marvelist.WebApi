@@ -3,10 +3,14 @@ import update from 'immutability-helper';
 
 const emptyPageDataState = { pageData: { count: 0, pageSize: 0, page: 0 } };
 const loadingCardState = { description: "", "title": "LOADING", "thumbnail": "http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available/portrait_uncanny.jpg", "loading": true };
-const initialSeriesState = { ...emptyPageDataState, series: [] };
+const initialSeriesState = { ...emptyPageDataState, series: [], filters: { showFollowed: true } };
 const loadingSeriesCardState = { ...emptyPageDataState, series: [loadingCardState] };
 export const seriesReducer = (state = initialSeriesState, action) => {
     switch (action.type) {
+        case consts.FILTER_SHOW_FOLLOWED: {
+            const newData = update(state, { filters: {  showFollowed: { $set: action.show } } });
+            return { ...newData, };
+        }
         case consts.CARD_LOADING:
             return { ...state, ...loadingSeriesCardState };
         case consts.FETCH_SERIES_SUCCESS:
