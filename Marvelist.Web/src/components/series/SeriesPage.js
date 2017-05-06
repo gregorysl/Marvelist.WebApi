@@ -14,8 +14,6 @@ class Series extends React.Component {
     this.mapData = this.mapData.bind(this);
     this.filterBoxChange = this.filterBoxChange.bind(this);
     this.onChangePage = this.onChangePage.bind(this);
-    //todo move to store
-   // this.state = { showFollowed: true };
     this.data = "";
   }
 
@@ -53,7 +51,6 @@ class Series extends React.Component {
 
   mapData(props) {
     const dashboard = props.route.path === "/dashboard";
-    debugger;
     const series = props.filters.showFollowed ? props.series : props.series.filter(x => !x.following);
     return series.map((b, i) => <Card key={i} follow={props.follow} data={b} place={PLACE.SERIES} dashboard={dashboard} />);
   }
@@ -100,8 +97,10 @@ Series.propTypes = {
   fetch: PropTypes.func.isRequired,
   follow: PropTypes.func.isRequired,
   search: PropTypes.func.isRequired,
+  followedFilter: PropTypes.func.isRequired,
   series: PropTypes.array,
   pageData: PropTypes.object,
+  filters: PropTypes.object,
   params: PropTypes.shape({ text: PropTypes.string }).isRequired,
   route: PropTypes.shape({ path: PropTypes.string }).isRequired,
   location: React.PropTypes.object
