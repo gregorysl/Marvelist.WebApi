@@ -71,6 +71,9 @@ class Series extends React.Component {
         <div className="row cards">
           {this.data}
         </div>
+        <div className="row">
+          <Pager pageData={this.props.pageData} onChangePage={this.onChangePage} />
+        </div>
       </div>
     );
   }
