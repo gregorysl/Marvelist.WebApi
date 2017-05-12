@@ -6,6 +6,7 @@ import Login from './components/common/Login';
 import Register from './components/common/Register';
 import About from './components/common/AboutPage';
 import Series from './components/series/SeriesPage';
+import Dashboard from './components/series/DashboardPage';
 import SeriesDetails from './components/series/SeriesDetailPage';
 
 export default (
@@ -17,6 +18,6 @@ export default (
     <Route path="/series" component={Series} />
     <Route path="/search/:text" component={Series} />
     <Route path="/series/:id" component={SeriesDetails} />
-    <Route path="/dashboard" component={Series} />
+    <Route path="/dashboard" component={Dashboard} />
   </Route>
 );
