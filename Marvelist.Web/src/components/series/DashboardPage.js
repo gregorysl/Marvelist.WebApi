@@ -1,6 +1,6 @@
 import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
-import Card from '../card/Card';
+import DashboardItem from '../DashboardItem';
 import TextHeader from './TextHeader';
 import * as actions from '../../actions/seriesActions';
 import { PLACE } from '../../actions/constants';
@@ -39,7 +39,7 @@ class Dashboard extends React.Component {
     }
 
     mapData(props) {
-        return props.series.map((b, i) => <Card key={i} follow={props.follow} data={b} place={PLACE.SERIES} dashboard />);
+        return props.series.map((b, i) => <DashboardItem key={i} follow={props.follow} data={b} place={PLACE.SERIES} dashboard />);
     }
 
     onChangePage(page) {
