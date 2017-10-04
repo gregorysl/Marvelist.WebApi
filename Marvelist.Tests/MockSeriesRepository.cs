@@ -22,17 +22,27 @@ namespace Marvelist.Tests
                 }));
             repo.Setup(x => x.Filter(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<int>(), It.IsAny<int>()))
                 .Returns(new Func<string,string, int, int, SeriesPaginatedModel>((id,userId,page, pageSize) => Filter(id,userId, series, page,pageSize)));
-            repo.Setup(x => x.GetByYear(It.IsAny<int>(), It.IsAny<string>()))
-                .Returns(new Func<int,string, List<SeriesViewModel>>((year,userId) => GetForYear(series, year, userId)));
+            repo.Setup(x => x.GetByYear(It.IsAny<int>(), It.IsAny<string>(), It.IsAny<int>(), It.IsAny<int>()))
+                .Returns(new Func<int,string, int, int, SeriesPaginatedModel>((year,userId, page, pageSize) => GetForYear(series, year, userId, page, pageSize)));
             repo.Setup(x => x.GetById(It.IsAny<int>()))
                 .Returns(new Func<int, Series>(id => series.Find(x => x.Id == id)));
             return repo.Object;
         }
 
-        private static List<SeriesViewModel> GetForYear(List<Series> series, int year, string userId)
+        private static SeriesPaginatedModel GetForYear(List<Series> series, int year, string userId, int page, int pagesize)
         {
             var forYear = series.Where(x => x.StartYear == year).OrderBy(x => x.StartYear).AsQueryable();
-            return ToSeriesViewModel(forYear,userId);
+            var seriesViewModels = ToSeriesViewModel(forYear, userId);
+            return new SeriesPaginatedModel
+            {
+                PageData = new PageData
+                {
+                    Count = forYear.Count(),
+                    Page = page,
+                    PageSize = pagesize
+                },
+                Series = seriesViewModels
+            };
         }
 
         private static SeriesPaginatedModel Filter(string id,string userId, IEnumerable<Series> series, int page, int pagesize)

@@ -59,15 +59,15 @@ namespace Marvelist.Tests
         [TestMethod]
         public void ShouldReturnRightSeriesForYear()
         {
-            var series = _seriesService.GetByYear(2013, _userId);
-            Assert.AreEqual(1, series.Count);
+            var series = _seriesService.GetByYear(2013, _userId, 0, 10);
+            Assert.AreEqual(1, series.Series.Count);
         }
 
         [TestMethod]
         public void ShouldReturnEmptyListForYear()
         {
-            var series = _seriesService.GetByYear(2020, _userId);
-            Assert.AreEqual(0, series.Count);
+            var series = _seriesService.GetByYear(2020, _userId, 0, 10);
+            Assert.AreEqual(0, series.Series.Count);
         }
 
         [TestMethod]

@@ -3,17 +3,19 @@ import update from 'immutability-helper';
 
 const emptyPageDataState = { pageData: { count: 0, pageSize: 0, page: 0 } };
 const loadingCardState = { description: "", "title": "LOADING", "thumbnail": "http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available/portrait_uncanny.jpg", "loading": true };
-const initialSeriesState = { ...emptyPageDataState, series: [], filters: { showFollowed: true } };
+const initialSeriesState = { ...emptyPageDataState, series: [], seriesFiltered: [], filters: { showFollowed: true } };
 const loadingSeriesCardState = { ...emptyPageDataState, series: [loadingCardState] };
 export const seriesReducer = (state = initialSeriesState, action) => {
     switch (action.type) {
         case consts.FILTER_SHOW_FOLLOWED: {
-            const newData = update(state, { filters: {  showFollowed: { $set: action.show } } });
+            const newData = update(state, { filters: { showFollowed: { $set: action.show } } });
+            const newState = update(newData, { series: { $apply: serie => serie.filter(s => s.followed !== id) } });
             return { ...newData, };
         }
         case consts.CARD_LOADING:
             return { ...state, ...loadingSeriesCardState };
         case consts.FETCH_SERIES_SUCCESS:
+        case consts.FETCH_SERIES_BY_YEAR_SUCCESS:
         case consts.SEARCH_SUCCESS:
             return { ...state, pageData: action.data.pageData, series: action.data.series.map(x => ({ ...x, loading: false })) };
         case consts.FOLLOW_SERIES: {

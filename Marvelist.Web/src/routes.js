@@ -17,6 +17,7 @@ export default (
     <Route path="/register" component={Register} />
     <Route path="/series" component={Series} />
     <Route path="/search/:text" component={Series} />
+    <Route path="/y:year" component={Series} />
     <Route path="/series/:id" component={SeriesDetails} />
     <Route path="/dashboard" component={Dashboard} />
   </Route>

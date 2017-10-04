@@ -4,7 +4,7 @@ import Card from '../card/Card';
 import TextHeader from './TextHeader';
 import * as actions from '../../actions/seriesActions';
 import { PLACE } from '../../actions/constants';
-import { Switch, Row, Col } from 'antd';
+import { Switch, Row } from 'antd';
 import { browserHistory } from "react-router";
 import Pager from "../common/Pager";
 
@@ -38,6 +38,9 @@ class Series extends React.Component {
     }
     if (props.route.path === "/dashboard" || props.route.path === "/series") {
       props.fetch(props.route.path, pageId);
+    }
+    else if (props.params.year) {
+      props.showYear(props.params.year, pageId);
     }
     else if (props.params.text) {
       props.search(props.params.text, pageId);
@@ -90,6 +93,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     followedFilter: (show) => dispatch(actions.setFollowedFilter(show)),
+    showYear: (year, page) => dispatch(actions.fetchSeriesByYear(year, page)),
     fetch: (text, page) => dispatch(actions.fetchSeries(text, page)),
     search: (text, page) => dispatch(actions.search(text, page)),
     follow: (id) => dispatch(actions.folllowSeries(id))

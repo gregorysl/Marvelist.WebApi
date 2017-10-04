@@ -31,6 +31,16 @@ export function* fetchSeriesByIdFlow() {
     }
 }
 
+export function* fetchSeriesByYearFlow() {
+    for (; ;) {
+        const { year, page } = yield take(consts.FETCH_SERIES_BY_YEAR);
+        const url = apiUrl + "Series/y" + year + "?page=" + page;
+        debugger;
+        let response = yield call(get, url, page);
+        yield put({ type: consts.FETCH_SERIES_BY_YEAR_SUCCESS,  data: response.data });
+    }
+}
+
 export function* searchFlow() {
     for (; ;) {
         const { text, page } = yield take(consts.SEARCH);

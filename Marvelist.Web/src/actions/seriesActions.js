@@ -11,6 +11,10 @@ export const fetchSeriesById = (id) => {
   return { type: consts.FETCH_SERIES_BY_ID, id };
 };
 
+export const fetchSeriesByYear = (year, page) => {
+  return { type: consts.FETCH_SERIES_BY_YEAR, year, page };
+};
+
 export const folllowSeries = (id, detailPage) => {
   return { type: consts.FOLLOW_SERIES, id, detailPage };
 };

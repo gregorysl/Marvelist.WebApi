@@ -50,9 +50,9 @@ namespace Marvelist.API.Controllers
 
         [HttpGet]
         [Route("api/Series/y{year:int}")]
-        public IHttpActionResult GetByYear(int year)
+        public IHttpActionResult GetByYear(int year, int page = 0, int pagesize = 50)
         {
-            var series = _series.GetByYear(year, UserId);
+            var series = _series.GetByYear(year, UserId, page, pagesize);
             return Ok(series);
         }
 

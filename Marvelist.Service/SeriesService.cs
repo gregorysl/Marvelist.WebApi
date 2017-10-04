@@ -39,9 +39,9 @@ namespace Marvelist.Service
             return _seriesRepository.GetAllFollowedSeries(userId);
         }
 
-        public List<SeriesViewModel> GetByYear(int year, string userId)
+        public SeriesPaginatedModel GetByYear(int year, string userId, int page, int pagesize)
         {
-            var series = _seriesRepository.GetByYear(year, userId);
+            var series = _seriesRepository.GetByYear(year, userId, page, pagesize);
             return series;
         }
 
@@ -71,7 +71,7 @@ namespace Marvelist.Service
         SeriesViewModel GetSeriesById(int id, string userId);
         Series GetById(int id);
         Series Add(Series series);
-        List<SeriesViewModel> GetByYear(int year, string userId);
+        SeriesPaginatedModel GetByYear(int year, string userId, int page, int pagesize);
         SeriesPaginatedModel GetByText(string text, string userId, int page, int pagesize);
     }
 }

@@ -90,10 +90,22 @@ namespace Marvelist.DataAccess.Repositories
             };
         }
 
-        public List<SeriesViewModel> GetByYear(int year, string userId)
+        public SeriesPaginatedModel GetByYear(int year, string userId, int page, int pagesize)
         {
-            var series = DataContext.Series.Where(x => x.StartYear == year);
-            return ToSeriesViewModel(series, userId).ToList();
+            var seriesData = DataContext.Series.Where(x => x.StartYear == year);
+            var seriesViewModels = ToSeriesViewModel(seriesData, userId).ToList();
+            var series = seriesViewModels.Skip(page * pagesize).Take(pagesize);
+            return new SeriesPaginatedModel
+            {
+                PageData = new PageData
+                {
+                    Count = seriesViewModels.Count(),
+                    Page = page,
+                    PageSize = pagesize
+                }
+                ,
+                Series = series.ToList()
+            };
         }
 
         private IOrderedQueryable<SeriesViewModel> ToSeriesViewModel(IQueryable<Series> query, string userId)
@@ -117,7 +129,7 @@ namespace Marvelist.DataAccess.Repositories
         SeriesViewModel GetSeriesById(int id, string userId);
         int? GetSeriesIdByComicId(int id);
         SeriesPaginatedModel Filter(string text, string userId, int page, int pagesize);
-        List<SeriesViewModel> GetByYear(int year, string userId);
+        SeriesPaginatedModel GetByYear(int year, string userId, int page, int pagesize);
         SeriesPaginatedModel GetAllSeries(string userId, int page, int pagesize);
     }
 }
