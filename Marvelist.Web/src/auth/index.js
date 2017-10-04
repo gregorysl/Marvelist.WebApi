@@ -4,7 +4,6 @@ let auth = {
     login(username, password) {
         if (auth.loggedIn())
             return Promise.resolve(true);
-        debugger
         return server
             .login(username, password)
             .then(response => {

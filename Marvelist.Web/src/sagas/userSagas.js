@@ -22,7 +22,6 @@ export function* authorize({ email, username, password, isRegistering }) {
     } else {
       response = yield call(auth.login, username, password);
     }
-    debugger
     return response;
   } catch (error) {
     yield put({ type: REQUEST_ERROR, error: error });
@@ -53,7 +52,6 @@ export function* loginFlow() {
       auth: call(authorize, { username, password, isRegistering: false }),
       logout: take(LOGOUT)
     });
-    debugger
     if (winner.auth) {
       yield put({ type: SET_AUTH, newAuthState: true });
       yield put({ type: SET_USER, username: winner.auth.data.userName });

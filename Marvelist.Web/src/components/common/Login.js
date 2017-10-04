@@ -19,7 +19,6 @@ class Login extends React.Component {
         });
     }
     render() {
-        debugger
         const { getFieldDecorator } = this.props.form;
         return (
             <Form onSubmit={this.handleSubmit} className="login-form">
