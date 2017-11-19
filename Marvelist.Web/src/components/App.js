@@ -2,6 +2,14 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import MyHeader from './common/Header';
 import { Layout } from 'antd';
+import { Route, Switch } from 'react-router-dom';
+import Home from '../components/common/HomePage';
+import Login from '../components/common/Login';
+import Register from '../components/common/Register';
+import About from '../components/common/AboutPage';
+import Series from '../components/series/SeriesPage';
+import Dashboard from '../components/series/DashboardPage';
+import SeriesDetails from '../components/series/SeriesDetailPage';
 const { Header, Content } = Layout;
 
 class App extends React.Component {
@@ -12,7 +20,17 @@ class App extends React.Component {
           <MyHeader />
         </Header>
         <Content style={{ padding: "0 50px" }}>
-          {this.props.children}
+        <Switch>
+          <Route exact path='/' component={Home} />
+          <Route path="/about" component={About} />
+          <Route path="/login" component={Login} />
+          <Route path="/register" component={Register} />
+          <Route path="/series" component={Series} />
+          <Route path="/search/:text" component={Series} />
+          <Route path="/y:year" component={Series} />
+          <Route path="/series/:id" component={SeriesDetails} />
+          <Route path="/dashboard" component={Dashboard} />
+        </Switch>
         </Content>
       </Layout>
 
@@ -20,8 +38,5 @@ class App extends React.Component {
   }
 }
 
-App.propTypes = {
-  children: PropTypes.node.isRequired
-};
 
 export default App;

@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from "react-redux";
-import { Link, browserHistory } from "react-router";
+import { Link, browserHistory } from 'react-router-dom';
 import { logout } from "../../actions/userActions";
 import { Menu, Input } from 'antd';
 const Search = Input.Search;

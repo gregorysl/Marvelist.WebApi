@@ -93,7 +93,7 @@ Dashboard.propTypes = {
     filters: PropTypes.object,
     params: PropTypes.shape({ text: PropTypes.string }).isRequired,
     route: PropTypes.shape({ path: PropTypes.string }).isRequired,
-    location: React.PropTypes.object
+    location: PropTypes.object
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Dashboard);
