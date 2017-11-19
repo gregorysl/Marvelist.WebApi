@@ -1,4 +1,5 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import FollowIcon from './FollowIcon';
 import UrlIcon from './UrlIcon';
 import ComicCount from './ComicCount';

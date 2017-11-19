@@ -1,4 +1,5 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import ReadAllButton from './ReadAllButton';
 import FollowButton from './FollowButton';
 import { Row, Col, Progress } from 'antd';

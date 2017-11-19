@@ -1,4 +1,5 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import Title from './card/Title';
 import ActionsBar from './card/ActionsBar';
 import { PLACE } from '../actions/constants';
