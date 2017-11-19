@@ -1,9 +1,11 @@
 import {createStore, compose, applyMiddleware} from 'redux';
 import reduxImmutableStateInvariant from 'redux-immutable-state-invariant';
 import createSagaMiddleware from 'redux-saga';
-import rootReducer from '../reducers';
-import allSagas from '../sagas';
+import createHistory from 'history/createBrowserHistory';
 
+import rootReducer from '../reducers';
+export const history = createHistory();
+import allSagas from '../sagas';
 
 function configureStoreProd(initialState) {
   const saga = createSagaMiddleware();

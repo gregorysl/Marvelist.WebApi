@@ -1,4 +1,5 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 
 const TextHeader = (props) => {
     let text = !props.text ? "Series" : `Search results for "${props.text}"`;
