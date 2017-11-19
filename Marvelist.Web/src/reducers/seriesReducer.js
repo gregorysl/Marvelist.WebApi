@@ -9,7 +9,7 @@ export const seriesReducer = (state = initialSeriesState, action) => {
     switch (action.type) {
         case consts.FILTER_SHOW_FOLLOWED: {
             const newData = update(state, { filters: { showFollowed: { $set: action.show } } });
-            const newState = update(newData, { series: { $apply: serie => serie.filter(s => s.followed !== id) } });
+            //const newState = update(newData, { series: { $apply: serie => serie.filter(s => s.followed !== id) } });
             return { ...newData, };
         }
         case consts.CARD_LOADING:

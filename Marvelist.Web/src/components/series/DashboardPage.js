@@ -5,6 +5,7 @@ import TextHeader from './TextHeader';
 import * as actions from '../../actions/seriesActions';
 import { PLACE } from '../../actions/constants';
 import { browserHistory } from "react-router";
+import { Row } from 'antd';
 import Pager from "../common/Pager";
 
 class Dashboard extends React.Component {

@@ -2,7 +2,7 @@ import webpack from 'webpack';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
 import autoprefixer from 'autoprefixer';
 import path from 'path';
-import theme from './src/styles/theme';
+//import theme from './src/styles/theme';
 
 
 export default {
@@ -52,7 +52,7 @@ export default {
   module: {
     loaders: [
       {test: /\.jsx?$/, exclude: /node_modules/, loaders: ['babel-loader']},
-      { test: /\.(css|less)$/,loaders:['style-loader', 'css-loader?sourceMap', 'postcss-loader', `less-loader?{"sourceMap":true,"modifyVars":${JSON.stringify(theme)}}`]},
+      { test: /\.(css|less)$/,loaders:['style-loader', 'css-loader?sourceMap', 'postcss-loader', `less-loader?{"sourceMap":true,"modifyVars":${JSON.stringify('')}}`]},
       { test: /\.svg$/,  loader: "file-loader" },
       {test: /\.ico$/, loader: 'file-loader?name=[name].[ext]'},
       {test: /\.(jpe?g|png|gif)$/i, loader: 'file-loader?name=[name].[ext]'}
