@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import MyHeader from './common/Header';
 import { Layout } from 'antd';
 import { Route, Switch } from 'react-router-dom';
