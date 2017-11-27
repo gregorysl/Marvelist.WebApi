@@ -26,7 +26,7 @@ class Series extends React.Component {
     if (this.props.location.query != nextProps.location.query) {
       this.getData(nextProps);
     }
-    else if (this.props.params != nextProps.params) {
+    else if (this.props.location.search != nextProps.location.search) {
       this.getData(nextProps);
     }
     this.data = this.mapData(nextProps);
@@ -34,17 +34,22 @@ class Series extends React.Component {
 
   getData(props) {
     let pageId = 0;
-    if (props.location.query.page) {
-      pageId = props.location.query.page - 1;
+    let queryParams = new URLSearchParams(props.location.search);
+    let page = queryParams.get("page");
+    let year = queryParams.get("year");
+    let text = queryParams.get("text");
+    if (page) {
+      pageId = page - 1;
     }
-    if (props.route.path === "/dashboard" || props.route.path === "/series") {
-      props.fetch(props.route.path, pageId);
+    let path = props.location.pathname;
+    if (path === "/dashboard" || path === "/series") {
+      props.fetch(path, pageId);
     }
-    else if (props.params.year) {
-      props.showYear(props.params.year, pageId);
+    else if (year) {
+      props.showYear(year, pageId);
     }
-    else if (props.params.text) {
-      props.search(props.params.text, pageId);
+    else if (text) {
+      props.search(text, pageId);
     }
   }
 
@@ -54,9 +59,15 @@ class Series extends React.Component {
   }
 
   mapData(props) {
-    const dashboard = props.route.path === "/dashboard";
+    const dashboard = props.location.pathname === "/dashboard";
     const series = props.filters.showFollowed ? props.series : props.series.filter(x => !x.following);
     return series.map((b, i) => <Card key={i} follow={props.follow} data={b} place={PLACE.SERIES} dashboard={dashboard} />);
+  }
+
+  getHeaderText() {
+    let queryParams = new URLSearchParams(this.props.location.search);
+    let text = queryParams.get("text");
+    return text;
   }
 
   onChangePage(page) {
@@ -68,7 +79,7 @@ class Series extends React.Component {
     return (
       <div>
         <Row>
-          <TextHeader text={this.props.params.text} />
+          <TextHeader text={this.getHeaderText()} />
           <p><Switch checkedChildren={"Show"} unCheckedChildren={"Hide"} onChange={this.filterBoxChange} defaultChecked /> following series </p>
           <Pager pageData={this.props.pageData} onChangePage={this.onChangePage} />
         </Row>
@@ -109,8 +120,6 @@ Series.propTypes = {
   series: PropTypes.array,
   pageData: PropTypes.object,
   filters: PropTypes.object,
-  params: PropTypes.shape({ text: PropTypes.string }).isRequired,
-  route: PropTypes.shape({ path: PropTypes.string }).isRequired,
   location: PropTypes.object
 };
 
