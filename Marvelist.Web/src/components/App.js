@@ -24,10 +24,10 @@ class App extends React.Component {
           <Route path="/about" component={About} />
           <Route path="/login" component={Login} />
           <Route path="/register" component={Register} />
+          <Route path="/series/:id" component={SeriesDetails} />
           <Route path="/series" component={Series} />
           <Route path="/search/:text" component={Series} />
           <Route path="/y:year" component={Series} />
-          <Route path="/series/:id" component={SeriesDetails} />
           <Route path="/dashboard" component={Dashboard} />
         </Switch>
         </Content>
