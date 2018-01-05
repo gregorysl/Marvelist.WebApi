@@ -2,11 +2,12 @@ import 'babel-polyfill';
 import React from 'react';
 import { render } from 'react-dom';
 import { AppContainer } from 'react-hot-loader';
-import configureStore, { history } from './store/configureStore';
+import configureStore from './store/configureStore';
 import { LocaleProvider } from 'antd';
 import { ConnectedRouter } from 'react-router-redux';
 import { Provider } from 'react-redux';
 import App from './components/App';
+import history from './history';
 
 import enUS from 'antd/lib/locale-provider/en_US';
 import 'antd/dist/antd.less';

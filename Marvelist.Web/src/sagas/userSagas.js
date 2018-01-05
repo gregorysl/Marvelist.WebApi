@@ -1,5 +1,5 @@
 import { take, call, put, race } from 'redux-saga/effects';
-import { browserHistory } from 'react-router';
+import history from '../history';
 import auth from '../auth';
 import {
   SENDING_REQUEST,
@@ -41,7 +41,7 @@ export function* logout() {
   }
 }
 function forwardTo(location) {
-  browserHistory.push(location);
+  history.push(location);
 }
 
 export function* loginFlow() {
