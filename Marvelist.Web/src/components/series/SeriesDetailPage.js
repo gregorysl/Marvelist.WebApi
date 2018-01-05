@@ -11,7 +11,7 @@ class SeriesDetails extends React.Component {
         this.data = "";
     }
     componentWillMount() {
-        this.props.fetchById(this.props.params.id);
+        this.props.fetchById(this.props.match.params.id);
     }
     componentWillReceiveProps(nextProps) {
         if (this.props.seriesDetails !== nextProps.seriesDetails) {
@@ -37,9 +37,7 @@ SeriesDetails.propTypes = {
     follow: PropTypes.func.isRequired,
     folllowSeries: PropTypes.func.isRequired,
     readAllComic: PropTypes.func.isRequired,
-    params: PropTypes
-        .shape({ id: PropTypes.string.isRequired })
-        .isRequired
+    location: PropTypes.object
 };
 
 const mapStateToProps = (state) => {
