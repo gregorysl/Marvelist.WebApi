@@ -6,7 +6,7 @@ import TextHeader from './TextHeader';
 import * as actions from '../../actions/seriesActions';
 import { PLACE } from '../../actions/constants';
 import { Switch, Row } from 'antd';
-import history from "../../history"
+import history from "../../history";
 import Pager from "../common/Pager";
 
 class Series extends React.Component {

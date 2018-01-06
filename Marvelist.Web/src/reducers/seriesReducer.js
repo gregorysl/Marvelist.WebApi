@@ -50,7 +50,7 @@ export const seriesDetailsReducer = (state = initialDetailState, action) => {
             if (!action.home) {
                 let idx = state.comics.findIndex(x => x.id == action.id);
                 const newData = update(state, { comics: { [idx]: { loading: { $set: true } } } });
-                return [...newData];
+                return {...newData};
             }
             return state;
         }

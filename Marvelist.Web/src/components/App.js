@@ -20,7 +20,7 @@ class App extends React.Component {
         </Header>
         <Content style={{ padding: "0 50px" }}>
         <Switch>
-          <Route exact path='/' component={Home} />
+          <Route exact path="/" component={Home} />
           <Route path="/about" component={About} />
           <Route path="/login" component={Login} />
           <Route path="/register" component={Register} />

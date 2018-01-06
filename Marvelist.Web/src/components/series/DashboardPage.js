@@ -5,7 +5,7 @@ import DashboardItem from '../DashboardItem';
 import TextHeader from './TextHeader';
 import * as actions from '../../actions/seriesActions';
 import { PLACE } from '../../actions/constants';
-import history from "../../history"
+import history from "../../history";
 import { Row } from 'antd';
 import Pager from "../common/Pager";
 
