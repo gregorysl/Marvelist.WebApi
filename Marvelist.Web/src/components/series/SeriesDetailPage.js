@@ -37,7 +37,12 @@ SeriesDetails.propTypes = {
     follow: PropTypes.func.isRequired,
     folllowSeries: PropTypes.func.isRequired,
     readAllComic: PropTypes.func.isRequired,
-    location: PropTypes.object
+    location: PropTypes.object,
+    match: PropTypes.shape({
+        params: PropTypes.shape({
+          id: PropTypes.node,
+        }).isRequired,
+      }).isRequired
 };
 
 const mapStateToProps = (state) => {

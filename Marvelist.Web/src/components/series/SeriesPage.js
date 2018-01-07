@@ -26,7 +26,7 @@ class Series extends React.Component {
     if (this.props.location.query != nextProps.location.query) {
       this.getData(nextProps);
     }
-    else if (this.props.location.search != nextProps.location.search) {
+    else if (this.props.match.params.text != nextProps.match.params.text) {
       this.getData(nextProps);
     }
     this.data = this.mapData(nextProps);
@@ -37,7 +37,7 @@ class Series extends React.Component {
     let queryParams = new URLSearchParams(props.location.search);
     let page = queryParams.get("page");
     let year = queryParams.get("year");
-    let text = queryParams.get("text");
+    let text = props.match.params.text;
     if (page) {
       pageId = page - 1;
     }
@@ -120,7 +120,12 @@ Series.propTypes = {
   series: PropTypes.array,
   pageData: PropTypes.object,
   filters: PropTypes.object,
-  location: PropTypes.object
+  location: PropTypes.object,
+  match: PropTypes.shape({
+    params: PropTypes.shape({
+      text: PropTypes.node,
+    }).isRequired,
+  }).isRequired
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Series);
