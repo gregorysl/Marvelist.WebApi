@@ -1,13 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-
-const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+import moment from 'moment';
 
 const CoverDate = (props) => {
-    const day = new Date(props.comicDate).getDate();
-    const monthId = new Date(props.comicDate).getMonth();
-    const month = months[monthId];
-    const year = new Date(props.comicDate).getFullYear();
+    const date = moment(props.comicDate);
+    const day = date.date();
+    const month = date.format('MMM');
+    const year = date.year();
     return (
         <div className="date">
             <span className="day">{day}</span>
