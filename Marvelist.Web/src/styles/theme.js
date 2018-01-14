@@ -3,5 +3,6 @@ export default {
     "primary-color": "#f0141e",
     "layout-header-background":"#f0141e",
     "component-background": "#f0141e",
-    "text-color": "white"
+    "text-color": "white",
+    "ant-input": "black"
 };
