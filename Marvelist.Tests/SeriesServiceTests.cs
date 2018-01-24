@@ -39,15 +39,7 @@ namespace Marvelist.Tests
             _seriesService.Add(serie);
             Assert.AreEqual(_series.Find(x => x.Id == serie.Id).Title, serie.Title);
         }
-
-        [TestMethod]
-        public void ShouldReturnRightSeries()
-        {
-            const int id = 1997;
-            var series = _seriesService.GetSeriesById(id, _userId);
-            Assert.AreEqual(_series.Find(x => x.Id == id), series);
-        }
-
+        
         [TestMethod]
         public void ShouldReturnNullForId()
         {
