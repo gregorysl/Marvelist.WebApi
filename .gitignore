@@ -511,3 +511,5 @@ paket-files/
 *.sln.iml
 
 dist/
+
+tools/
