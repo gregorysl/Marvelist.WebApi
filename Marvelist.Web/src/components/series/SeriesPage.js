@@ -49,7 +49,11 @@ class Series extends React.Component {
       props.showYear(year, pageId);
     }
     else if (text) {
-      props.search(text, pageId);
+      if(props.match.path === "/week/:text"){
+        props.week(text);
+      }else{
+        props.search(text, pageId);
+      }
     }
   }
 
@@ -108,6 +112,7 @@ const mapDispatchToProps = (dispatch) => {
     showYear: (year, page) => dispatch(actions.fetchSeriesByYear(year, page)),
     fetch: (text, page) => dispatch(actions.fetchSeries(text, page)),
     search: (text, page) => dispatch(actions.search(text, page)),
+    week: (text) => dispatch(actions.week(text)),
     follow: (id) => dispatch(actions.folllowSeries(id))
   };
 };
@@ -116,6 +121,7 @@ Series.propTypes = {
   fetch: PropTypes.func.isRequired,
   follow: PropTypes.func.isRequired,
   search: PropTypes.func.isRequired,
+  week: PropTypes.func.isRequired,
   followedFilter: PropTypes.func.isRequired,
   series: PropTypes.array,
   pageData: PropTypes.object,

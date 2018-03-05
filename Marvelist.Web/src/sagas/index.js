@@ -15,5 +15,6 @@ export default [
   fork(series.followComicFlow),
   fork(series.fetchHomeFlow),
   fork(series.searchFlow),
+  fork(series.weekFlow),
   fork(series.readAllComicsFlow)
 ];

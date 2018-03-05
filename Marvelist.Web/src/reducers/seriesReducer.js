@@ -18,6 +18,8 @@ export const seriesReducer = (state = initialSeriesState, action) => {
         case consts.FETCH_SERIES_BY_YEAR_SUCCESS:
         case consts.SEARCH_SUCCESS:
             return { ...state, pageData: action.data.pageData, series: action.data.series.map(x => ({ ...x, loading: false })) };
+        case consts.WEEK_SUCCESS:
+                return { ...state,  series: action.data.map(x => ({ ...x, loading: false })) };
         case consts.FOLLOW_SERIES: {
             if (!action.detailPage) {
                 let idx = state.series.findIndex(x => x.id == action.id);

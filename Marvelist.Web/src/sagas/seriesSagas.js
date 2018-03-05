@@ -50,6 +50,17 @@ export function* searchFlow() {
     }
 }
 
+
+export function* weekFlow() {
+    for (; ;) {
+        const { text } = yield take(consts.WEEK);
+        yield put({ type: consts.CARD_LOADING });
+        const url = apiUrl + "week/" + text;
+        let response = yield call(get, url);
+        yield put({ type: consts.WEEK_SUCCESS, data: response.data });
+    }
+}
+
 export function* followSeriesFlow() {
     for (; ;) {
         const { id, detailPage } = yield take(consts.FOLLOW_SERIES);

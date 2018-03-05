@@ -28,6 +28,9 @@ export const FETCH_HOME_COMICS_SUCCESS = 'FETCH_HOME_COMICS_SUCCESS';
 export const SEARCH = 'SEARCH';
 export const SEARCH_SUCCESS = 'SEARCH_SUCCESS';
 
+export const WEEK = 'WEEK';
+export const WEEK_SUCCESS = 'WEEK_SUCCESS';
+
 export const CARD_LOADING = 'CARD_LOADING';
 
 

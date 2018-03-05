@@ -27,6 +27,7 @@ class App extends React.Component {
           <Route path="/series/:id" component={SeriesDetails} />
           <Route path="/series" component={Series} />
           <Route path="/search/:text" component={Series} />
+          <Route path="/week/:text" component={Series} />
           <Route path="/y:year" component={Series} />
           <Route path="/dashboard" component={Dashboard} />
         </Switch>

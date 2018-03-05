@@ -31,6 +31,10 @@ export const search = (text, page) => {
   return { type: consts.SEARCH, text, page };
 };
 
+export const week = (text) => {
+  return { type: consts.WEEK, text };
+};
+
 export const setFollowedFilter = (show) => {
   return { type: consts.FILTER_SHOW_FOLLOWED, show };
 };
