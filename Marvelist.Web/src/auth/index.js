@@ -11,7 +11,8 @@ let auth = {
                 localStorage.setItem("expires", response.data[".expires"]);
                 localStorage.setItem("username", response.data.userName);
                 return Promise.resolve(response);
-            });
+            })
+            .catch(error => error);
     },
     logout() {
         return new Promise(resolve => {

@@ -53,9 +53,14 @@ export function* loginFlow() {
       logout: take(LOGOUT)
     });
     if (winner.auth) {
-      yield put({ type: SET_AUTH, newAuthState: true });
-      yield put({ type: SET_USER, username: winner.auth.data.userName });
-      forwardTo('/');
+      if(winner.auth.message){
+        yield put({ type: REQUEST_ERROR, error: winner.auth.message });
+      }
+      else{
+        yield put({ type: SET_AUTH, newAuthState: true });
+        yield put({ type: SET_USER, username: winner.auth.data.userName });
+        forwardTo('/');
+      }
     } else if (winner.logout) {
       yield put({ type: SET_AUTH, newAuthState: false });
       yield call(logout);
