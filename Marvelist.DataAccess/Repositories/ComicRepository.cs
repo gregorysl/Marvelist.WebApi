@@ -38,7 +38,7 @@ namespace Marvelist.DataAccess.Repositories
 
         public List<Comic> GetComicsForWeek(DateTime weekStart, DateTime weekEnd)
         {
-            return DataContext.Comics.Where(x => x.Date > weekStart && x.Date < weekEnd).OrderBy(x => x.Title).ToList();
+            return DataContext.Comics.Where(x => x.Date >= weekStart && x.Date < weekEnd).OrderBy(x => x.Title).ToList();
         }
     }
     public interface IComicRepository : IRepository<Comic>
