@@ -23,7 +23,7 @@ class Series extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    if (this.props.location.query != nextProps.location.query) {
+    if (this.props.location != nextProps.location) {
       this.getData(nextProps);
     }
     else if (this.props.match.params.text != nextProps.match.params.text) {
@@ -36,7 +36,7 @@ class Series extends React.Component {
     let pageId = 0;
     let queryParams = new URLSearchParams(props.location.search);
     let page = queryParams.get("page");
-    let year = queryParams.get("year");
+    let year = props.match.params.year;
     let text = props.match.params.text;
     if (page) {
       pageId = page - 1;
@@ -49,11 +49,7 @@ class Series extends React.Component {
       props.showYear(year, pageId);
     }
     else if (text) {
-      if(props.match.path === "/week/:text"){
-        props.week(text);
-      }else{
-        props.search(text, pageId);
-      }
+      props.search(text, pageId);
     }
   }
 
@@ -112,7 +108,6 @@ const mapDispatchToProps = (dispatch) => {
     showYear: (year, page) => dispatch(actions.fetchSeriesByYear(year, page)),
     fetch: (text, page) => dispatch(actions.fetchSeries(text, page)),
     search: (text, page) => dispatch(actions.search(text, page)),
-    week: (text) => dispatch(actions.week(text)),
     follow: (id) => dispatch(actions.folllowSeries(id))
   };
 };
@@ -121,7 +116,6 @@ Series.propTypes = {
   fetch: PropTypes.func.isRequired,
   follow: PropTypes.func.isRequired,
   search: PropTypes.func.isRequired,
-  week: PropTypes.func.isRequired,
   followedFilter: PropTypes.func.isRequired,
   series: PropTypes.array,
   pageData: PropTypes.object,
