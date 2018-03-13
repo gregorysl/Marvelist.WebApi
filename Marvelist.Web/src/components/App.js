@@ -7,6 +7,7 @@ import Login from '../components/common/Login';
 import Register from '../components/common/Register';
 import About from '../components/common/AboutPage';
 import Series from '../components/series/SeriesPage';
+import Week from '../components/common/WeekPage';
 import Dashboard from '../components/series/DashboardPage';
 import SeriesDetails from '../components/series/SeriesDetailPage';
 const { Header, Content } = Layout;
@@ -27,7 +28,7 @@ class App extends React.Component {
           <Route path="/series/:id" component={SeriesDetails} />
           <Route path="/series" component={Series} />
           <Route path="/search/:text" component={Series} />
-          <Route path="/week/:text" component={Series} />
+          <Route path="/week/:week" component={Week} />
           <Route path="/y:year" component={Series} />
           <Route path="/dashboard" component={Dashboard} />
         </Switch>
