@@ -5,15 +5,12 @@ import DashboardItem from '../DashboardItem';
 import TextHeader from './TextHeader';
 import * as actions from '../../actions/seriesActions';
 import { PLACE } from '../../actions/constants';
-import history from "../../history";
 import { Row } from 'antd';
-import Pager from "../common/Pager";
 
 class Dashboard extends React.Component {
     constructor(props) {
         super(props);
         this.mapData = this.mapData.bind(this);
-        this.onChangePage = this.onChangePage.bind(this);
         this.data = "";
     }
 
@@ -22,44 +19,23 @@ class Dashboard extends React.Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        if (this.props.location.query != nextProps.location.query) {
-            this.getData(nextProps);
-        }
-        else if (this.props.params != nextProps.params) {
-            this.getData(nextProps);
-        }
         this.data = this.mapData(nextProps);
     }
 
     getData(props) {
-        let pageId = 0;
-        if (props.location.query.page) {
-            pageId = props.location.query.page - 1;
-        }
-        props.fetch("/dashboard", pageId);
+        props.fetch("/dashboard");
     }
 
     mapData(props) {
         return props.series.map((b, i) => <DashboardItem key={i} follow={props.follow} data={b} place={PLACE.SERIES} dashboard />);
     }
 
-    onChangePage(page) {
-        let url = this.props.location.pathname + '?page=' + page;
-        history.push(url);
-    }
-
     render() {
         return (
             <div>
-                <Row>
-                    <TextHeader raw={"Dashboard"} />
-                    <Pager pageData={this.props.pageData} onChangePage={this.onChangePage} />
-                </Row>
+                <TextHeader raw={"Dashboard"} />
                 <Row>
                     {this.data}
-                </Row>
-                <Row>
-                    <Pager pageData={this.props.pageData} onChangePage={this.onChangePage} />
                 </Row>
             </div>
         );
@@ -91,8 +67,6 @@ Dashboard.propTypes = {
     series: PropTypes.array,
     pageData: PropTypes.object,
     filters: PropTypes.object,
-    params: PropTypes.shape({ text: PropTypes.string }).isRequired,
-    route: PropTypes.shape({ path: PropTypes.string }).isRequired,
     location: PropTypes.object
 };
 
