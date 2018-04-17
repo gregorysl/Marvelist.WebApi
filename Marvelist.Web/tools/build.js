@@ -22,7 +22,7 @@ webpack(config).run((error, stats) => {
   }
 
   console.log(`Webpack stats: ${stats}`);
-  console.log('Your app is compiled in production mode in /dist. It\'s ready to roll!');
+  console.log('Your app is compiled in production mode in ../Marvelist.API/. It\'s ready to roll!');
 
   return 0;
 });
