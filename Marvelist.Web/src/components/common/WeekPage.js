@@ -15,12 +15,6 @@ class WeekPage extends React.Component {
     this.getData(this.props);
     this.mapData(this.props);
   }
-  getData(props){
-    debugger;
-    const weekNum = !props.match.params.week ? moment().week() : props.match.params.week;
-    
-    this.props.fetch(weekNum);
-  }
   componentWillReceiveProps(nextProps) {
     if (this.props.match.params.week != nextProps.match.params.week) {
       this.getData(nextProps);
@@ -29,6 +23,11 @@ class WeekPage extends React.Component {
       this.mapData(nextProps);
     }
   }
+  getData(props){
+    const weekNum = !props.match.params.week ? `${moment().week()}-${moment().year()}` : props.match.params.week;
+    this.props.fetch(weekNum);
+  }
+
   mapData(props) {
     let { follow } = props;
     this.data = props.data.map((b, i) => <Card key={i} follow={follow} data={b} place={PLACE.HOME} />);
