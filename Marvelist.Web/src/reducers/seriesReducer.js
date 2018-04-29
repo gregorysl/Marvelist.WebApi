@@ -82,3 +82,20 @@ export const homeComicsReducer = (state = [loadingCardState], action) => {
             return state;
     }
 };
+
+export const weekComicsReducer = (state = [loadingCardState], action) => {
+    switch (action.type) {
+        case consts.WEEK_SUCCESS:
+            return action.data.map(x => ({ ...x, loading: false }));
+        // case consts.FOLLOW_COMIC: {
+        //     if (action.home) {
+        //         let idx = state.findIndex(x => x.id == action.id);
+        //         const newData = update(state, { [idx]: { loading: { $set: true } } });
+        //         return [...newData];
+        //     }
+        //     return state;
+        // }
+        default:
+            return state;
+    }
+};
