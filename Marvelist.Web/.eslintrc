@@ -1,32 +1,30 @@
 {
   "root": true,
   "extends": [
-    "eslint:recommended",
-    "plugin:import/errors",
-    "plugin:import/warnings"
+    "airbnb"
   ],
   "plugins": [
-    "react"
+    "react",
+    "jsx-a11y",
+    "import"
   ],
   "parserOptions": {
-    "ecmaVersion": 6,
-    "sourceType": "module",
+    "ecmaVersion": 8,
     "ecmaFeatures": {
-      "jsx": true,
-      "experimentalObjectRestSpread": true
+      "experimentalObjectRestSpread": true,
+      "impliedStrict": true,
+      "classes": true
     }
   },
   "env": {
-    "es6": true,
     "browser": true,
     "node": true,
-    "jquery": true,
     "jest": true
   },
   "rules": {
     "quotes": 0,
     "no-console": 1,
-    "no-debugger": 1,
+    "no-debugger": 0,
     "no-var": 1,
     "semi": [1, "always"],
     "no-trailing-spaces": 0,
