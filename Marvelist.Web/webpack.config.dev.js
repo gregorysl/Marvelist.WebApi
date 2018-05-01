@@ -99,7 +99,8 @@ export default {
                     loader: 'less-loader',
                     options: {
                         modifyVars: theme,
-                        sourceMap: true
+                        sourceMap: true,
+                        javascriptEnabled: true
                     }
                 }]
             }
