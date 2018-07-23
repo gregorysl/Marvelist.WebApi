@@ -4,6 +4,7 @@ import path from 'path';
 import theme from './src/styles/theme';
 
 export default {
+    mode: "development",
     resolve: {
         extensions: ['*', '.js', '.jsx', '.json']
     },
