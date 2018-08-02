@@ -40,6 +40,7 @@ class HeaderMy extends React.Component {
       <div style={{ display: 'flex', maxHeight: '50px' }}>
         <Link to="/"><img className="logo" src={url} /></Link>
         <Menu mode="horizontal" style={{ flex: '1' }} >
+          <Menu.Item><Link to="/week">Weekly pull</Link></Menu.Item>
           <Menu.Item><Link to="/series">Series</Link></Menu.Item>
           <Menu.Item><Link to="/about">About</Link></Menu.Item>
           <Menu.Item><Search placeholder="Search" style={{ width: 200 }} onSearch={this.onSearch} /></Menu.Item>
