@@ -12,19 +12,29 @@ class WeekPage extends React.Component {
     this.data = "";
   }
   componentWillMount() {
-    this.getData(this.props);
-    this.mapData(this.props);
+    const week = this.props.match.params.week;
+    if(!week){
+      const asd = `/week/${moment().week()}-${moment().year()}`;
+      this.props.history.push(asd);
+    }
+    this.getData(week);
   }
   componentWillReceiveProps(nextProps) {
-    if (this.props.match.params.week != nextProps.match.params.week) {
-      this.getData(nextProps);
-    }
-    if (this.props.data !== nextProps.data) {
-      this.mapData(nextProps);
+    debugger;
+    if(!nextProps.loading){
+      const nextPropsWeek = nextProps.match.params.week;
+      if( (this.props.match.params.week != nextPropsWeek)){
+        this.getData(nextPropsWeek);
+      }
+      if (this.props.data !== nextProps.data) {
+        this.mapData(nextProps);
+      }
     }
   }
-  getData(props){
-    const weekNum = !props.match.params.week ? `${moment().week()}-${moment().year()}` : props.match.params.week;
+  getData(week){
+    debugger;
+    const weekNum = !week ? `${moment().week()}-${moment().year()}` : week;
+    // const weekNum = !week ? '02-2018' : week;
     this.props.fetch(weekNum);
   }
 
@@ -42,7 +52,9 @@ class WeekPage extends React.Component {
   }
 }
 const mapStateToProps = (state) => {
-  return { data: state.week, user: state.user };
+  debugger;
+
+  return { data: state.week.comics, loading:state.week.loading, user: state.user };
 };
 
 const mapDispatchToProps = (dispatch) => {
@@ -56,7 +68,13 @@ WeekPage.propTypes = {
   user: PropTypes.object.isRequired,
   fetch: PropTypes.func.isRequired,
   home: PropTypes.array,
-  follow: PropTypes.func.isRequired
+  data: PropTypes.array,
+  follow: PropTypes.func.isRequired,
+  match: PropTypes.shape({
+    params: PropTypes.shape({
+      week: PropTypes.node,
+    }).isRequired,
+  }).isRequired
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(WeekPage);
