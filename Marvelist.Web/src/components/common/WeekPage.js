@@ -32,9 +32,7 @@ class WeekPage extends React.Component {
     }
   }
   getData(week){
-    debugger;
     const weekNum = !week ? `${moment().week()}-${moment().year()}` : week;
-    // const weekNum = !week ? '02-2018' : week;
     this.props.fetch(weekNum);
   }
 
@@ -52,8 +50,6 @@ class WeekPage extends React.Component {
   }
 }
 const mapStateToProps = (state) => {
-  debugger;
-
   return { data: state.week.comics, loading:state.week.loading, user: state.user };
 };
 
