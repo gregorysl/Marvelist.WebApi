@@ -24,7 +24,6 @@ class HeaderMy extends React.Component {
 
   render() {
     let url = require("../../images/logo.svg");
-    const currentWeek = `/week/${moment().week()}-${moment().year()}`;
     let navButtons = this.props.user.loggedIn
       ? (
         <Menu mode="horizontal"  >
@@ -42,7 +41,7 @@ class HeaderMy extends React.Component {
       <div style={{ display: 'flex', maxHeight: '50px' }}>
         <Link to="/"><img className="logo" src={url} /></Link>
         <Menu mode="horizontal" style={{ flex: '1' }} >
-          <Menu.Item><Link to={currentWeek}>Weekly pull</Link></Menu.Item>
+          <Menu.Item><Link to="/week">Weekly pull</Link></Menu.Item>
           <Menu.Item><Link to="/series">Series</Link></Menu.Item>
           <Menu.Item><Link to="/about">About</Link></Menu.Item>
           <Menu.Item><Search placeholder="Search" style={{ width: 200 }} onSearch={this.onSearch} /></Menu.Item>
