@@ -56,7 +56,7 @@ class WeekPage extends React.Component {
 	mapData(props) {
 		let { follow } = props;
 		this.data = props.data.map((b, i) => (
-			<Card key={i} follow={follow} data={b} place={PLACE.WEEK}  />
+			<Card key={i} follow={follow} data={b} place={PLACE.WEEK} week={this.state.weekTillApiChanged}  />
 		));
 	}
 
@@ -96,7 +96,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
 	return {
 		fetch: weekName => dispatch(week(weekName)),
-		follow: id => dispatch(folllowComic(id, PLACE.WEEK))
+		follow: (id, seriesId, week) => dispatch(folllowComic(id, PLACE.WEEK, seriesId, week))
 	};
 };
 
