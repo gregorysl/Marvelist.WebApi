@@ -40,5 +40,6 @@ export const FILTER_SHOW_FOLLOWED = 'FILTER_SHOW_FOLLOWED';
 
 export const PLACE = {
     SERIES:1,
-    HOME:2
+    HOME:2,
+    WEEK:3,
 };

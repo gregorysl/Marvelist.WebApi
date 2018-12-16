@@ -41,7 +41,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     fetch: () => dispatch(fetchHome()),
-    follow: (id) => dispatch(folllowComic(id, true))
+    follow: (id, seriesId) => dispatch(folllowComic(id, PLACE.HOME, seriesId))
   };
 };
 
