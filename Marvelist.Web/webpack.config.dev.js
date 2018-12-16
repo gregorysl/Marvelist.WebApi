@@ -26,6 +26,10 @@ export default {
             'process.env.NODE_ENV': JSON.stringify('development'),
             __DEV__: true
         }),
+        new webpack.ProvidePlugin({
+            'window.moment': 'moment',
+            'moment': 'moment'
+        }),
         new webpack.HotModuleReplacementPlugin(),
         new webpack.NoEmitOnErrorsPlugin(),
         new HtmlWebpackPlugin({

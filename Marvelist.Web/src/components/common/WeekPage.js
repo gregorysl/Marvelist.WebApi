@@ -18,12 +18,11 @@ class WeekPage extends React.Component {
 	componentWillMount() {
 		const week = this.props.match.params.week;
 		if (!week) {
-			this.props.history.push(`${moment().year()}W${moment().week()}`);
+			this.props.history.push(`week/${moment().year()}W${moment().week()}`);
 		}
 		this.getData(week);
 	}
 	componentWillReceiveProps(nextProps) {
-		debugger;
 		const nextPropsWeek = nextProps.match.params.week;
 		if (this.props.match.params.week != nextPropsWeek) {
 			this.getData(nextPropsWeek);
@@ -48,16 +47,16 @@ class WeekPage extends React.Component {
 		
 		const previous = moment(week,dateFormat).add(-1, "week").format(dateFormat);
 		const next = moment(week,dateFormat).add(1, "week").format(dateFormat);
-		this.setState({week,previous,next});
-
 		const weekTillApiChanged = moment(week,dateFormat).add(1, "week").format('WW-YYYY');
+		this.setState({week,previous,next,weekTillApiChanged});
+
 		this.props.fetch(weekTillApiChanged);
 	}
 
 	mapData(props) {
 		let { follow } = props;
 		this.data = props.data.map((b, i) => (
-			<Card key={i} follow={follow} data={b} place={PLACE.HOME} />
+			<Card key={i} follow={follow} data={b} place={PLACE.WEEK}  />
 		));
 	}
 
@@ -97,7 +96,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
 	return {
 		fetch: weekName => dispatch(week(weekName)),
-		follow: id => dispatch(folllowComic(id, true))
+		follow: id => dispatch(folllowComic(id, PLACE.WEEK))
 	};
 };
 

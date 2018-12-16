@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import { connect } from "react-redux";
 import { Link } from 'react-router-dom';
 import history from "../../history";
-import moment from 'moment';
 import { logout } from "../../actions/userActions";
 import { Menu, Input } from 'antd';
 const Search = Input.Search;
