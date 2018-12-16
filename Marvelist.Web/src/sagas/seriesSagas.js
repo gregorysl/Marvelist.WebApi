@@ -77,13 +77,19 @@ export function* followSeriesFlow() {
 
 export function* followComicFlow() {
     for (; ;) {
-        const { id, home, seriesId } = yield take(consts.FOLLOW_COMIC);
+        const { id, place, seriesId, week } = yield take(consts.FOLLOW_COMIC);
         const url = apiUrl + "FollowC/" + id;
         yield call(post, url, id);
-        if (home) {
+        switch(place){
+            case consts.PLACE.HOME:
             yield put({ type: consts.FETCH_HOME_COMICS });
-        } else {
+            break;
+            case consts.PLACE.SERIES:
             yield put({ type: consts.FETCH_SERIES_BY_ID, id: seriesId });
+            break;
+            case consts.PLACE.WEEK:
+            yield put({ type: consts.WEEK, text: week });
+            break;
 
         }
     }

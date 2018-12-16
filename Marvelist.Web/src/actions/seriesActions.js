@@ -19,8 +19,8 @@ export const folllowSeries = (id, detailPage) => {
   return { type: consts.FOLLOW_SERIES, id, detailPage };
 };
 
-export const folllowComic = (id, place, seriesId) => {
-  return { type: consts.FOLLOW_COMIC, id, place, seriesId };
+export const folllowComic = (id, place, seriesId, week) => {
+  return { type: consts.FOLLOW_COMIC, id, place, seriesId, week };
 };
 
 export const readAllComic = (seriesId) => {
