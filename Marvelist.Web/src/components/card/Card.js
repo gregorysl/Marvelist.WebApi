@@ -12,10 +12,12 @@ class MarvelistCard extends React.Component {
 
 	handleClick() {
 		const {
-			props: { week, data, follow }
+			props: { week, data, follow },
 		} = this;
 		if (week) {
 			follow(data.id, data.seriesId, week);
+		} else {
+			follow(data.id, data.seriesId);
 		}
 	}
 
@@ -27,7 +29,7 @@ class MarvelistCard extends React.Component {
 				  ) / 10
 				: 100;
 		return (
-			<Col xs={12} sm={6} md={6} lg={4}>
+			<Col xs={12} sm={6} md={6} lg={4} xl={2}>
 				<Spin size="large" spinning={this.props.data.loading}>
 					<Card bordered={false} bodyStyle={{ padding: 0 }}>
 						{this.props.dashboard && <Progress percent={percent} />}
@@ -45,7 +47,7 @@ MarvelistCard.propTypes = {
 	dashboard: PropTypes.bool,
 	follow: PropTypes.func.isRequired,
 	place: PropTypes.number,
-	data: PropTypes.object.isRequired
+	data: PropTypes.object.isRequired,
 };
 
 export default MarvelistCard;
