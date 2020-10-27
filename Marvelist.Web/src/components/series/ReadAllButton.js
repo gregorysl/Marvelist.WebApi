@@ -1,33 +1,20 @@
 import React from "react";
-import PropTypes from "prop-types";
-import { Button } from "antd";
+import { Button } from "@material-ui/core";
 
-class ReadAllButton extends React.Component {
-  constructor(props) {
-    super(props);
-    this.handleClick = this.handleClick.bind(this);
-  }
+const ReadAllButton = ({ click, following, id, percent }) => {
+  if (!following) return <></>;
+  const disabled = percent === 100;
 
-  handleClick() {
-    this.props.click(this.props.id);
-  }
-
-  render() {
-    if (!this.props.following) return null;
-    const disabled = this.props.percent === 100;
-    return (
-      <Button type="primary" onClick={this.handleClick} disabled={disabled}>
-        Mark all as read
-      </Button>
-    );
-  }
-}
-
-ReadAllButton.propTypes = {
-  percent: PropTypes.number.isRequired,
-  click: PropTypes.func.isRequired,
-  id: PropTypes.number.isRequired,
-  following: PropTypes.bool.isRequired,
+  return (
+    <Button
+      variant="contained"
+      color="primary"
+      onClick={() => click(id)}
+      disabled={disabled}
+    >
+      Mark all as read
+    </Button>
+  );
 };
 
 export default ReadAllButton;
