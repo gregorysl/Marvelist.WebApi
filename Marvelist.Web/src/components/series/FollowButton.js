@@ -1,29 +1,21 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { Button } from 'antd';
+import React from "react";
+import { Button } from "@material-ui/core";
 
-class FollowButton extends React.Component {
-    constructor(props) {
-        super(props);
-        this.handleClick = this.handleClick.bind(this);
-    }
+const FollowButton = ({ click, following, id, percent }) => {
+  if (!following) return <></>;
+  const disabled = percent === 100;
 
-    handleClick() {
-        this.props.click(this.props.id);
-    }
-
-    render() {
-        const text = this.props.following ? "Following" : "Follow";
-        return (
-            <Button type="primary" onClick={this.handleClick}>{text}</Button>
-        );
-    }
-}
-
-FollowButton.propTypes = {
-    following: PropTypes.bool.isRequired,
-    click: PropTypes.func.isRequired,
-    id: PropTypes.number.isRequired
+  const text = following ? "Following" : "Follow";
+  return (
+    <Button
+      variant="contained"
+      color="primary"
+      onClick={() => click(id)}
+      disabled={disabled}
+    >
+      {text}
+    </Button>
+  );
 };
 
 export default FollowButton;
