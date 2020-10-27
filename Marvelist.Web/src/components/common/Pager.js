@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { Pagination } from "antd";
+import { Pagination } from "@material-ui/core";
 
 const Pager = ({ pageData, onChangePage }) => {
   let page = pageData.page + 1;
@@ -9,9 +9,8 @@ const Pager = ({ pageData, onChangePage }) => {
     <div>
       {show && (
         <Pagination
-          current={page}
-          total={pageData.count}
-          pageSize={pageData.pageSize}
+          count={pageData.count}
+          page={page}
           onChange={onChangePage}
         />
       )}

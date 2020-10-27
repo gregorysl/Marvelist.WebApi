@@ -77,7 +77,7 @@ class Series extends React.Component {
     return text;
   }
 
-  onChangePage(page) {
+  onChangePage(obj, page) {
     let url = this.props.location.pathname + "?page=" + page;
     history.push(url);
   }
