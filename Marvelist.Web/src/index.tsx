@@ -7,7 +7,6 @@ import configureStore from "./store/configureStore";
 import { LocaleProvider } from "antd";
 // import { ConnectedRouter } from "react-router-redux";
 import { Provider } from "react-redux";
-import history from "./history";
 
 import enUS from "antd/lib/locale-provider/en_US";
 import "antd/dist/antd.less";
@@ -20,9 +19,7 @@ ReactDOM.render(
   <React.StrictMode>
     <LocaleProvider locale={enUS}>
       <Provider store={store}>
-        {/* <ConnectedRouter history={history}> */}
         <App />
-        {/* </ConnectedRouter> */}
       </Provider>
     </LocaleProvider>
   </React.StrictMode>,

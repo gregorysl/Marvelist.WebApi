@@ -47,7 +47,7 @@ class HeaderMy extends React.Component {
     return (
       <div style={{ display: "flex", maxHeight: "50px" }}>
         <Link to="/">
-          <img className="logo" src={url} />
+          <img alt="logo" className="logo" src={url} />
         </Link>
         <Menu mode="horizontal" style={{ flex: "1" }}>
           <Menu.Item>
