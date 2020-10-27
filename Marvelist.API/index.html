@@ -13,12 +13,8 @@
         <div class="col-sm-4">
             <h3>Register</h3>
             <div class="form-group">
-                <label>First Name</label>
-                <input class="form-control" type="text" id="register-fn" />
-            </div>
-            <div class="form-group">
-                <label>Last Name</label>
-                <input class="form-control" type="text" id="register-ln" />
+                <label>Username</label>
+                <input class="form-control" type="text" id="register-username" />
             </div>
             <div class="form-group">
                 <label>Email</label>
@@ -55,10 +51,8 @@
     <script type="text/javascript">
         var tokenKey = 'accessToken';
         $('#register-submit').click(function () {
-            debugger;
             var data = {
-                FirstName: $('#register-fn').val(),
-                LastName: $('#register-ln').val(),
+                Username: $('#register-username').val(),
                 Email: $('#register-email').val(),
                 Password: $('#register-password').val(),
                 ConfirmPassword: $('#register-password2').val()
@@ -66,7 +60,7 @@
 
             $.ajax({
                     type: 'POST',
-                    url: '/api/Register',
+                url: 'api/Register',
                     contentType: 'application/json; charset=utf-8',
                     data: JSON.stringify(data)
                 })
@@ -90,7 +84,7 @@
 
             $.ajax({
                 type: 'POST',
-                url: '/Token',
+                url: 'Token',
                 data: loginData
             }).done(function (data) {
                 debugger;
