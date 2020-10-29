@@ -2,6 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom";
 import "./index.css";
 import App from "./components/App";
+import { PreApp } from "./components/PreApp";
 import reportWebVitals from "./reportWebVitals";
 import configureStore from "./store/configureStore";
 import { LocaleProvider } from "antd";
@@ -19,7 +20,7 @@ ReactDOM.render(
   <React.StrictMode>
     <LocaleProvider locale={enUS}>
       <Provider store={store}>
-        <App />
+        <PreApp />
       </Provider>
     </LocaleProvider>
   </React.StrictMode>,
