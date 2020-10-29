@@ -101,7 +101,6 @@ const Header = ({ user, logout }) => {
         </Link>
         <Link to="/week">Weekly pull</Link>
         <Link to="/series">Series</Link>
-        <Link to="/about">About</Link>
         <div className={classes.search}>
           <div className={classes.searchIcon}>
             <SearchIcon />
