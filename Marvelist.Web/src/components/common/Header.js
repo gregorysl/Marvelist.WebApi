@@ -1,11 +1,11 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-// import { BrowserRouter, Route, Switch } from "react-router-dom";
 import { Link } from "react-router-dom";
 import history from "../../history";
 import { logout } from "../../actions/userActions";
 import { Menu, Input } from "antd";
+import url from "../../images/logo.svg";
 const Search = Input.Search;
 
 class HeaderMy extends React.Component {
@@ -22,7 +22,6 @@ class HeaderMy extends React.Component {
   }
 
   render() {
-    let url = require("../../images/logo.svg");
     let navButtons = this.props.user.loggedIn ? (
       <Menu mode="horizontal">
         <Menu.Item>
