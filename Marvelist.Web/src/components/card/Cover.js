@@ -5,7 +5,6 @@ import CoverDate from "./CoverDate";
 import url from "../../images/not_found.png";
 
 const Cover = (props) => {
-  console.log(url);
   return (
     <div className="[ info-card ]">
       {props.date && <CoverDate comicDate={props.date} />}
