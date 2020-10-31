@@ -4,7 +4,6 @@ import FollowButton from "./FollowButton";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import Typography from "@material-ui/core/Typography";
 import Box from "@material-ui/core/Box";
-import { makeStyles } from "@material-ui/core/styles";
 import { Grid } from "@material-ui/core";
 
 function CircularProgressWithLabel(props) {
@@ -28,30 +27,9 @@ function CircularProgressWithLabel(props) {
     </Box>
   );
 }
-const useStyles = makeStyles((theme) => ({
-  root: {
-    flexGrow: 1,
-  },
-  paper: {
-    padding: theme.spacing(2),
-    margin: "auto",
-    maxWidth: 500,
-  },
-  image: {
-    width: 200,
-    height: 200,
-  },
-  img: {
-    margin: "auto",
-    display: "block",
-    maxWidth: "100%",
-    maxHeight: "100%",
-  },
-}));
 const DetailsHeader = ({ folllowSeries, readAllComic, details }) => {
   let percent =
     Math.round((details.read / details.comicCount) * 100 * 100) / 100;
-  const classes = useStyles();
   return (
     <>
       <Grid container direction="horizontal">

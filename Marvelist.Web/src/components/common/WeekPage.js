@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 import Card from "../card/Card";
 import { week, folllowComic } from "../../actions/seriesActions";
 import { PLACE } from "../../actions/constants";
-import { Col, Row, Button, Icon } from "antd";
+import { Button, Grid } from "@material-ui/core";
 
 const moment = require("moment");
 const dateFormat = "YYYY[W]WW";
@@ -72,25 +72,19 @@ class WeekPage extends React.Component {
 
   render() {
     return (
-      <div>
-        <Row className="week-header">
-          <Col span={4}>
-            <Button type="primary" onClick={this._previous}>
-              <Icon type="left" />
-              Backward
-            </Button>
-          </Col>
-          <Col span={16}>
-            <h1>{this.props.match.params.week}</h1>
-          </Col>
-          <Col span={4}>
-            <Button type="primary" onClick={this._next}>
-              Forward
-              <Icon type="right" />
-            </Button>
-          </Col>
-        </Row>
-        <div className="row cards">{this.data}</div>
+      <div style={{ display: "flex", flexDirection: "column" }}>
+        <div style={{ display: "flex", flexDirection: "row" }}>
+          <Button variant="contained" onClick={this._previous}>
+            Backward
+          </Button>
+          <h1>{this.props.match.params.week}</h1>
+          <Button variant="contained" onClick={this._next}>
+            Forward
+          </Button>
+        </div>
+        <Grid container spacing={2}>
+          {this.data}
+        </Grid>
       </div>
     );
   }

@@ -16,10 +16,10 @@ const MarvelistCard = ({ toggleFollow, dashboard, follow, place, data }) => {
     }
   };
 
-  let percent =
-    data.comicCount !== 0
-      ? Math.round((data.read / data.comicCount) * 100 * 10) / 10
-      : 100;
+  // let percent =
+  //   data.comicCount !== 0
+  //     ? Math.round((data.read / data.comicCount) * 100 * 10) / 10
+  //     : 100;
 
   // {/* Todo loader */}
   return (

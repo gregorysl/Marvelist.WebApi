@@ -29,16 +29,16 @@ class SeriesDetails extends React.Component {
   render() {
     let { folllowSeries, readAllComic, seriesDetails } = this.props;
     return (
-      <Grid container spacing={2}>
-        <Grid item>
-          <DetailsHeader
-            details={seriesDetails}
-            folllowSeries={folllowSeries}
-            readAllComic={readAllComic}
-          />
+      <div style={{ display: "flex", flexDirection: "column" }}>
+        <DetailsHeader
+          details={seriesDetails}
+          folllowSeries={folllowSeries}
+          readAllComic={readAllComic}
+        />
+        <Grid container spacing={2}>
+          {this.data}
         </Grid>
-        <Grid item>{this.data}</Grid>
-      </Grid>
+      </div>
     );
   }
 }

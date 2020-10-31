@@ -5,9 +5,9 @@ import Card from "../card/Card";
 import TextHeader from "./TextHeader";
 import * as actions from "../../actions/seriesActions";
 import { PLACE } from "../../actions/constants";
-import { Switch, Row } from "antd";
 import history from "../../history";
 import Pager from "../common/Pager";
+import { Grid } from "@material-ui/core";
 
 class Series extends React.Component {
   constructor(props) {
@@ -84,30 +84,28 @@ class Series extends React.Component {
 
   render() {
     return (
-      <div>
-        <Row>
-          <TextHeader text={this.getHeaderText()} />
-          <p>
-            <Switch
-              checkedChildren={"Show"}
-              unCheckedChildren={"Hide"}
-              onChange={this.filterBoxChange}
-              defaultChecked
-            />{" "}
-            following series{" "}
-          </p>
-          <Pager
-            pageData={this.props.pageData}
-            onChangePage={this.onChangePage}
+      <div style={{ display: "flex", flexDirection: "column" }}>
+        <TextHeader text={this.getHeaderText()} />
+        {/* <p>
+          <Switch
+            checkedChildren={"Show"}
+            unCheckedChildren={"Hide"}
+            onChange={this.filterBoxChange}
+            defaultChecked
           />
-        </Row>
-        <Row>{this.data}</Row>
-        <Row>
-          <Pager
-            pageData={this.props.pageData}
-            onChangePage={this.onChangePage}
-          />
-        </Row>
+          following series
+        </p> */}
+        <Pager
+          pageData={this.props.pageData}
+          onChangePage={this.onChangePage}
+        />
+        <Grid container spacing={2}>
+          {this.data}
+        </Grid>
+        <Pager
+          pageData={this.props.pageData}
+          onChangePage={this.onChangePage}
+        />
       </div>
     );
   }

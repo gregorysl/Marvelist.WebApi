@@ -1,9 +1,10 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import Card from '../card/Card';
-import { fetchHome, folllowComic } from '../../actions/seriesActions';
-import { PLACE } from '../../actions/constants';
+import React from "react";
+import PropTypes from "prop-types";
+import { connect } from "react-redux";
+import Card from "../card/Card";
+import { fetchHome, folllowComic } from "../../actions/seriesActions";
+import { PLACE } from "../../actions/constants";
+import { Grid } from "@material-ui/core";
 
 class HomePage extends React.Component {
   constructor(props) {
@@ -23,14 +24,16 @@ class HomePage extends React.Component {
   }
   mapData(props) {
     let { follow } = props;
-    this.data = props.home.map((b, i) => <Card key={i} follow={follow} data={b} place={PLACE.HOME} />);
+    this.data = props.home.map((b, i) => (
+      <Card key={i} follow={follow} data={b} place={PLACE.HOME} />
+    ));
   }
 
   render() {
     return (
-      <div className="row cards">
+      <Grid container spacing={2}>
         {this.data}
-      </div>
+      </Grid>
     );
   }
 }
@@ -41,7 +44,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     fetch: () => dispatch(fetchHome()),
-    follow: (id, seriesId) => dispatch(folllowComic(id, PLACE.HOME, seriesId))
+    follow: (id, seriesId) => dispatch(folllowComic(id, PLACE.HOME, seriesId)),
   };
 };
 
@@ -49,7 +52,7 @@ HomePage.propTypes = {
   user: PropTypes.object.isRequired,
   fetch: PropTypes.func.isRequired,
   home: PropTypes.array,
-  follow: PropTypes.func.isRequired
+  follow: PropTypes.func.isRequired,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(HomePage);

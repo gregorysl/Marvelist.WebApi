@@ -3,8 +3,32 @@ import PropTypes from "prop-types";
 import Title from "./card/Title";
 import ActionsBar from "./card/ActionsBar";
 import { PLACE } from "../actions/constants";
-import { Spin, Col, Row, Progress } from "antd";
+import Typography from "@material-ui/core/Typography";
+import Box from "@material-ui/core/Box";
 
+import CircularProgress from "@material-ui/core/CircularProgress";
+
+function CircularProgressWithLabel(props) {
+  return (
+    <Box position="relative" display="inline-flex">
+      <CircularProgress variant="determinate" {...props} />
+      <Box
+        top={0}
+        left={0}
+        bottom={0}
+        right={0}
+        position="absolute"
+        display="flex"
+        alignItems="center"
+        justifyContent="center"
+      >
+        <Typography variant="caption" color="textPrimary">{`${Math.round(
+          props.value
+        )}%`}</Typography>
+      </Box>
+    </Box>
+  );
+}
 class DashboardItem extends React.Component {
   constructor(props) {
     super(props);
@@ -23,28 +47,20 @@ class DashboardItem extends React.Component {
           ) / 10
         : 100;
     return (
-      <Col md={12}>
-        <Spin size="large" spinning={this.props.data.loading}>
-          <Col md={12}>
-            <img
+      <>
+        {/* <img
               alt="thumbnail"
               className="img-dashboard"
               src={this.props.data.thumbnail}
-            />
-          </Col>
-          <Col md={12}>
-            <ActionsBar click={this.handleClick} {...this.props.data} />
-            <Row>
-              <Title
-                place={PLACE.SERIES}
-                id={this.props.data.id}
-                title={this.props.data.title}
-              />
-              <Progress type="circle" percent={percent} />
-            </Row>
-          </Col>
-        </Spin>
-      </Col>
+            /> */}
+        <ActionsBar click={this.handleClick} {...this.props.data} />
+        <Title
+          place={PLACE.SERIES}
+          id={this.props.data.id}
+          title={this.props.data.title}
+        />
+        <CircularProgressWithLabel value={percent} />
+      </>
     );
   }
 }
