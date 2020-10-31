@@ -1,77 +1,73 @@
 import React from "react";
-import PropTypes from "prop-types";
-import { connect } from "react-redux";
-// import { BrowserRouter, Route, Switch } from "react-router-dom";
-import { Link } from "react-router-dom";
-import history from "../../history";
+import { makeStyles } from "@material-ui/core/styles";
+import AppBar from "@material-ui/core/AppBar";
+import Toolbar from "@material-ui/core/Toolbar";
+import IconButton from "@material-ui/core/IconButton";
+import InputBase from "@material-ui/core/InputBase";
+import SearchIcon from "@material-ui/icons/Search";
+import AccountCircle from "@material-ui/icons/AccountCircle";
+import url from "../../images/logo.svg";
+import { Link, useHistory } from "react-router-dom";
 import { logout } from "../../actions/userActions";
-import { Menu, Input } from "antd";
-const Search = Input.Search;
+import { connect } from "react-redux";
 
-class HeaderMy extends React.Component {
-  constructor(props) {
-    super(props);
-    this._logout = this._logout.bind(this);
-  }
+const useStyles = makeStyles((theme) => ({
+  grow: {
+    flexGrow: 1,
+  },
+}));
 
-  _logout() {
-    this.props.logout();
-  }
-  onSearch(value) {
-    history.push("/search/" + value);
-  }
-
-  render() {
-    let url = require("../../images/logo.svg");
-    let navButtons = this.props.user.loggedIn ? (
-      <Menu mode="horizontal">
-        <Menu.Item>
-          <Link to="/dashboard">{this.props.user.username}</Link>
-        </Menu.Item>
-        <Menu.Item>
-          <a href="#" onClick={this._logout}>
-            Logout
-          </a>
-        </Menu.Item>
-      </Menu>
-    ) : (
-      <Menu mode="horizontal">
-        <Menu.Item>
-          <Link to="/register">Register</Link>
-        </Menu.Item>
-        <Menu.Item>
-          <Link to="/login">Login</Link>
-        </Menu.Item>
-      </Menu>
-    );
-    return (
-      <div style={{ display: "flex", maxHeight: "50px" }}>
+const Header = ({ user, logout }) => {
+  const classes = useStyles();
+  const history = useHistory();
+  const onSearch = (event, a, s, d) => {
+    history.push("/search/" + event.target[0].value);
+    event.preventDefault();
+  };
+  let navButtons = user.loggedIn ? (
+    <>
+      <Link to="/dashboard">{user.username}</Link>
+      <a href="#" onClick={() => logout()}>
+        Logout
+      </a>
+    </>
+  ) : (
+    <>
+      <Link to="/register">Register</Link>
+      <Link to="/login">Login</Link>
+    </>
+  );
+  return (
+    <AppBar className={classes.grow} position="static">
+      <Toolbar>
         <Link to="/">
-          <img className="logo" src={url} />
+          <img alt="logo" className="logo" src={url} />
         </Link>
-        <Menu mode="horizontal" style={{ flex: "1" }}>
-          <Menu.Item>
-            <Link to="/week">Weekly pull</Link>
-          </Menu.Item>
-          <Menu.Item>
-            <Link to="/series">Series</Link>
-          </Menu.Item>
-          <Menu.Item>
-            <Link to="/about">About</Link>
-          </Menu.Item>
-          <Menu.Item>
-            <Search
-              placeholder="Search"
-              style={{ width: 200 }}
-              onSearch={this.onSearch}
-            />
-          </Menu.Item>
-        </Menu>
+        <Link to="/week">Weekly pull</Link>
+        <Link to="/series">Series</Link>
+        <form onSubmit={onSearch}>
+          <InputBase placeholder="Search" />
+          <IconButton type="submit">
+            <SearchIcon />
+          </IconButton>
+        </form>
+
+        <div className={classes.grow} />
         {navButtons}
-      </div>
-    );
-  }
-}
+        <div className={classes.sectionDesktop}>
+          <IconButton
+            edge="end"
+            aria-label="account of current user"
+            aria-haspopup="true"
+            color="inherit"
+          >
+            <AccountCircle />
+          </IconButton>
+        </div>
+      </Toolbar>
+    </AppBar>
+  );
+};
 
 const mapStateToProps = (state) => {
   return { user: state.user };
@@ -82,10 +78,4 @@ const mapDispatchToProps = (dispatch) => {
     logout: () => dispatch(logout()),
   };
 };
-
-HeaderMy.propTypes = {
-  user: PropTypes.object.isRequired,
-  logout: PropTypes.func.isRequired,
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(HeaderMy);
+export default connect(mapStateToProps, mapDispatchToProps)(Header);

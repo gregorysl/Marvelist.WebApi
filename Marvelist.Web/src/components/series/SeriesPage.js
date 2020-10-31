@@ -1,11 +1,11 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import Card from '../card/Card';
-import TextHeader from './TextHeader';
-import * as actions from '../../actions/seriesActions';
-import { PLACE } from '../../actions/constants';
-import { Switch, Row } from 'antd';
+import React from "react";
+import PropTypes from "prop-types";
+import { connect } from "react-redux";
+import Card from "../card/Card";
+import TextHeader from "./TextHeader";
+import * as actions from "../../actions/seriesActions";
+import { PLACE } from "../../actions/constants";
+import { Switch, Row } from "antd";
 import history from "../../history";
 import Pager from "../common/Pager";
 
@@ -23,10 +23,9 @@ class Series extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    if (this.props.location != nextProps.location) {
+    if (this.props.location !== nextProps.location) {
       this.getData(nextProps);
-    }
-    else if (this.props.match.params.text != nextProps.match.params.text) {
+    } else if (this.props.match.params.text !== nextProps.match.params.text) {
       this.getData(nextProps);
     }
     this.data = this.mapData(nextProps);
@@ -44,11 +43,9 @@ class Series extends React.Component {
     let path = props.location.pathname;
     if (path === "/dashboard" || path === "/series") {
       props.fetch(path, pageId);
-    }
-    else if (year) {
+    } else if (year) {
       props.showYear(year, pageId);
-    }
-    else if (text) {
+    } else if (text) {
       props.search(text, pageId);
     }
   }
@@ -60,8 +57,18 @@ class Series extends React.Component {
 
   mapData(props) {
     const dashboard = props.location.pathname === "/dashboard";
-    const series = props.filters.showFollowed ? props.series : props.series.filter(x => !x.following);
-    return series.map((b, i) => <Card key={i} follow={props.follow} data={b} place={PLACE.SERIES} dashboard={dashboard} />);
+    const series = props.filters.showFollowed
+      ? props.series
+      : props.series.filter((x) => !x.following);
+    return series.map((b, i) => (
+      <Card
+        key={i}
+        follow={props.follow}
+        data={b}
+        place={PLACE.SERIES}
+        dashboard={dashboard}
+      />
+    ));
   }
 
   getHeaderText() {
@@ -70,8 +77,8 @@ class Series extends React.Component {
     return text;
   }
 
-  onChangePage(page) {
-    let url = this.props.location.pathname + '?page=' + page;
+  onChangePage(obj, page) {
+    let url = this.props.location.pathname + "?page=" + page;
     history.push(url);
   }
 
@@ -80,14 +87,26 @@ class Series extends React.Component {
       <div>
         <Row>
           <TextHeader text={this.getHeaderText()} />
-          <p><Switch checkedChildren={"Show"} unCheckedChildren={"Hide"} onChange={this.filterBoxChange} defaultChecked /> following series </p>
-          <Pager pageData={this.props.pageData} onChangePage={this.onChangePage} />
+          <p>
+            <Switch
+              checkedChildren={"Show"}
+              unCheckedChildren={"Hide"}
+              onChange={this.filterBoxChange}
+              defaultChecked
+            />{" "}
+            following series{" "}
+          </p>
+          <Pager
+            pageData={this.props.pageData}
+            onChangePage={this.onChangePage}
+          />
         </Row>
+        <Row>{this.data}</Row>
         <Row>
-          {this.data}
-        </Row>
-        <Row>
-          <Pager pageData={this.props.pageData} onChangePage={this.onChangePage} />
+          <Pager
+            pageData={this.props.pageData}
+            onChangePage={this.onChangePage}
+          />
         </Row>
       </div>
     );
@@ -98,7 +117,7 @@ const mapStateToProps = (state) => {
   return {
     filters: state.series.filters,
     series: state.series.series,
-    pageData: state.series.pageData
+    pageData: state.series.pageData,
   };
 };
 
@@ -108,7 +127,7 @@ const mapDispatchToProps = (dispatch) => {
     showYear: (year, page) => dispatch(actions.fetchSeriesByYear(year, page)),
     fetch: (text, page) => dispatch(actions.fetchSeries(text, page)),
     search: (text, page) => dispatch(actions.search(text, page)),
-    follow: (id) => dispatch(actions.folllowSeries(id))
+    follow: (id) => dispatch(actions.folllowSeries(id)),
   };
 };
 
@@ -125,7 +144,7 @@ Series.propTypes = {
     params: PropTypes.shape({
       text: PropTypes.node,
     }).isRequired,
-  }).isRequired
+  }).isRequired,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Series);
