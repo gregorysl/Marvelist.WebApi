@@ -1,73 +1,129 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React from "react";
 import { connect } from "react-redux";
 import { registerRequest } from "../../actions/userActions";
-import { Form, Button, Spin } from 'antd';
-import FastFormItem from './FastFormItem';
-const FormItem = Form.Item;
-const emailRule = [{ type: 'email', message: 'The input is not valid E-mail!' }];
+import { useFormik } from "formik";
+import { useHistory } from "react-router-dom";
+import { TextField, Button } from "@material-ui/core";
 
-class Register extends React.Component {
-    constructor(props) {
-        super(props);
-        this.handleSubmit = this.handleSubmit.bind(this);
-        this.checkPassword = this.checkPassword.bind(this);
-    }
+const validate = (values) => {
+  const errors = {};
+  const reqField = "Field is required!";
 
-    checkPassword(rule, value, callback) {
-        const form = this.props.form;
-        if (value && value !== form.getFieldValue('password')) {
-            callback('Passwords don\'t match.');
-        } else {
-            callback();
+  if (!values.email) {
+    errors.email = reqField;
+  } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
+    errors.email = "Invalid email address";
+  }
+  if (!values.username) {
+    errors.username = reqField;
+  }
+
+  if (!values.password) {
+    errors.password = reqField;
+  }
+  if (!values.passwordConfirm) {
+    errors.passwordConfirm = reqField;
+  }
+  if (values.password !== values.passwordConfirm) {
+    const noMatch = "Passwords don't match";
+    errors.passwordConfirm = noMatch;
+    errors.password = noMatch;
+  }
+
+  return errors;
+};
+const Register = ({ register, user }) => {
+  const history = useHistory();
+  const formik = useFormik({
+    initialValues: {
+      email: "",
+      username: "",
+      password: "",
+      passwordConfirm: "",
+    },
+    onSubmit: (values) =>
+      register(values.email, values.username, values.password),
+    validate,
+  });
+
+  if (user.loggedIn) {
+    history.push("/");
+  }
+
+  return (
+    <form onSubmit={formik.submitForm}>
+      <TextField
+        variant="outlined"
+        margin="normal"
+        required
+        fullWidth
+        label="E-mail"
+        error={formik.errors.username && formik.touched.username}
+        helperText={formik.touched.username && formik.errors.username}
+        {...formik.getFieldProps("email")}
+      />
+      <TextField
+        variant="outlined"
+        margin="normal"
+        required
+        fullWidth
+        label="Username"
+        error={formik.errors.username && formik.touched.username}
+        helperText={formik.touched.username && formik.errors.username}
+        {...formik.getFieldProps("username")}
+      />
+      <TextField
+        variant="outlined"
+        margin="normal"
+        required
+        fullWidth
+        label="Password"
+        type="password"
+        error={formik.errors.password && formik.touched.password}
+        helperText={formik.touched.password && formik.errors.password}
+        {...formik.getFieldProps("password")}
+      />
+      <TextField
+        variant="outlined"
+        margin="normal"
+        required
+        fullWidth
+        label="Confirm Password"
+        type="password"
+        error={formik.errors.passwordConfirm && formik.touched.passwordConfirm}
+        helperText={
+          formik.touched.passwordConfirm && formik.errors.passwordConfirm
         }
-    }
-
-    handleSubmit(event) {
-        event.preventDefault();
-        this.props.form.validateFields((err, values) => {
-            if (err) return;
-            this.props.register(values.email, values.username, values.password);
-        });
-    }
-
-    render() {
-        const { getFieldDecorator } = this.props.form;
-        return (
-            <Form onSubmit={this.handleSubmit} className="login-form">
-                <FastFormItem placeholder="E-mail" name="email" decorator={getFieldDecorator} icon="mail" rules={emailRule} />
-                <FastFormItem placeholder="Username" name="username" decorator={getFieldDecorator} icon="user" />
-                <FastFormItem placeholder="Password" name="password" decorator={getFieldDecorator} icon="lock" type="password" />
-                <FastFormItem placeholder="Confirm Password" name="confirm" decorator={getFieldDecorator} icon="lock" type="password" rules={[{ validator: this.checkPassword }]} />
-                <FormItem>
-                    <Spin spinning={this.props.user.currentlySending}>
-                        <Button type="primary" htmlType="submit" className="login-form-button">Register</Button>
-                    </Spin>
-                </FormItem>
-            </Form>
-
-        );
-    }
-}
+        {...formik.getFieldProps("passwordConfirm")}
+      />
+      <Button
+        type="submit"
+        variant="contained"
+        color="primary"
+        onClick={formik.submitForm}
+      >
+        Register
+      </Button>
+    </form>
+  );
+};
 
 const mapStateToProps = (state) => {
-    return {
-        user: state.user
-    };
+  return {
+    user: state.user,
+  };
 };
 
 const mapDispatchToProps = (dispatch) => {
-    return {
-        register: (email, username, password) => dispatch(registerRequest({ email, username, password }))
-    };
+  return {
+    register: (email, username, password) =>
+      dispatch(registerRequest({ email, username, password })),
+  };
 };
 
-Register.propTypes = {
-    user: PropTypes.object.isRequired,
-    register: PropTypes.func.isRequired,
-    form: PropTypes.object.isRequired
-};
-
-const WrappedNormalLoginForm = Form.create()(connect(mapStateToProps, mapDispatchToProps)(Register));
+const WrappedNormalLoginForm = connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Register);
 
 export default WrappedNormalLoginForm;
