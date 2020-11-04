@@ -4,12 +4,9 @@ import "./index.css";
 import { App } from "./components/App";
 import reportWebVitals from "./reportWebVitals";
 import configureStore from "./store/configureStore";
-import { LocaleProvider } from "antd";
 // import { ConnectedRouter } from "react-router-redux";
 import { Provider } from "react-redux";
 
-import enUS from "antd/lib/locale-provider/en_US";
-import "antd/dist/antd.less";
 import "./styles/main.less";
 // require("./favicon.ico");
 
@@ -17,11 +14,9 @@ const store = configureStore();
 
 ReactDOM.render(
   <React.StrictMode>
-    <LocaleProvider locale={enUS}>
-      <Provider store={store}>
-        <App />
-      </Provider>
-    </LocaleProvider>
+    <Provider store={store}>
+      <App />
+    </Provider>
   </React.StrictMode>,
   document.getElementById("root")
 );
