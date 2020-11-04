@@ -27,12 +27,12 @@ namespace Marvelist.API
         public void Configuration(IAppBuilder app)
         {
             var config = new HttpConfiguration();
+            app.UseCors(Microsoft.Owin.Cors.CorsOptions.AllowAll);
 
             config.EnableSystemDiagnosticsTracing();
             ConfigureOAuth(app);
 
             WebApiConfig.Register(config);
-            app.UseCors(Microsoft.Owin.Cors.CorsOptions.AllowAll);
             ConfigureIoc(config);
             app.UseWebApi(config);
             AutoMapperConfiguration.Configure();
