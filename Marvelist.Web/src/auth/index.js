@@ -67,7 +67,7 @@ let server = {
           }
         })
         .catch((error) => {
-          reject(new Error(error.response.data.error_description));
+          reject(new Error(error));
         });
     });
   },
