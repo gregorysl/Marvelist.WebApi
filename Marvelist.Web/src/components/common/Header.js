@@ -10,6 +10,7 @@ import url from "../../images/logo.svg";
 import { Link, useHistory } from "react-router-dom";
 import { logout } from "../../actions/userActions";
 import { connect } from "react-redux";
+import { Button } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
   grow: {
@@ -27,9 +28,9 @@ const Header = ({ user, logout }) => {
   let navButtons = user.loggedIn ? (
     <>
       <Link to="/dashboard">{user.username}</Link>
-      <a href="#" onClick={() => logout()}>
+      <Button onClick={logout} color="textPrimary">
         Logout
-      </a>
+      </Button>
     </>
   ) : (
     <>

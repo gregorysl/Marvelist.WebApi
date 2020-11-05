@@ -19,7 +19,7 @@ const Title = ({ place, id, title }: TitleProps) => {
       finalTitle = title;
       break;
   }
-  return <Typography variant="body2">{title}</Typography>;
+  return <Typography variant="body2">{finalTitle}</Typography>;
 };
 
 export default Title;

@@ -1,14 +1,51 @@
-import React from "react";
+import React, { useState } from "react";
 import PropTypes from "prop-types";
-import Cover from "./Cover";
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  CardMedia,
+  Collapse,
+  Grid,
+  makeStyles,
+  Typography,
+} from "@material-ui/core";
+import url from "../../images/not_found.png";
+import Title from "./Title";
+import CoverDate from "./CoverDate";
 import ActionsBar from "./ActionsBar";
-import { Card, CardContent, Grid } from "@material-ui/core";
 
-const MarvelistCard = ({ toggleFollow, dashboard, follow, place, data }) => {
+const useStyles = makeStyles((theme) => ({
+  root: {
+    maxWidth: 300,
+  },
+  media: {
+    objectFit: "contain",
+    backgroundImage: `url("${url}")`,
+  },
+  description: {
+    paddingTop: 0,
+  },
+  header: {
+    paddingTop: theme.spacing(1),
+    paddingBottom: theme.spacing(1),
+  },
+}));
+const MarvelistCard = ({
+  toggleFollow,
+  dashboard,
+  follow,
+  place,
+  data,
+  week,
+}) => {
+  const classes = useStyles();
+  const [expanded, setExpanded] = useState(false);
+
+  const handleExpandClick = () => {
+    setExpanded(!expanded);
+  };
   const handleClick = () => {
-    const {
-      props: { week, data, follow },
-    } = this;
     if (week) {
       follow(data.id, data.seriesId, week);
     } else {
@@ -16,20 +53,40 @@ const MarvelistCard = ({ toggleFollow, dashboard, follow, place, data }) => {
     }
   };
 
-  // let percent =
-  //   data.comicCount !== 0
-  //     ? Math.round((data.read / data.comicCount) * 100 * 10) / 10
-  //     : 100;
-
-  // {/* Todo loader */}
   return (
-    <Grid item xs={4}>
-      <Card>
-        <CardContent>
-          <Cover place={place} {...data} />
-          <ActionsBar click={() => handleClick()} {...data} />
-        </CardContent>
-        {/* {dashboard && <Progress percent={percent} />} */}
+    <Grid item xs={3}>
+      <Card className={classes.root}>
+        <CardHeader
+          className={classes.header}
+          disableTypography
+          title={
+            <Title
+              place={place}
+              title={data.title}
+              id={data.seriesId || data.id}
+            />
+          }
+          subheader={<CoverDate date={data.date} />}
+        />
+        <CardMedia
+          component="img"
+          className={classes.media}
+          image={data.thumbnail}
+          title={data.title}
+        />
+        <ActionsBar
+          url={data.url}
+          description={data.description}
+          handleClick={handleClick}
+          handleExpandClick={handleExpandClick}
+          expanded={expanded}
+        />
+
+        <Collapse in={expanded} timeout="auto" unmountOnExit>
+          <CardContent className={classes.description}>
+            <Typography paragraph>{data.description}</Typography>
+          </CardContent>
+        </Collapse>
       </Card>
     </Grid>
   );
