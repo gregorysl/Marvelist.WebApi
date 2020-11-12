@@ -1,5 +1,4 @@
-import React from "react";
-import PropTypes from "prop-types";
+import React, { useEffect } from "react";
 import { connect } from "react-redux";
 import {
   fetchSeriesById,
@@ -11,50 +10,40 @@ import Card from "../card/Card";
 import DetailsHeader from "./DetailsHeader";
 import { Grid } from "@material-ui/core";
 
-class SeriesDetails extends React.Component {
-  constructor(props) {
-    super(props);
-    this.data = "";
-  }
-  componentWillMount() {
-    this.props.fetchById(this.props.match.params.id);
-  }
-  componentWillReceiveProps(nextProps) {
-    if (this.props.seriesDetails !== nextProps.seriesDetails) {
-      this.data = nextProps.seriesDetails.comics.map((x, i) => (
-        <Card key={i} follow={nextProps.follow} data={x} />
-      ));
-    }
-  }
-  render() {
-    let { folllowSeries, readAllComic, seriesDetails } = this.props;
-    return (
-      <div style={{ display: "flex", flexDirection: "column" }}>
-        <DetailsHeader
-          details={seriesDetails}
-          folllowSeries={folllowSeries}
-          readAllComic={readAllComic}
-        />
-        <Grid container spacing={2}>
-          {this.data}
-        </Grid>
-      </div>
-    );
-  }
-}
+const SeriesDetails = ({
+  fetchById,
+  match,
+  seriesDetails,
+  follow,
+  folllowSeries,
+  readAllComic,
+}) => {
+  const [data, setData] = React.useState(seriesDetails);
+  useEffect(() => {
+    fetchById(match.params.id);
+  }, [fetchById, match]);
 
-SeriesDetails.propTypes = {
-  seriesDetails: PropTypes.object.isRequired,
-  fetchById: PropTypes.func.isRequired,
-  follow: PropTypes.func.isRequired,
-  folllowSeries: PropTypes.func.isRequired,
-  readAllComic: PropTypes.func.isRequired,
-  location: PropTypes.object,
-  match: PropTypes.shape({
-    params: PropTypes.shape({
-      id: PropTypes.node,
-    }).isRequired,
-  }).isRequired,
+  useEffect(() => {
+    if (!!seriesDetails) {
+      setData(seriesDetails);
+    }
+  }, [seriesDetails]);
+
+  const mapped = data.comics.map((x, i) => (
+    <Card key={i} follow={follow} data={x} />
+  ));
+  return (
+    <div style={{ display: "flex", flexDirection: "column" }}>
+      <DetailsHeader
+        details={seriesDetails}
+        folllowSeries={folllowSeries}
+        readAllComic={readAllComic}
+      />
+      <Grid container spacing={2}>
+        {mapped}
+      </Grid>
+    </div>
+  );
 };
 
 const mapStateToProps = (state) => {
